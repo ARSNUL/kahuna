@@ -3,10 +3,10 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/index.jsx',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'index_bundle.js'
+        filename: 'index_bundle.js',
     },
     module: {
         loaders: [
@@ -18,6 +18,7 @@ module.exports = {
             {
                 test: /\.jsx$/,
                 loader: 'babel-loader',
+				exclude: /node_modules/,
             },
             {
                 test: /\.scss/,
@@ -30,10 +31,14 @@ module.exports = {
             {
                 test: /\.(png|jpg|gif|svg)$/,
                 loader: 'url-loader?limit=10000',
-            }
-        ]
+            },
+        ],
     },
+	resolve: {
+		extensions: ['.js', '.jsx'],
+	},
     plugins: [
-        new HtmlWebpackPlugin({template: './public/index.html'})
-    ]
-}
+		new webpack.NoEmitOnErrorsPlugin(),
+        new HtmlWebpackPlugin({ template: './public/index.html' }),
+    ],
+};
