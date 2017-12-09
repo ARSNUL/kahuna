@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import './index.css';
-import '../../common/style.scss';
 
-export default class Admin extends Component {
+export default class NotFound extends Component {
 	render() {
 		return (
-			<div className="Admin">
+			<div className="NotFound">
 				<div className="lander">
-					<p>Admin</p>
+					<h1>NotFound</h1>
 				</div>
 			</div>
 		);

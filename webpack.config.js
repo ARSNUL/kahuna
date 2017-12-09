@@ -3,42 +3,52 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-    entry: './src/index.jsx',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'index_bundle.js',
-    },
-    module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: /node_modules/,
-            },
-            {
-                test: /\.jsx$/,
-                loader: 'babel-loader',
+	entry: './src/index.jsx',
+	output: {
+		path: path.resolve(__dirname, 'dist'),
+		filename: 'index_bundle.js',
+		publicPath: '/',
+	},
+	devServer: {
+		// hot: true,
+		host: '0.0.0.0',
+		disableHostCheck: true,	// so you can use your phone - see https://github.com/webpack/webpack-dev-server/issues/882
+		// contentBase: resolve(__dirname, '../assets'),
+		publicPath: '/',
+		historyApiFallback: true,
+	},
+	module: {
+		loaders: [
+			{
+				test: /\.js$/,
+				loader: 'babel-loader',
 				exclude: /node_modules/,
-            },
-            {
-                test: /\.scss/,
-                loaders: ['style-loader', 'css-loader', 'sass-loader'],
-            },
-            {
-                test: /\.css/,
-                loaders: ['style-loader', 'css-loader', 'sass-loader'],
-            },
-            {
-                test: /\.(png|jpg|gif|svg)$/,
-                loader: 'url-loader?limit=10000',
-            },
-        ],
-    },
+			},
+			{
+				test: /\.jsx$/,
+				loader: 'babel-loader',
+				exclude: /node_modules/,
+			},
+			{
+				test: /\.scss/,
+				loaders: ['style-loader', 'css-loader', 'sass-loader'],
+			},
+			{
+				test: /\.css/,
+				loaders: ['style-loader', 'css-loader', 'sass-loader'],
+			},
+			{
+				test: /\.(png|jpg|gif|svg)$/,
+				loader: 'url-loader?limit=10000',
+			},
+		],
+	},
 	resolve: {
 		extensions: ['.js', '.jsx'],
 	},
-    plugins: [
+	plugins: [
 		new webpack.NoEmitOnErrorsPlugin(),
-        new HtmlWebpackPlugin({ template: './public/index.html' }),
-    ],
+		new webpack.HotModuleReplacementPlugin(),
+		new HtmlWebpackPlugin({ template: './public/index.html' }),
+	],
 };
