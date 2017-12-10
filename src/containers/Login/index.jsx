@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
+import '../../utils/login';
 
 export default class Login extends Component {
 	render() {
@@ -9,6 +10,7 @@ export default class Login extends Component {
 					<h1>Login</h1>
 				</div>
 			</div>
+
 		);
 	}
 }

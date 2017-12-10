@@ -3,6 +3,11 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
+	watch: true,
+	watchOptions: {
+		aggregateTimeout: 300,
+		poll: 500,
+	},
 	entry: './src/index.jsx',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
