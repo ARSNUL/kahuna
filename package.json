@@ -6,10 +6,13 @@
   "main": "index.jsx",
   "dependencies": {
     "aws-sdk": "^2.151.0",
+    "connect-ensure-login": "^0.1.1",
     "dynamodb-store": "^1.0.7",
     "file-loader": "^1.1.5",
     "fine-uploader": "^5.15.4",
     "fine-uploader-wrappers": "^1.0.1",
+    "passport": "^0.4.0",
+    "passport-auth0": "^0.6.0",
     "path": "^0.12.7",
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",
@@ -30,9 +33,9 @@
     "webpack-dev-server": "^2.9.4"
   },
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack -p",
+    "start": "webpack-dev-server --config webpack.config.dev.js",
     "dev": "webpack-dev-server --config webpack/webpack.config.dev.js",
+    "build": "webpack -p",
     "lint": "npm run lint:js && npm run lint:scss",
     "lint:js": "eslint --ext js,jsx src/. --cache",
     "lint:scss": "stylelint ./src/**/**/*.scss",
