@@ -3368,16 +3368,6 @@ find-up@^2.0.0, find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
-fine-uploader-wrappers@1.0.1, fine-uploader-wrappers@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/fine-uploader-wrappers/-/fine-uploader-wrappers-1.0.1.tgz#044a9432076bd02ac1404866ec6e197fc662fcbf"
-  dependencies:
-    object-assign "4.1.0"
-
-fine-uploader@^5.15.4:
-  version "5.15.4"
-  resolved "https://registry.yarnpkg.com/fine-uploader/-/fine-uploader-5.15.4.tgz#ce6d084fcaa54b53f52c02e60b8d4e7da7a7ec7a"
-
 flat-cache@^1.2.1:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-1.3.0.tgz#d3030b32b38154f4e3b7e9c709f490f7ef97c481"
@@ -5773,10 +5763,6 @@ oauth@0.9.x:
   version "0.9.15"
   resolved "https://registry.yarnpkg.com/oauth/-/oauth-0.9.15.tgz#bd1fefaf686c96b75475aed5196412ff60cfb9c1"
 
-object-assign@4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.0.tgz#7a3b3d0e98063d43f4c03f2e8ae6cd51a86883a0"
-
 object-assign@4.1.1, object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
@@ -7039,13 +7025,6 @@ react-dom@^16.1.1:
 react-error-overlay@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-3.0.0.tgz#c2bc8f4d91f1375b3dad6d75265d51cd5eeaf655"
-
-react-fine-uploader@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/react-fine-uploader/-/react-fine-uploader-1.0.7.tgz#f4f510b8d89d02a604b02635e845d57dda4df8ac"
-  dependencies:
-    fine-uploader-wrappers "1.0.1"
-    object-assign "4.1.1"
 
 react-helmet@^5.2.0:
   version "5.2.0"

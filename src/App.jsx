@@ -9,11 +9,13 @@ import './App.css';
 
 class App extends Component {
 	componentDidUpdate(prevProps) {
+		console.log('mk4');
 		const { dispatch, redirectUrl } = this.props;
 		// const isLoggingOut = prevProps.isLoggedIn && !this.props.isLoggedIn;
 		const isLoggingIn = !prevProps.isLoggedIn && this.props.isLoggedIn;
-
+		console.log(this.props);
 		if (isLoggingIn) {
+			console.log('mk1');
 			dispatch(navigateTo(redirectUrl));
 		// } else if (isLoggingOut) {
 			// do any kind of cleanup or post-logout redirection here
@@ -21,6 +23,7 @@ class App extends Component {
 	}
 
 	render() {
+		console.log('mk1');
 		return (
 			<div className="App container">
 				<Navbar fluid collapseOnSelect>
@@ -32,7 +35,6 @@ class App extends Component {
 							<Link to="/upload">Upload</Link>
 							<Link to="/login">Login</Link>
 						</Navbar.Brand>
-						<Navbar.Toggle />
 					</Navbar.Header>
 				</Navbar>
 				<Routes />
@@ -43,10 +45,13 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
+	console.log('mk2');
 	return {
 		isLoggedIn: state.loggedIn,
 		redirectUrl: state.redirectUrl,
 	};
 }
 
+console.log('mk3');
+// export default App;
 export default connect(mapStateToProps)(App);
