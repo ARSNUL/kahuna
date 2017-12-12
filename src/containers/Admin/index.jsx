@@ -6,7 +6,7 @@ import { Route } from 'react-router-dom';
 
 
 export default class Admin extends Component {
-	render(match) {
+	render() {
 		console.log('mk5');
 		return (
 			<div className="Admin">

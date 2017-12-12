@@ -9,27 +9,8 @@ import Logout from './containers/Logout';
 import Inventory from './containers/Inventory';
 import NotFound from './containers/NotFound';
 import Callback from './containers/Callback';
-// import PrivateRoute from './components/PrivateRoute';
-
-const fakeAuth = {
-	isAuthenticated: false,
-	authenticate(cb) {
-		this.isAuthenticated = true;
-		setTimeout(cb, 100);
-	},
-	signout(cb) {
-		this.isAuthenticated = false;
-		setTimeout(cb, 100);
-	},
-};
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-	<Route {...rest} render={props => (
-		fakeAuth.isAuthenticated === true
-			? <Component {...props} />
-			: <Redirect to="/login" />
-	)} />
-);
+import PrivateRoute from './components/PrivateRoute';
+import FakeAuth from './components/FakeAuth';
 
 export default () =>
 	(<Switch>
@@ -41,6 +22,5 @@ export default () =>
 		<Route path="/logout" exact component={Logout} />
 		<Route path="/notfound" exact component={NotFound} />
 		<Route path="/callback" component={Callback} />
-		{/*<PrivateRoute authed={this.state.authed} path="/admin" component={Admin} />*/}
-		<PrivateRoute path="/admin" component={Admin} />
+		<PrivateRoute path="/admin" component={Admin} helper={FakeAuth} />
 	</Switch>);
