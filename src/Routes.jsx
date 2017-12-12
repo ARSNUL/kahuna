@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Home from './containers/Home';
 import Admin from './containers/Admin';
 import Upload from './containers/Upload';
@@ -10,7 +10,6 @@ import Inventory from './containers/Inventory';
 import NotFound from './containers/NotFound';
 import Callback from './containers/Callback';
 import PrivateRoute from './components/PrivateRoute';
-import FakeAuth from './components/FakeAuth';
 
 export default () =>
 	(<Switch>
@@ -22,5 +21,5 @@ export default () =>
 		<Route path="/logout" exact component={Logout} />
 		<Route path="/notfound" exact component={NotFound} />
 		<Route path="/callback" component={Callback} />
-		<PrivateRoute path="/admin" component={Admin} helper={FakeAuth} />
+		<PrivateRoute history={history} path="/admin" authed="false" component={Admin} />
 	</Switch>);

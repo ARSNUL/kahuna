@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import { Route } from 'react-router-dom';
 // import Users from '../../components/Users';
 // import './index.css';
@@ -6,6 +7,10 @@ import { Route } from 'react-router-dom';
 
 
 export default class Admin extends Component {
+	constructor(props) {
+		super(props);
+	}
+
 	render() {
 		console.log('mk5');
 		return (
@@ -18,4 +23,8 @@ export default class Admin extends Component {
 			</div>
 		);
 	}
+}
+
+Admin.propTypes = {
+	component: PropTypes.func,
 }

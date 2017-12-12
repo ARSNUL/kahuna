@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 // import logo from './logo.svg';
 import Routes from './Routes';
 import './common/style.scss';
 import './App.css';
 
-class App extends Component {
+export default class App extends Component {
 	componentDidUpdate(prevProps) {
 		const { dispatch, redirectUrl } = this.props;
 		// const isLoggingOut = prevProps.isLoggedIn && !this.props.isLoggedIn;
@@ -35,17 +35,10 @@ class App extends Component {
 				</Navbar>
 				<Routes />
 			</div>
-		// return this.props.children
 		);
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		isLoggedIn: state.loggedIn,
-		redirectUrl: state.redirectUrl,
-	};
-}
-
-// export default App;
-export default connect(mapStateToProps)(App);
+App.propTypes = {
+	dispatch: PropTypes.dispatch,
+};

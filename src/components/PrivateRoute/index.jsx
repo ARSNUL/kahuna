@@ -1,54 +1,28 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { PropTypes } from 'prop-types';
 import {
-	BrowserRouter as Router,
 	Route,
-	Link,
 	Redirect,
-	withRouter,
 } from 'react-router-dom';
-// import fakeAuth from '../fakeAuth';
 
 export default class PrivateRoute extends Component {
-	constructor() {
-		super();
-	}
-
 	render() {
-		console.log(...this.props.component);
-		if (!this.props.component.isAuthenticated) {
-			return(
-				<Redirect to="/login" />
-			)
-		}
-		// const something = fakeAuth.isAuthenticated === true
-		// 	? <Component {...this.props} />
-		// 	: <Redirect to="/login" />;
-		console.log('mk11');
-		// console.log(something);
-		return(
-			<Route {...this.props} />
-		)
-		// return(
-		// 	{ ...props.component.isAuthenticated === true
-		// 		? <Component {...this.props} />
-		// 		: <Redirect to="/login"/>
-		// 	});
-			// <Route {...this.props} />
-		// );
+		// console.log(this.props.authed);
+		console.log(this.props.history);
+		// history.push('/admin');
+		this.props.history.push('/admin');
+		return (
+			<Route
+				{...this.rest}
+				render={props =>
+					this.props.authed === true
+						? <Component {...this.props} />
+						: <Redirect to={{ pathname: '/login', state: { from: this.props.location } }} />
+				} />
+		);
 	}
 }
 
 PrivateRoute.propTypes = {
-	// component: PropTypes.element,
+	component: PropTypes.func,
 };
-
-// const PrivateRoute = ({ component: Component, ...rest }) => (
-	{/*<Route {...rest} render={props => (*/}
-		// fakeAuth.isAuthenticated === true
-		// 	? <Component {...props} />
-		// 	: <Redirect to="/login" />
-	// )} />
-// );
-
-// export default PrivateRoute;
