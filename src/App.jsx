@@ -1,24 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 // import logo from './logo.svg';
 import Routes from './Routes';
 import './common/style.scss';
 import './App.css';
 
-export default class App extends Component {
-	componentDidUpdate(prevProps) {
-		const { dispatch, redirectUrl } = this.props;
-		// const isLoggingOut = prevProps.isLoggedIn && !this.props.isLoggedIn;
-		const isLoggingIn = !prevProps.isLoggedIn && this.props.isLoggedIn;
-		if (isLoggingIn) {
-			dispatch(navigateTo(redirectUrl));
-		// } else if (isLoggingOut) {
-			// do any kind of cleanup or post-logout redirection here
-		}
-	}
-
+class App extends Component {
 	render() {
 		return (
 			<div className="App container">
@@ -27,8 +16,6 @@ export default class App extends Component {
 						<Navbar.Brand>
 							<Link to="/">Home</Link>
 							<Link to="/admin">Admin</Link>
-							<Link to="/inventory">Inventory</Link>
-							<Link to="/upload">Upload</Link>
 							<Link to="/login">Login</Link>
 						</Navbar.Brand>
 					</Navbar.Header>
@@ -39,6 +26,12 @@ export default class App extends Component {
 	}
 }
 
-App.propTypes = {
-	dispatch: PropTypes.dispatch,
-};
+function mapStateToProps(state) {
+	console.log(state);
+	return {
+		isLoggedIn: state.loggedIn,
+		redirectUrl: state.redirectUrl,
+	};
+}
+
+export default withRouter(connect(mapStateToProps)(App));

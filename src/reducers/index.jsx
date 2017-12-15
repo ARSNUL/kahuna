@@ -1,17 +1,17 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { createResponsiveStateReducer } from 'redux-responsive';
-
-import locale from './locale';
+// import locale from './locale';
 // import pageTransition from './pageTransition';
 // import modal from './modal';
 // import homeSlider from './homeSlider';
+import auth from './auth';
 
 const rootReducer = combineReducers({
-	locale,
 	// pageTransition,
 	// modal,
 	// homeSlider,
+	authed: auth,
 	routing: routerReducer,
 	browser: createResponsiveStateReducer({
 		phonePortrait: 320,

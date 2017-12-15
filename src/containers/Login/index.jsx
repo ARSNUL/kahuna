@@ -1,35 +1,36 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import './index.css';
-// import '../../utils/login';
 
 export default class Login extends Component {
-	constructor() {
-		super();
-		this.authenticate = this.authenticate.bind(this);
-	}
-
-	authenticate(c) {
-		this.props.location.state.authed = true;
-		return (
-			this.props.history.goBack()
-		);
+	handleClick(event) {
+		console.log(event);
+		const username = this.props.username;
+		const password = this.props.password;
+		const creds = { username: username.value.trim(), password: password.value.trim() };
+		this.props.onLoginClick(creds);
 	}
 
 	render() {
-		console.log(this);
+		const { errorMessage } = this.props;
 		return (
-			<div className="Login">
-				<div className="lander">
-					<h1>Login</h1>
-					<button onClick={this.authenticate}>Authenticate</button>
-				</div>
-			</div>
+			<div>
+				<input type="text" className="form-control" placeholder="Username" />
+				<input type="password" className="form-control" placeholder="Password" />
+				<button onClick={event => this.handleClick(event)} className="btn btn-primary">
+					Login
+				</button>
 
+				{errorMessage &&
+				<p>{errorMessage}</p>
+				}
+			</div>
 		);
 	}
 }
 
 Login.propTypes = {
-	component: PropTypes.func,
+	onLoginClick: PropTypes.func.isRequired,
+	errorMessage: PropTypes.string,
+	username: PropTypes.string,
+	password: PropTypes.string,
 };

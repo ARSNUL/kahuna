@@ -5,20 +5,25 @@ import {
 	Redirect,
 } from 'react-router-dom';
 
-export default class PrivateRoute extends Component {
+class PrivateRoute extends Component {
+	constructor(props) {
+		super(props);
+		console.log(props);
+		// console.log(props.state);
+		this.state = { authed: props.authed };
+	}
+
 	render() {
-		// console.log(this.props.authed);
-		console.log(this.props.history);
-		// history.push('/admin');
-		this.props.history.push('/admin');
+		// console.log('this.state.authed: ' + this.state.authed);
 		return (
 			<Route
 				{...this.rest}
 				render={props =>
 					this.props.authed === true
 						? <Component {...this.props} />
-						: <Redirect to={{ pathname: '/login', state: { from: this.props.location } }} />
-				} />
+						: <Redirect to={{ pathname: '/login', state: { authed: this.state.authed } }} />
+				}
+			/>
 		);
 	}
 }
@@ -26,3 +31,5 @@ export default class PrivateRoute extends Component {
 PrivateRoute.propTypes = {
 	component: PropTypes.func,
 };
+
+export default PrivateRoute;
