@@ -57,7 +57,9 @@ export function loginUser(creds) {
 				localStorage.setItem('id_token', user.access_token);
 				// Dispatch the success action
 				dispatch(receiveLogin(user));
+				// TODO not sure if this is correct to do
+				return Promise.resolve(user);
 			})
-			.catch(err => console.log('Error: ', err));
+			.catch(err => console.warn('Error: ', err));
 	};
 }

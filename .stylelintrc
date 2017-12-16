@@ -1,0 +1,74 @@
+{
+  "ignoreFiles": [
+    "./node_modules/**",
+  ],
+  "plugins": [
+    "stylelint-scss"
+  ],
+  "rules": {
+    "declaration-property-value-blacklist": {
+      "border": ["none"]
+    },
+    "declaration-empty-line-before": "never",
+    "declaration-no-important": true,
+    "declaration-property-unit-whitelist": {
+      "line-height": [],
+      "letter-spacing": ["em", "rem"]
+    },
+    "declaration-block-no-duplicate-properties": true,
+    "selector-max-empty-lines": 1,
+    "max-empty-lines": 1,
+    "block-opening-brace-space-before": "always",
+    "block-opening-brace-newline-after": "always-multi-line",
+    "block-closing-brace-newline-after": [
+      "always-multi-line", {
+        "ignoreAtRules": ["if", "else"]
+      }
+    ],
+    "no-missing-end-of-source-newline": true,
+    "block-no-empty": true,
+    "block-closing-brace-empty-line-before": "never",
+    "rule-empty-line-before": [
+      "always", {
+        "except": ["first-nested"],
+        "ignore": ["after-comment"]
+      }
+    ],
+    "indentation": 2,
+    "color-hex-length": null,
+    "function-parentheses-space-inside": "never",
+    "number-leading-zero": "always",
+    "color-hex-case": "lower",
+    "selector-class-pattern": "^((?:-{1,2}|_{2})?[a-z0-9]+(?:(?:-{1,2}|_{2})[a-z0-9]+)*)(?:-{1,2}|_{2})?$",
+    "no-duplicate-selectors": true,
+    "max-nesting-depth": 4,
+    "string-quotes": "single",
+    "declaration-block-trailing-semicolon": "always",
+    "no-eol-whitespace": true,
+    "number-no-trailing-zeros": true,
+    "selector-pseudo-element-colon-notation": "double",
+    "selector-list-comma-newline-after": "always",
+    "value-list-comma-space-after": "always-single-line",
+    "declaration-colon-space-after": "always",
+    "declaration-colon-space-before": "never",
+    "function-url-quotes": "always",
+    "shorthand-property-no-redundant-values": true,
+    "declaration-block-semicolon-newline-after": "always",
+    "scss/at-if-closing-brace-newline-after": "always-last-in-chain",
+    "scss/at-if-closing-brace-space-after": "always-intermediate",
+    "scss/at-import-no-partial-leading-underscore": true,
+    "scss/at-import-partial-extension-whitelist": [""],
+    "scss/selector-no-redundant-nesting-selector": true,
+    "property-no-vendor-prefix": true,
+    "selector-no-vendor-prefix": true,
+    "media-feature-name-no-vendor-prefix": true,
+    "at-rule-no-vendor-prefix": true,
+    "value-no-vendor-prefix": true,
+    "length-zero-no-unit": true,
+    "at-rule-no-unknown": [
+      true, {
+        "ignoreAtRules": ['include', 'for']
+      }
+    ]
+  }
+}

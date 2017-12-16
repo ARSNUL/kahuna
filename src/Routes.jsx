@@ -16,5 +16,5 @@ export default () =>
 		<Route path="/" exact component={Home} />
 		<Route path="/login" exact component={Login} />
 		<Route path="/callback" component={Callback} />
-		<PrivateRoute path="/admin" authed="false" component={Admin} />
+		<PrivateRoute path="/admin" authed={false} component={Admin} />
 	</Switch>);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
+// import { PropTypes } from 'prop-types';
 // import { Route } from 'react-router-dom';
 // import Users from '../../components/Users';
 import './index.css';
@@ -17,9 +17,5 @@ class Admin extends Component {
 		);
 	}
 }
-
-Admin.propTypes = {
-	component: PropTypes.func,
-};
 
 export default Admin;

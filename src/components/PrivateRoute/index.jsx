@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import {
 	Route,
 	Redirect,
+	withRouter,
 } from 'react-router-dom';
 
 class PrivateRoute extends Component {
 	constructor(props) {
 		super(props);
-		console.log(props);
-		// console.log(props.state);
 		this.state = { authed: props.authed };
 	}
 
 	render() {
-		// console.log('this.state.authed: ' + this.state.authed);
 		return (
 			<Route
 				{...this.rest}
-				render={props =>
+				render={() => (
 					this.props.authed === true
 						? <Component {...this.props} />
 						: <Redirect to={{ pathname: '/login', state: { authed: this.state.authed } }} />
-				}
+				)}
 			/>
 		);
 	}
@@ -30,6 +29,14 @@ class PrivateRoute extends Component {
 
 PrivateRoute.propTypes = {
 	component: PropTypes.func,
+	authed: PropTypes.bool,
 };
 
-export default PrivateRoute;
+function mapStateToProps(state) {
+	return {
+		isLoggedIn: state.loggedIn,
+		redirectUrl: state.redirectUrl,
+	};
+}
+
+export default withRouter(connect(mapStateToProps)(PrivateRoute));
