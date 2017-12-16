@@ -30,6 +30,7 @@ function loginError(message) {
 }
 
 export function loginUser(creds) {
+	console.log(creds);
 	const config = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

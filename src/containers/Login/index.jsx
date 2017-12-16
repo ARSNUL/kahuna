@@ -14,21 +14,17 @@ export default class Login extends Component {
 	}
 
 	handleClick() {
-		const username = this.textInput.username;
-		const password = this.textInput.password;
-		const creds = { username: username.value.trim(), password: password.value.trim() };
+		const creds = { username: this.textInputU.value.trim(), password: this.textInputP.value.trim() };
 		loginUser(creds);
 	}
 
 	render() {
 		const { errorMessage } = this.props;
-		const refUsername = 'username';
-		const refPassword = 'password';
 		return (
 			<div>
 				<form>
-					<input type="text" ref={refUsername} className="form-control" placeholder="Username" />
-					<input type="password" ref={refPassword} className="form-control" placeholder="Password" />
+					<input type="text" ref={(input) => { this.textInputU = input; }} autoComplete="username" className="form-control" placeholder="Username" />
+					<input type="password" ref={(input) => { this.textInputP = input; }} autoComplete="current-password" className="form-control" placeholder="Password" />
 					<button onClick={event => this.handleClick(event)} className="btn btn-primary">
 						Login
 					</button>
