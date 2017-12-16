@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
 	// pageTransition,
 	// modal,
 	// homeSlider,
-	authed: auth,
+	auth,
 	routing: routerReducer,
 	browser: createResponsiveStateReducer({
 		phonePortrait: 320,

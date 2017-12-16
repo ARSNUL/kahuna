@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { loginUser } from '../../actions';
 
-export default class Login extends Component {
+class Login extends Component {
 	constructor(props) {
 		super(props);
 		this.focusTextInput = this.focusTextInput.bind(this);
 	}
 
 	focusTextInput() {
-		console.log('something');
-		this.textInput.focus();
+		this.textInputU.focus();
+		this.textInputP.focus();
 	}
 
 	handleClick() {
 		const creds = { username: this.textInputU.value.trim(), password: this.textInputP.value.trim() };
-		loginUser(creds);
+		const something = loginUser(creds);
+		console.warn(something);
 	}
 
 	render() {
@@ -41,3 +44,12 @@ export default class Login extends Component {
 Login.propTypes = {
 	errorMessage: PropTypes.string,
 };
+
+function mapStateToProps(state) {
+	return {
+		isAuthenticated: state.auth.auth.isAuthenticated,
+		redirectUrl: state.redirectUrl,
+	};
+}
+
+export default withRouter(connect(mapStateToProps)(Login));

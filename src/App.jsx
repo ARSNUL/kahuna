@@ -28,7 +28,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
 	return {
-		isLoggedIn: state.loggedIn,
+		isAuthenticated: state.auth.auth.isAuthenticated,
 		redirectUrl: state.redirectUrl,
 	};
 }

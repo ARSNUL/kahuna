@@ -30,7 +30,6 @@ function loginError(message) {
 }
 
 export function loginUser(creds) {
-	console.log(creds);
 	const config = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -40,7 +39,6 @@ export function loginUser(creds) {
 	return (dispatch) => {
 		// We dispatch requestLogin to kickoff the call to the API
 		dispatch(requestLogin(creds));
-
 		return fetch('http://localhost:8080/sessions/create', config)
 			.then(response =>
 				response.json()

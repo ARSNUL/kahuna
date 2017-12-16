@@ -9,6 +9,7 @@ import Login from './containers/Login';
 // import Inventory from './containers/Inventory';
 // import NotFound from './containers/NotFound';
 import Callback from './containers/Callback';
+import Auth from './containers/Auth';
 import PrivateRoute from './components/PrivateRoute';
 
 export default () =>
@@ -16,5 +17,6 @@ export default () =>
 		<Route path="/" exact component={Home} />
 		<Route path="/login" exact component={Login} />
 		<Route path="/callback" component={Callback} />
-		<PrivateRoute path="/admin" authed={false} component={Admin} />
+		<Route path="/auth" component={Auth} />
+		<PrivateRoute path="/admin" isAuthenticated={false} component={Admin} />
 	</Switch>);
