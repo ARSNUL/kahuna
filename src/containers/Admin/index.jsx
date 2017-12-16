@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import './index.css';
 import '../../common/style.scss';
 
-
 class Admin extends Component {
 	render() {
 		return (

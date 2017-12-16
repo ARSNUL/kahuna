@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import '../../utils/callback';
 
-export default class Callback extends Component {
+class Callback extends Component {
 	render() {
 		return (
 			<div className="Callback">
@@ -13,3 +15,12 @@ export default class Callback extends Component {
 		);
 	}
 }
+
+function mapStateToProps(state) {
+	return {
+		isAuthenticated: state.auth.auth.isAuthenticated,
+		redirectUrl: state.redirectUrl,
+	};
+}
+
+export default withRouter(connect(mapStateToProps)(Callback));

@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import Home from './containers/Home';
 import Admin from './containers/Admin';
 // import Upload from './containers/Upload';
-import Login from './containers/Login';
+import Login from './containers/LoginAuth0';
 // import LoginFailure from './containers/LoginFailure';
 // import Logout from './containers/Logout';
 // import Inventory from './containers/Inventory';
@@ -18,5 +18,5 @@ export default () =>
 		<Route path="/login" exact component={Login} />
 		<Route path="/callback" component={Callback} />
 		<Route path="/auth" component={Auth} />
-		<PrivateRoute path="/admin" isAuthenticated={false} component={Admin} />
+		<PrivateRoute path="/admin" component={Admin} />
 	</Switch>);

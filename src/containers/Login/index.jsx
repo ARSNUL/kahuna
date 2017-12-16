@@ -17,8 +17,8 @@ class Login extends Component {
 
 	handleClick() {
 		const creds = { username: this.textInputU.value.trim(), password: this.textInputP.value.trim() };
-		const something = loginUser(creds);
-		console.warn(something);
+		const dispatch = loginUser(creds);
+		console.warn(dispatch(loginUser(creds)));
 	}
 
 	render() {

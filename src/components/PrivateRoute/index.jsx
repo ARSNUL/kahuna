@@ -14,12 +14,13 @@ class PrivateRoute extends Component {
 	}
 
 	render() {
+		console.log(...this.props.component);
 		return (
 			<Route
 				{...this.rest}
 				render={() => (
 					this.props.isAuthenticated === true
-						? <Component {...this.props} />
+						? <Route {...this.props} />
 						: <Redirect to={{ pathname: '/login', state: { isAuthenticated: this.state.isAuthenticated } }} />
 				)}
 			/>
