@@ -3,7 +3,6 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 function requestLogin(authResult) {
-	console.warn('mk50');
 	return {
 		type: LOGIN_REQUEST,
 		isFetching: true,
@@ -13,8 +12,6 @@ function requestLogin(authResult) {
 }
 
 function receiveLogin(authResult) {
-	console.log('mk4');
-	console.log(authResult);
 	return {
 		type: LOGIN_SUCCESS,
 		isFetching: false,
@@ -33,18 +30,8 @@ function loginError(message) {
 }
 
 export function loginAuth0User(authResult) {
-	console.log('mk3');
-	console.log(authResult);
 	return (dispatch) => {
 		dispatch(requestLogin(authResult));
-		// dispatch(requestLogin(creds));
-		console.log('mk6');
-		console.log(authResult);
-		// localStorage.setItem('access_token', dispatch.accessToken);
-		// localStorage.setItem('id_token', dispatch.idToken);
-		// localStorage.setItem('expires_at', expiresAt);
-		// return dispatch(receiveLogin(authResult));
-		dispatch(receiveLogin(authResult));
 	};
 }
 

@@ -28,8 +28,8 @@ export default class Users extends PureComponent {
 		})
 			.then((response) => {
 				if (response.ok) {
-					const something = response.json();
-					console.log(something);
+					const jsonResponse = response.json();
+					console.log(jsonResponse);
 				} else {
 					response.json()
 						.then((error) => {
