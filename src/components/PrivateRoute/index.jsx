@@ -10,7 +10,7 @@ import {
 class PrivateRoute extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { isAuthenticated: props.isAuthenticated };
+		this.state = { isAuthenticated: props.auth.isAuthenticated };
 	}
 
 	render() {
@@ -19,9 +19,9 @@ class PrivateRoute extends Component {
 			<Route
 				{...this.rest}
 				render={() => (
-					this.props.isAuthenticated === true
+					this.props.auth.isAuthenticated === true
 						? <Route {...this.props} />
-						: <Redirect to={{ pathname: '/login', state: { isAuthenticated: this.state.isAuthenticated } }} />
+						: <Redirect to={{ pathname: '/login', state: { auth: this.state.auth } }} />
 				)}
 			/>
 		);
@@ -29,13 +29,16 @@ class PrivateRoute extends Component {
 }
 
 PrivateRoute.propTypes = {
+	auth: PropTypes.shape({
+		isFetching: PropTypes.bool,
+		isAuthenticated: PropTypes.bool,
+	}),
 	component: PropTypes.func,
-	isAuthenticated: PropTypes.bool,
 };
 
 function mapStateToProps(state) {
 	return {
-		isAuthenticated: state.auth.auth.isAuthenticated,
+		auth: state.auth.auth,
 		redirectUrl: state.redirectUrl,
 	};
 }

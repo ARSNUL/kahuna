@@ -17,6 +17,7 @@ class App extends Component {
 							<Link to="/">Home</Link>
 							<Link to="/admin">Admin</Link>
 							<Link to="/login">Login</Link>
+							<Link to="/logout">Logout</Link>
 						</Navbar.Brand>
 					</Navbar.Header>
 				</Navbar>
@@ -28,7 +29,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
 	return {
-		isAuthenticated: state.auth.auth.isAuthenticated,
+		auth: state.auth.auth,
 		redirectUrl: state.redirectUrl,
 	};
 }

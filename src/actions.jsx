@@ -2,21 +2,24 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
-function requestLogin(creds) {
+function requestLogin(authResult) {
+	console.warn('mk50');
 	return {
 		type: LOGIN_REQUEST,
 		isFetching: true,
 		isAuthenticated: false,
-		creds,
+		authResult,
 	};
 }
 
-function receiveLogin(user) {
+function receiveLogin(authResult) {
+	console.log('mk4');
+	console.log(authResult);
 	return {
 		type: LOGIN_SUCCESS,
 		isFetching: false,
 		isAuthenticated: true,
-		id_token: user.id_token,
+		id_token: authResult.idToken,
 	};
 }
 
@@ -26,6 +29,22 @@ function loginError(message) {
 		isFetching: false,
 		isAuthenticated: false,
 		message,
+	};
+}
+
+export function loginAuth0User(authResult) {
+	console.log('mk3');
+	console.log(authResult);
+	return (dispatch) => {
+		dispatch(requestLogin(authResult));
+		// dispatch(requestLogin(creds));
+		console.log('mk6');
+		console.log(authResult);
+		// localStorage.setItem('access_token', dispatch.accessToken);
+		// localStorage.setItem('id_token', dispatch.idToken);
+		// localStorage.setItem('expires_at', expiresAt);
+		// return dispatch(receiveLogin(authResult));
+		dispatch(receiveLogin(authResult));
 	};
 }
 
@@ -56,7 +75,6 @@ export function loginUser(creds) {
 				localStorage.setItem('id_token', user.access_token);
 				// Dispatch the success action
 				dispatch(receiveLogin(user));
-				// TODO not sure if this is correct to do
 				return Promise.resolve(user);
 			})
 			.catch(err => console.warn('Error: ', err));

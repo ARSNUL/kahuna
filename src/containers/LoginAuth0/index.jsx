@@ -2,14 +2,27 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import { loginUser } from '../../actions';
 import Auth0Lock from 'auth0-lock';
+import { loginAuth0User } from '../../actions';
 
 class LoginAuth0 extends Component {
 	componentWillMount() {
-		if (this.props.isAuthenticated !== true) {
-			this.lock = new Auth0Lock('2If4KB0wScdHkxgVuxVI-LU82AS42FEE', '***REMOVED***rx.auth0.com');
-			this.lock.show();
+		const dispatch = loginAuth0User;
+		if (this.props.auth.isAuthenticated !== true) {
+			const lock = new Auth0Lock('2If4KB0wScdHkxgVuxVI-LU82AS42FEE', '***REMOVED***rx.auth0.com');
+			lock.show();
+			lock.on('authenticated', (authResult) => {
+				localStorage.setItem('access_token', authResult.accessToken);
+				localStorage.setItem('id_token', authResult.idToken);
+				dispatch(loginAuth0User(authResult));
+				// lock.getUserInfo(authResult.accessToken, (error, profile) => {
+				// 	if (error) {
+				// 		return false;
+				// 	}
+				// });
+			});
+		} else {
+			console.warn('ALREADY AUTHENTICATED');
 		}
 	}
 
@@ -27,13 +40,16 @@ class LoginAuth0 extends Component {
 }
 
 LoginAuth0.propTypes = {
-	isAuthenticated: PropTypes.bool,
+	auth: PropTypes.shape({
+		isFetching: PropTypes.bool,
+		isAuthenticated: PropTypes.bool,
+	}),
 	errorMessage: PropTypes.string,
 };
 
 function mapStateToProps(state) {
 	return {
-		isAuthenticated: state.auth.auth.isAuthenticated,
+		auth: state.auth.auth,
 		redirectUrl: state.redirectUrl,
 	};
 }

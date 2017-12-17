@@ -8,8 +8,7 @@ import {
 // we would also want a util to check if the token is expired.
 function auth(state = {
 	isFetching: false,
-	// isAuthenticated: localStorage.getItem('id_token') === true,
-	isAuthenticated: true,
+	isAuthenticated: !!localStorage.getItem('id_token'),
 }, action) {
 	switch (action.type) {
 		case LOGIN_REQUEST:
@@ -40,20 +39,10 @@ function auth(state = {
 	}
 }
 
-// The quotes reducer
-function quotes(state = {}, action) {
-	switch (action.type) {
-
-		default:
-			return state;
-	}
-}
-
 // We combine the reducers here so that they
 // can be left split apart above
 const quotesApp = combineReducers({
 	auth,
-	quotes,
 });
 
 export default quotesApp;
