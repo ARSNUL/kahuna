@@ -48,8 +48,7 @@ export function loginUser(creds) {
 		return fetch('http://localhost:8080/sessions/create', config)
 			.then(response =>
 				response.json()
-					.then(user => ({ user, response })),
-			)
+					.then(user => ({ user, response })))
 			.then(({ user, response }) => {
 				if (!response.ok) {
 					// If there was a problem, we want to

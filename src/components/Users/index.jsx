@@ -43,12 +43,10 @@ export default class Users extends PureComponent {
 	}
 
 	render() {
-		const users = this.state.users;
-
 		return (
 			<div className="users">
 				<ul>
-					{users}
+					{this.state.users}
 				</ul>
 			</div>
 		);

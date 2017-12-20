@@ -13,11 +13,13 @@ import Auth from './containers/Auth';
 import PrivateRoute from './components/PrivateRoute';
 
 export default () =>
-	(<Switch>
-		<Route path="/" exact component={Home} />
-		<Route path="/login" exact component={Login} />
-		<Route path="/logout" exact component={Logout} />
-		<Route path="/callback" component={Callback} />
-		<Route path="/auth" component={Auth} />
-		<PrivateRoute path="/admin" component={Admin} />
-	</Switch>);
+	(
+		<Switch>
+			<Route path="/" exact component={Home} />
+			<Route path="/login" exact component={Login} />
+			<Route path="/logout" exact component={Logout} />
+			<Route path="/callback" component={Callback} />
+			<Route path="/auth" component={Auth} />
+			<PrivateRoute path="/admin" component={Admin} />
+		</Switch>
+	);

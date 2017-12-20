@@ -12,8 +12,10 @@ class LoginAuth0 extends Component {
 			const lock = new Auth0Lock('2If4KB0wScdHkxgVuxVI-LU82AS42FEE', '***REMOVED***rx.auth0.com');
 			lock.show();
 			lock.on('authenticated', (authResult) => {
+				console.log(authResult);
 				localStorage.setItem('access_token', authResult.accessToken);
 				localStorage.setItem('id_token', authResult.idToken);
+				localStorage.setItem('expires_at', authResult.idTokenPayload.exp);
 				dispatch(loginAuth0User(authResult));
 				// lock.getUserInfo(authResult.accessToken, (error, profile) => {
 				// 	if (error) {

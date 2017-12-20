@@ -8,11 +8,6 @@ import {
 } from 'react-router-dom';
 
 class PrivateRoute extends Component {
-	constructor(props) {
-		super(props);
-		this.state = { isAuthenticated: props.auth.isAuthenticated };
-	}
-
 	render() {
 		return (
 			<Route
@@ -20,7 +15,7 @@ class PrivateRoute extends Component {
 				render={() => (
 					this.props.auth.isAuthenticated === true
 						? <Route {...this.props} />
-						: <Redirect to={{ pathname: '/login', state: { auth: this.state.auth } }} />
+						: <Redirect to={{ pathname: '/login', state: { auth: this.props.auth } }} />
 				)}
 			/>
 		);

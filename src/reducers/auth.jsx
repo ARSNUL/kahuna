@@ -3,12 +3,16 @@ import {
 	LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
 } from '../actions';
 
-// The auth reducer. The starting state sets authentication
-// based on a token being in local storage. In a real app,
-// we would also want a util to check if the token is expired.
+let isAuthenticated = false;
+if (localStorage.getItem('id_token')) {
+	if ((parseInt(localStorage.getItem('expires_at'), 10) * 1000) > new Date().getTime()) {
+		isAuthenticated = true;
+	}
+}
+
 function auth(state = {
 	isFetching: false,
-	isAuthenticated: !!localStorage.getItem('id_token'),
+	isAuthenticated,
 }, action) {
 	switch (action.type) {
 		case LOGIN_REQUEST:
