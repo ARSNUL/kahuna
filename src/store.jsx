@@ -12,6 +12,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const middlewares = [thunk, routerMiddleware(history)];
 
 export const store = createStore(
-	rootReducer,
-	composeEnhancers(responsiveStoreEnhancer, applyMiddleware(...middlewares)),
+  rootReducer,
+  composeEnhancers(responsiveStoreEnhancer, applyMiddleware(...middlewares)),
 );

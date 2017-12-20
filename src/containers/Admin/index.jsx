@@ -6,15 +6,15 @@ import './index.css';
 import '../../common/style.scss';
 
 class Admin extends Component {
-	render() {
-		return (
-			<div className="Admin">
-				<div className="lander">
-					<p>Admin</p>
-				</div>
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div className="Admin">
+        <div className="lander">
+          <p>Admin</p>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Admin;

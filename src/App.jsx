@@ -8,30 +8,30 @@ import './common/style.scss';
 import './App.css';
 
 class App extends Component {
-	render() {
-		return (
-			<div className="App container">
-				<Navbar fluid collapseOnSelect>
-					<Navbar.Header>
-						<Navbar.Brand>
-							<Link to="/">Home</Link>
-							<Link to="/admin">Admin</Link>
-							<Link to="/login">Login</Link>
-							<Link to="/logout">Logout</Link>
-						</Navbar.Brand>
-					</Navbar.Header>
-				</Navbar>
-				<Routes />
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div className="App container">
+        <Navbar fluid collapseOnSelect>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <Link to="/">Home</Link>
+              <Link to="/admin">Admin</Link>
+              <Link to="/login">Login</Link>
+              <Link to="/logout">Logout</Link>
+            </Navbar.Brand>
+          </Navbar.Header>
+        </Navbar>
+        <Routes />
+      </div>
+    );
+  }
 }
 
 function mapStateToProps(state) {
-	return {
-		auth: state.auth.auth,
-		redirectUrl: state.redirectUrl,
-	};
+  return {
+    auth: state.auth.auth,
+    redirectUrl: state.redirectUrl,
+  };
 }
 
 export default withRouter(connect(mapStateToProps)(App));

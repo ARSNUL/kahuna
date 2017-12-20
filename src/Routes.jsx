@@ -12,18 +12,17 @@ import Callback from './containers/Callback';
 import Auth from './containers/Auth';
 import PrivateRoute from './components/PrivateRoute';
 
-export default () =>
-	(
-		<Switch>
-			<Route path="/" exact component={Home} />
-			<Route path="/login" exact component={Login} />
-			<Route path="/logout" exact component={Logout} />
-			<Route path="/callback" component={Callback} />
-			<Route path="/auth" component={Auth} />
-			<Route path="/notfound" component={NotFound} />
-			<Route path="/loginfailure" component={LoginFailure} />
-			<PrivateRoute path="/admin" component={Admin} />
-			<PrivateRoute path="/upload" component={Upload} />
-			<PrivateRoute path="/inventory" component={Inventory} />
-		</Switch>
-	);
+export default () => (
+  <Switch>
+    <Route path="/" exact component={Home} />
+    <Route path="/login" exact component={Login} />
+    <Route path="/logout" exact component={Logout} />
+    <Route path="/callback" component={Callback} />
+    <Route path="/auth" component={Auth} />
+    <Route path="/notfound" component={NotFound} />
+    <Route path="/loginfailure" component={LoginFailure} />
+    <PrivateRoute path="/admin" component={Admin} />
+    <PrivateRoute path="/upload" component={Upload} />
+    <PrivateRoute path="/inventory" component={Inventory} />
+  </Switch>
+);
