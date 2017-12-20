@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import '../../utils/callback';
 
 class Callback extends Component {
 	render() {
