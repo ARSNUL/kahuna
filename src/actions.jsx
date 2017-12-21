@@ -1,9 +1,12 @@
+import Auth0Lock from 'auth0-lock';
+
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 function requestLogin(authResult) {
+  console.log('mk9');
   return {
     type: LOGIN_REQUEST,
     isFetching: true,
@@ -30,9 +33,34 @@ function loginError(message) {
   };
 }
 
-export function loginAuth0User(authResult) {
-  return (dispatch) => {
-    dispatch(requestLogin(authResult));
+export function loginAuth0User() {
+  console.log('mk7');
+
+  return () => {
+    const options = {
+      auth: {
+        redirect: true,
+      },
+    };
+    const lock = new Auth0Lock('2If4KB0wScdHkxgVuxVI-LU82AS42FEE', '***REMOVED***rx.auth0.com', options);
+    lock.on('authenticated', (authResult) => {
+      console.log('mk8.7a');
+      console.log('mk4a');
+      console.log(authResult);
+      // dispatch(requestLogin(authResult));
+      localStorage.setItem('access_token', authResult.accessToken);
+      localStorage.setItem('id_token', authResult.idToken);
+      localStorage.setItem('expires_at', authResult.idTokenPayload.exp);
+      // dispatch(loginAuth0User(authResult));
+      // lock.getUserInfo(authResult.accessToken, (error, profile) => {
+      // if (error) {
+      //   return false;
+      // }
+      // });
+      lock.hide();
+      return true;
+    });
+    lock.show();
   };
 }
 
