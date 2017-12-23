@@ -6,7 +6,6 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 function requestLogin(authResult) {
-  console.log('mk9');
   return {
     type: LOGIN_REQUEST,
     isFetching: true,
@@ -37,7 +36,7 @@ export function handleAuthorization(auth) {
   const webAuth = new auth0.WebAuth({
     domain: '***REMOVED***rx.auth0.com',
     clientID: '0IiT2J2k96uMLgoFuq991mxCYOPytITk',
-    redirectUri: 'http://localhost:8080/callback',
+    redirectUri: `${window.location.protocol}//${window.location.host}/callback`,
     audience: 'https://***REMOVED***rx.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid',
@@ -58,7 +57,7 @@ export function loginUser() {
   const webAuth = new auth0.WebAuth({
     domain: '***REMOVED***rx.auth0.com',
     clientID: '0IiT2J2k96uMLgoFuq991mxCYOPytITk',
-    redirectUri: 'http://localhost:8080/callback',
+    redirectUri: `${window.location.protocol}//${window.location.host}/callback`,
     audience: 'https://***REMOVED***rx.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid',
