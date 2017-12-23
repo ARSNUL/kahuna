@@ -2,18 +2,11 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginAuth0User } from '../../actions';
+import { loginUser } from '../../actions';
 
-class LoginAuth0 extends Component {
+class Login extends Component {
   componentWillMount() {
-    const dispatch = loginAuth0User;
-    if (this.props.auth.isAuthenticated !== true) {
-      const something = dispatch();
-      console.log(something);
-      something();
-    } else {
-      console.warn('ALREADY AUTHENTICATED');
-    }
+    loginUser();
   }
 
   render() {
@@ -29,7 +22,7 @@ class LoginAuth0 extends Component {
   }
 }
 
-LoginAuth0.propTypes = {
+Login.propTypes = {
   auth: PropTypes.shape({
     isFetching: PropTypes.bool,
     isAuthenticated: PropTypes.bool,
@@ -37,7 +30,7 @@ LoginAuth0.propTypes = {
   errorMessage: PropTypes.string,
 };
 
-LoginAuth0.defaultProps = {
+Login.defaultProps = {
   auth: {},
   errorMessage: null,
 };
@@ -49,4 +42,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(connect(mapStateToProps)(LoginAuth0));
+export default withRouter(connect(mapStateToProps)(Login));

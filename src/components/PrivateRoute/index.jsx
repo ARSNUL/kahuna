@@ -9,6 +9,7 @@ import {
 
 class PrivateRoute extends Component {
   render() {
+    console.log(this.props.auth);
     return (
       <Route
         {...this.rest}

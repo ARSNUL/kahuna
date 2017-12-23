@@ -1,4 +1,4 @@
-import Auth0Lock from 'auth0-lock';
+import auth0 from 'auth0-js';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -33,38 +33,40 @@ function loginError(message) {
   };
 }
 
-export function loginAuth0User() {
-  console.log('mk7');
-
-  return () => {
-    const options = {
-      auth: {
-        redirect: true,
-      },
-    };
-    const lock = new Auth0Lock('2If4KB0wScdHkxgVuxVI-LU82AS42FEE', '***REMOVED***rx.auth0.com', options);
-    lock.on('authenticated', (authResult) => {
-      console.log('mk8.7a');
-      console.log('mk4a');
-      console.log(authResult);
-      // dispatch(requestLogin(authResult));
+export function handleAuthorization(auth) {
+  const webAuth = new auth0.WebAuth({
+    domain: '***REMOVED***rx.auth0.com',
+    clientID: '0IiT2J2k96uMLgoFuq991mxCYOPytITk',
+    redirectUri: 'http://localhost:8080/callback',
+    audience: 'https://***REMOVED***rx.auth0.com/userinfo',
+    responseType: 'token id_token',
+    scope: 'openid',
+  });
+  webAuth.parseHash((err, authResult) => {
+    if (authResult && authResult.accessToken && authResult.idToken) {
       localStorage.setItem('access_token', authResult.accessToken);
       localStorage.setItem('id_token', authResult.idToken);
       localStorage.setItem('expires_at', authResult.idTokenPayload.exp);
-      // dispatch(loginAuth0User(authResult));
-      // lock.getUserInfo(authResult.accessToken, (error, profile) => {
-      // if (error) {
-      //   return false;
-      // }
-      // });
-      lock.hide();
-      return true;
-    });
-    lock.show();
-  };
+      auth.isAuthenticated = true;
+    } else if (err) {
+      console.warn(err);
+    }
+  });
 }
 
-export function loginUser(creds) {
+export function loginUser() {
+  const webAuth = new auth0.WebAuth({
+    domain: '***REMOVED***rx.auth0.com',
+    clientID: '0IiT2J2k96uMLgoFuq991mxCYOPytITk',
+    redirectUri: 'http://localhost:8080/callback',
+    audience: 'https://***REMOVED***rx.auth0.com/userinfo',
+    responseType: 'token id_token',
+    scope: 'openid',
+  });
+  webAuth.authorize();
+}
+
+export function loginUserOLD(creds) {
   const config = {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

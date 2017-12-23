@@ -1,19 +1,14 @@
 import React, { PureComponent } from 'react';
+import User from '../../components/User';
 
-export default class Users extends PureComponent {
-  constructor() {
-    super();
+class Users extends PureComponent {
+  constructor(props) {
+    super(props);
+    console.log(props);
     this.state = {
       users: [],
     };
     this.onChange = this.onChange.bind(this);
-    // const accept = cookieIsTrue('accept');
-    this.strApiUrl = 'https://api.***REMOVED***rx.io/cut/users';
-  }
-
-  componentDidMount() {
-    // analCookiesBannerEnabled();
-    this.loadData();
   }
 
   onChange(event) {
@@ -22,33 +17,11 @@ export default class Users extends PureComponent {
     this.setState({ users });
   }
 
-  loadData() {
-    fetch(this.strApiUrl, {
-      method: 'GET',
-    })
-      .then((response) => {
-        if (response.ok) {
-          const jsonResponse = response.json();
-          console.log(jsonResponse);
-        } else {
-          response.json()
-            .then((error) => {
-              console.warn(error);
-            });
-        }
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
-  }
-
   render() {
     return (
-      <div className="users">
-        <ul>
-          {this.state.users}
-        </ul>
-      </div>
+      <ul>{this.users}</ul>
     );
   }
 }
+
+export default Users;

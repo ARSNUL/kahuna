@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+import { handleAuthorization } from '../../actions';
 
 class Callback extends Component {
+  componentWillMount() {
+    handleAuthorization(this.props.auth);
+  }
+
   render() {
     return (
       <div className="Callback">
@@ -14,9 +20,22 @@ class Callback extends Component {
   }
 }
 
+Callback.propTypes = {
+  auth: PropTypes.shape({
+    isFetching: PropTypes.bool,
+    isAuthenticated: PropTypes.bool,
+  }),
+  errorMessage: PropTypes.string,
+};
+
+Callback.defaultProps = {
+  auth: {},
+  errorMessage: null,
+};
+
 function mapStateToProps(state) {
   return {
-    isAuthenticated: state.auth.auth.isAuthenticated,
+    auth: state.auth.auth,
     redirectUrl: state.redirectUrl,
   };
 }

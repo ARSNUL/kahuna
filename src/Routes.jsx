@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import Home from './containers/Home';
 import Admin from './containers/Admin';
 import Upload from './containers/Upload';
-import Login from './containers/LoginAuth0';
+import Login from './containers/Login';
 import LoginFailure from './containers/LoginFailure';
 import Logout from './containers/Logout';
 import Inventory from './containers/Inventory';
