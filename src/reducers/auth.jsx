@@ -43,10 +43,8 @@ function auth(state = {
   }
 }
 
-// We combine the reducers here so that they
-// can be left split apart above
-const quotesApp = combineReducers({
+const authReducer = combineReducers({
   auth,
 });
 
-export default quotesApp;
+export default authReducer;

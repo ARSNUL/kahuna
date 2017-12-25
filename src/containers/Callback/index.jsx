@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { handleAuthorization } from '../../actions';
@@ -10,10 +10,14 @@ class Callback extends Component {
   }
 
   render() {
+    const { errorMessage } = this.props;
     return (
       <div className="Callback">
         <div className="lander">
           <h1>Callback</h1>
+          {errorMessage &&
+          <p>{errorMessage}</p>
+          }
         </div>
       </div>
     );

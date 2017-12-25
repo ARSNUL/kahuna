@@ -1,15 +1,11 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { createResponsiveStateReducer } from 'redux-responsive';
-// import pageTransition from './pageTransition';
-// import modal from './modal';
-// import homeSlider from './homeSlider';
 import auth from './auth';
+import users from './users';
 
-const rootReducer = combineReducers({
-  // pageTransition,
-  // modal,
-  // homeSlider,
+const combination = combineReducers({
+  users,
   auth,
   routing: routerReducer,
   browser: createResponsiveStateReducer({
@@ -22,4 +18,4 @@ const rootReducer = combineReducers({
   }),
 });
 
-export default rootReducer;
+export default combination;

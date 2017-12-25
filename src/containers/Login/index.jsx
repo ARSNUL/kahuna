@@ -10,13 +10,9 @@ class Login extends Component {
   }
 
   render() {
-    const { errorMessage } = this.props;
     return (
       <div>
-        <p>Hi there</p>
-        {errorMessage &&
-        <p>{errorMessage}</p>
-        }
+        <p>redirecting...</p>
       </div>
     );
   }
@@ -27,12 +23,10 @@ Login.propTypes = {
     isFetching: PropTypes.bool,
     isAuthenticated: PropTypes.bool,
   }),
-  errorMessage: PropTypes.string,
 };
 
 Login.defaultProps = {
   auth: {},
-  errorMessage: null,
 };
 
 function mapStateToProps(state) {

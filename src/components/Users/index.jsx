@@ -1,27 +1,31 @@
 import React, { PureComponent } from 'react';
+import { PropTypes } from 'prop-types';
 import User from '../../components/User';
 
 class Users extends PureComponent {
-  constructor(props) {
-    super(props);
-    console.log(props);
-    this.state = {
-      users: [],
-    };
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(event) {
-    let users = Object.assign({}, this.state.users);
-    users = event.target.value;
-    this.setState({ users });
-  }
-
   render() {
+    console.log(this.props.users);
+    const listUsers = [];
+    this.props.users.forEach((user) => {
+      listUsers.push(<User params={user} />);
+    });
+
+    const classUl = 'something';
     return (
-      <ul>{this.users}</ul>
+      <ul className={classUl}>
+        {listUsers}
+      </ul>
     );
   }
 }
+
+Users.propTypes = {
+  users: PropTypes.shape([
+  ]),
+};
+
+Users.defaultProps = {
+  users: [],
+};
 
 export default Users;
