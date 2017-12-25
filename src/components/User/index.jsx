@@ -3,11 +3,6 @@ import { PropTypes } from 'prop-types';
 
 class User extends Component {
   render() {
-    // const classLiR = 'userred users';
-    // const classLiY = 'useryellow users';
-    // const classLiG = 'usergreen users';
-    // const classLiN = 'usernormal users';
-    // console.log(this.props.params);
     let strClass = '';
     if (this.props.params.blocked === true) {
       strClass = 'userred users';
@@ -17,7 +12,7 @@ class User extends Component {
       strClass = 'useryellow users';
     }
     return (
-      <li className={strClass}>{this.props.params.email}</li>
+      <li key={this.props.params.email} className={strClass}>{this.props.params.email}</li>
     );
   }
 }
