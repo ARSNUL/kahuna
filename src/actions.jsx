@@ -1,5 +1,4 @@
 import auth0 from 'auth0-js';
-import AWS from 'aws-sdk';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -33,16 +32,6 @@ function loginError(message) {
   };
 }
 
-function implementCognito() {
-  AWS.config.region = 'us-west-2';
-  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: 'us-west-2:2440ab57-1a73-4701-91a1-0bfbf60a58a2',
-    Logins: {
-      '***REMOVED***rx.auth0.com': localStorage.getItem('id_token'),
-    },
-  });
-}
-
 export function handleAuthorization(auth) {
   const webAuth = new auth0.WebAuth({
     domain: '***REMOVED***rx.auth0.com',
@@ -58,7 +47,6 @@ export function handleAuthorization(auth) {
       localStorage.setItem('id_token', authResult.idToken);
       localStorage.setItem('expires_at', authResult.idTokenPayload.exp);
       auth.isAuthenticated = true;
-      implementCognito();
     } else if (err) {
       console.warn(err);
     }
