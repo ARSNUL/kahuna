@@ -16,6 +16,7 @@ class App extends Component {
             <Navbar.Brand>
               <Link to="/">Home</Link>
               <Link to="/admin">Admin</Link>
+              <Link to="/inventory">Inventory</Link>
               <Link to="/login">Login</Link>
               <Link to="/logout">Logout</Link>
             </Navbar.Brand>

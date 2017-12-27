@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { handleAuthorization } from '../../actions';
+import { handleAuthentication } from '../../actions';
 
 class Callback extends Component {
   componentWillMount() {
-    handleAuthorization(this.props.auth);
+    this.props.handleAuthentication();
   }
 
   render() {
@@ -25,23 +25,18 @@ class Callback extends Component {
 }
 
 Callback.propTypes = {
-  auth: PropTypes.shape({
-    isFetching: PropTypes.bool,
-    isAuthenticated: PropTypes.bool,
-  }),
+  handleAuthentication: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
 };
 
 Callback.defaultProps = {
-  auth: {},
   errorMessage: null,
 };
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth.auth,
     redirectUrl: state.redirectUrl,
   };
 }
 
-export default withRouter(connect(mapStateToProps)(Callback));
+export default withRouter(connect(mapStateToProps, { handleAuthentication })(Callback));
