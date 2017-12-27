@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
 import { loginUser } from '../../actions';
 
 class Login extends Component {
   componentWillMount() {
-    loginUser();
+    this.props.loginUser();
   }
 
   render() {
@@ -18,6 +19,7 @@ class Login extends Component {
 }
 
 Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
 };
 
 Login.defaultProps = {
@@ -29,4 +31,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(connect(mapStateToProps)(Login));
+export default withRouter(connect(mapStateToProps, { loginUser })(Login));

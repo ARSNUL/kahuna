@@ -25,3 +25,15 @@ export const handleAuthentication = () => (dispatch) => {
     }
   });
 };
+
+export function loginUser() {
+  const webAuth = new auth0.WebAuth({
+    domain: '***REMOVED***rx.auth0.com',
+    clientID: '0IiT2J2k96uMLgoFuq991mxCYOPytITk',
+    redirectUri: `${window.location.protocol}//${window.location.host}/callback`,
+    audience: 'https://***REMOVED***rx.auth0.com/userinfo',
+    responseType: 'token id_token',
+    scope: 'openid',
+  });
+  webAuth.authorize();
+}
