@@ -25,7 +25,6 @@ class Admin extends Component {
     const self = this;
     AWS.config.credentials.get(() => {
       const config = {
-        // invokeUrl: 'https://6nkuz9s0m5.execute-api.us-west-2.amazonaws.com',
         invokeUrl: 'https://api.***REMOVED***rx.io',
         accessKey: AWS.config.credentials.accessKeyId,
         secretKey: AWS.config.credentials.secretAccessKey,
