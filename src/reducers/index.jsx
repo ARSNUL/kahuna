@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { createResponsiveStateReducer } from 'redux-responsive';
-import auth from './auth';
+import authentication from './authentication';
 import users from './users';
 
 const combination = combineReducers({
   users,
-  auth,
+  authentication,
   routing: routerReducer,
   browser: createResponsiveStateReducer({
     phonePortrait: 320,

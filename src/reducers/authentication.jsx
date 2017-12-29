@@ -10,10 +10,12 @@ if (localStorage.getItem('id_token')) {
   }
 }
 
-function auth(state = {
+export const initialState = {
   isFetching: false,
   isAuthenticated,
-}, action) {
+};
+
+function authentication(state = initialState, action) {
   switch (action.type) {
     case LOGIN_REQUEST:
       return Object.assign({}, state, {
@@ -44,7 +46,7 @@ function auth(state = {
 }
 
 const authReducer = combineReducers({
-  auth,
+  authentication,
 });
 
 export default authReducer;

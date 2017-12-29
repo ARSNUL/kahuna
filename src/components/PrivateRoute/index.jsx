@@ -13,9 +13,9 @@ class PrivateRoute extends Component {
       <Route
         {...this.rest}
         render={() => (
-          this.props.auth.isAuthenticated === true
+          this.props.authentication.isAuthenticated === true
             ? <Route {...this.props} />
-            : <Redirect to={{ pathname: '/login', state: { auth: this.props.auth } }} />
+            : <Redirect to={{ pathname: '/login', state: { authentication: this.props.authentication } }} />
         )}
       />
     );
@@ -23,7 +23,7 @@ class PrivateRoute extends Component {
 }
 
 PrivateRoute.propTypes = {
-  auth: PropTypes.shape({
+  authentication: PropTypes.shape({
     isFetching: PropTypes.bool,
     isAuthenticated: PropTypes.bool,
   }),
@@ -31,13 +31,13 @@ PrivateRoute.propTypes = {
 };
 
 PrivateRoute.defaultProps = {
-  auth: {},
+  authentication: {},
   component: null,
 };
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth.auth,
+    authentication: state.authentication.authentication,
     redirectUrl: state.redirectUrl,
   };
 }
