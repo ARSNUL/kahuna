@@ -9,7 +9,6 @@ import './App.css';
 
 class App extends Component {
   render() {
-    // console.log(this.props);
     return (
       <div className="App container">
         <Navbar fluid collapseOnSelect>
@@ -30,7 +29,6 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  // console.warn(state);
   return {
     authentication: state.authentication.authentication,
     redirectUrl: state.redirectUrl,

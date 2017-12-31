@@ -1,0 +1,16 @@
+
+.S3Objects .s3objectnormal {
+    background-color: #181818;
+}
+
+.S3Objects .s3objectyellow {
+    background-color: #FDB92C;
+}
+
+.S3Objects .s3objectgreen {
+    background-color: #57A728;
+}
+
+.S3Objects .s3objectred {
+    background-color: #FC0E2D;
+}

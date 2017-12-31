@@ -36,7 +36,7 @@ export default class Inventory extends Component {
 
       apigClient.invokeApi({}, '/cut/objects', 'GET', {}, {})
         .then((response) => {
-          self.setState(() => ({ s3objects: response.data }));
+          self.setState(() => ({ s3objects: response.data.objects }));
         })
         .catch((err) => {
           console.warn(err);
@@ -54,7 +54,7 @@ export default class Inventory extends Component {
           <form>
             <input typeof="text" />
           </form>
-          <S3Objects objects={s3objects} />
+          <S3Objects s3items={s3objects} />
         </div>
       </div>
     );

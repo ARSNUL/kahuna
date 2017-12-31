@@ -2,35 +2,43 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 
 class S3Object extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+  }
+
+  handleClick(e) {
+    console.warn(e);
+  }
+
+  handleKeyDown(e) {
+    console.warn(e);
+  }
+
   render() {
-    let strClass = '';
-    if (this.props.params.blocked === true) {
-      strClass = 's3objectred s3objects';
-    } else if (this.props.params.email_verified === true) {
-      strClass = 's3objectgreen s3objects';
-    } else {
-      strClass = 's3objectyellow s3objects';
-    }
+    const strClass = 's3objectnormal s3objects';
     return (
-      <li key={this.props.params.email} className={strClass}>{this.props.params.email}</li>
+      <li
+        key={this.props.params.sourceKey}
+        className={strClass}
+      >
+        <button
+          onClick={this.handleClick}
+          onKeyDown={this.handleKeyDown}
+        >
+          {this.props.params.destinationKey}
+        </button>
+      </li>
     );
   }
 }
 
 S3Object.propTypes = {
   params: PropTypes.shape({
-    blocked: PropTypes.bool,
+    sourceKey: PropTypes.string,
+    destinationKey: PropTypes.string,
     created_at: PropTypes.string,
-    email: PropTypes.string,
-    email_verified: PropTypes.bool,
-    last_ip: PropTypes.string,
-    last_login: PropTypes.string,
-    last_password_reset: PropTypes.string,
-    logins_count: PropTypes.number,
-    name: PropTypes.string,
-    nickname: PropTypes.string,
-    updated_at: PropTypes.string,
-    user_id: PropTypes.string,
   }),
 };
 

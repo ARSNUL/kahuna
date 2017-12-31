@@ -5,8 +5,8 @@ import S3Object from '../../components/S3Object';
 class S3Objects extends PureComponent {
   render() {
     const classUl = 'something';
-    const listS3Objects = this.props.objects.map(object =>
-      <S3Object key={object.identities[0].object_id} params={object} />);
+    const listS3Objects = this.props.s3items.map(item =>
+      <S3Object key={item.sourceKey} params={item} />);
     return (
       <ul className={classUl}>
         {listS3Objects}
@@ -16,7 +16,7 @@ class S3Objects extends PureComponent {
 }
 
 S3Objects.propTypes = {
-  objects: PropTypes.arrayOf(PropTypes.shape({
+  s3items: PropTypes.arrayOf(PropTypes.shape({
     blocked: PropTypes.bool,
     created_at: PropTypes.string,
     email: PropTypes.string,
@@ -33,7 +33,7 @@ S3Objects.propTypes = {
 };
 
 S3Objects.defaultProps = {
-  objects: [],
+  s3items: [],
 };
 
 export default S3Objects;

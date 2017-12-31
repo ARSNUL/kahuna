@@ -1,4 +1,8 @@
 
+.Inventory {
+    background-color: black;
+}
+
 .Inventory .lander {
     padding: 80px 0;
     text-align: center;
@@ -10,4 +14,34 @@
 
 .Inventory .lander p {
     color: #999;
+}
+
+.Inventory .something {
+    list-style: none;
+}
+
+.Inventory .s3objects {
+    height: 100px;
+    width: 100px;
+    padding: 5px;
+    margin: 10px;
+    display: inline-block;
+    opacity: 0.85;
+    overflow: hidden;
+}
+
+.Inventory .s3objectnormal {
+    background-color: #dadada;
+}
+
+.Inventory .s3objectyellow {
+    background-color: #FDB92C;
+}
+
+.Inventory .s3objectgreen {
+    background-color: #57A728;
+}
+
+.Inventory .s3objectred {
+    background-color: #FC0E2D;
 }

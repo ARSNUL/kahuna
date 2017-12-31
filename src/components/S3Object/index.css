@@ -1,0 +1,30 @@
+
+.S3Object {
+    background-color: black;
+}
+
+.S3Object .lander {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.S3Object .lander h1 {
+    font-weight: 600;
+}
+
+.S3Object .lander p {
+    color: #999;
+}
+
+.S3Object .something {
+    list-style: none;
+}
+
+.S3Object .s3objects {
+    height: 100px;
+    width: 100px;
+    padding: 5px;
+    margin: 10px;
+    display: inline-block;
+    opacity: 0.85;
+}
