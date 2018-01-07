@@ -1,18 +1,66 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
+import UserDetail from '../UserDetail';
+import './index.css';
 
 class User extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { showUserDetail: false };
+    this.handleClick = this.handleClick.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.handleMouseOut = this.handleMouseOut.bind(this);
+  }
+
+  handleClick() {
+    // console.warn(id);
+    // console.warn(e);
+    window.location = '/admin/Users?id=e';
+    this.setState({ showUserDetail: true });
+  }
+
+  handleKeyDown() {
+    this.setState({ showUserDetail: true });
+  }
+
+  handleMouseOver() {
+    this.setState({ hovered: true });
+  }
+
+  handleMouseOut() {
+    this.setState({ hovered: false });
+  }
+
+  style() {
+    if (this.state.hovered) {
+      return { backgroundColor: '#dadada' };
+    }
+    return { backgroundColor: 'white' };
+  }
+
   render() {
-    let strClass = '';
-    if (this.props.params.blocked === true) {
-      strClass = 'userred users';
-    } else if (this.props.params.email_verified === true) {
-      strClass = 'usergreen users';
-    } else {
-      strClass = 'useryellow users';
+    const id = this.props.params.user_id;
+    if (this.state.showUserDetail) {
+      return <UserDetail id={id} />;
     }
     return (
-      <li key={this.props.params.email} className={strClass}>{this.props.params.email}</li>
+      <tr
+        className="User"
+        onMouseOver={this.handleMouseOver}
+        onFocus={this.handleMouseOver}
+        onMouseOut={this.handleMouseOut}
+        onBlur={this.handleMouseOut}
+        onClick={e => this.handleClick(id, e)}
+        onKeyDown={this.handleKeyDown}
+        role="presentation"
+        style={this.style()}
+      >
+        <td>{this.props.params.name}</td>
+        <td>{this.props.params.email}</td>
+        <td>{this.props.params.last_login}</td>
+        <td>{this.props.params.created_at}</td>
+      </tr>
     );
   }
 }

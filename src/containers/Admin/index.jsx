@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-// import { PropTypes } from 'prop-types';
 import AWS from 'aws-sdk';
+import queryString from 'query-string';
+import { PropTypes } from 'prop-types';
 import apigClientFactory from 'aws-api-gateway-client';
 import Users from '../../components/Users';
+import SubHeader from '../../components/SubHeader';
+import UserDetail from '../../components/UserDetail';
 import './index.css';
+import User from '../../components/User';
 
 class Admin extends Component {
   constructor(props) {
@@ -45,20 +49,51 @@ class Admin extends Component {
   }
 
   render() {
+    const qs = queryString.parse(this.props.location.search);
+    console.log(qs);
+    if (this.props.location.search !== undefined) {
+      return <UserDetail id={qs.id} />;
+    }
     const { users } = this.state;
+    const clsUF = 'leftpane';
     return (
       <div className="Admin">
+        <SubHeader />
+        <div className={clsUF}>
+          <div>
+            <div>
+              <div>
+                <div>
+                  <div>Filters</div>
+                  <div>
+                    <div>
+                      <div>By User Type</div>
+                      <div>
+                        <input type="text" aria-hidden="true" />
+                        <div>Active Users</div>
+                        <div>Disabled Users</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="lander">
-          <h1>Admin</h1>
-          <h3>Search</h3>
-          <form>
-            <input typeof="text" />
-          </form>
           <Users users={users} />
         </div>
       </div>
     );
   }
 }
+
+Admin.propTypes = {
+  location: PropTypes.string,
+};
+
+Admin.defaultProps = {
+  location: {},
+};
 
 export default Admin;

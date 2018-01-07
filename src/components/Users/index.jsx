@@ -1,16 +1,28 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
 import User from '../../components/User';
+import './index.css';
 
 class Users extends PureComponent {
   render() {
-    const classUl = 'something';
-    const listUsers = this.props.users.map(user =>
+    const users = this.props.users.map(user =>
       <User key={user.identities[0].user_id} params={user} />);
     return (
-      <ul className={classUl}>
-        {listUsers}
-      </ul>
+      <div>
+        <div>
+          <table>
+            <colgroup>
+              <col />
+              <col />
+              <col />
+              <col />
+            </colgroup>
+            <tbody>
+              {users}
+            </tbody>
+          </table>
+        </div>
+      </div>
     );
   }
 }
