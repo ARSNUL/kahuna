@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import {
   LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,
-} from '../actions';
+} from '../actions/authentication';
 
 let isAuthenticated = false;
 if (localStorage.getItem('id_token')) {

@@ -3,6 +3,11 @@ import { PropTypes } from 'prop-types';
 import './index.css';
 
 class UserDetail extends Component {
+  constructor(props) {
+    super(props);
+    // console.log(props);
+  }
+
   render() {
     return (
       <div className="UserDetail">

@@ -1,15 +1,19 @@
 import { combineReducers } from 'redux';
+import { ADD_USERS, GET_USERS } from '../actions/users';
 
-const FETCH_USERS = 'FETCH_USERS';
-const initialState = {
+export const initialState = {
   users: [],
 };
 
 function users(state = initialState, action) {
   switch (action.type) {
-    case FETCH_USERS:
+    case ADD_USERS:
       return Object.assign({}, state, {
-        all: action.users,
+        users: action.users,
+      });
+    case GET_USERS:
+      return Object.assign({}, state, {
+        users: action.users,
       });
     default:
       return state;

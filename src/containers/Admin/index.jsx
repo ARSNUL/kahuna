@@ -13,46 +13,48 @@ class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = { users: [] };
+    this.state.qs = queryString.parse(this.props.location.search);
   }
 
   componentWillMount() {
-    const userPool = 'us-west-2:2440ab57-1a73-4701-91a1-0bfbf60a58a2';
-    const token = localStorage.getItem('id_token');
-    AWS.config.region = 'us-west-2';
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: userPool,
-      Logins: {
-        '***REMOVED***rx.auth0.com': token,
-      },
-    });
+    if (this.state.qs.id === undefined) {
+      const userPool = 'us-west-2:2440ab57-1a73-4701-91a1-0bfbf60a58a2';
+      const token = localStorage.getItem('id_token');
+      AWS.config.region = 'us-west-2';
+      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: userPool,
+        Logins: {
+          '***REMOVED***rx.auth0.com': token,
+        },
+      });
 
-    const self = this;
-    AWS.config.credentials.get(() => {
-      const config = {
-        invokeUrl: 'https://api.***REMOVED***rx.io',
-        accessKey: AWS.config.credentials.accessKeyId,
-        secretKey: AWS.config.credentials.secretAccessKey,
-        sessionToken: AWS.config.credentials.sessionToken,
-        region: 'us-west-2',
-      };
+      const self = this;
+      AWS.config.credentials.get(() => {
+        const config = {
+          invokeUrl: 'https://api.***REMOVED***rx.io',
+          accessKey: AWS.config.credentials.accessKeyId,
+          secretKey: AWS.config.credentials.secretAccessKey,
+          sessionToken: AWS.config.credentials.sessionToken,
+          region: 'us-west-2',
+        };
 
-      const apigClient = apigClientFactory.newClient(config);
+        const apigClient = apigClientFactory.newClient(config);
 
-      apigClient.invokeApi({}, '/cut/users', 'GET', {}, {})
-        .then((response) => {
-          self.setState(() => ({ users: response.data }));
-        })
-        .catch((err) => {
-          console.warn(err);
-        });
-    });
+        apigClient.invokeApi({}, '/cut/users', 'GET', {}, {})
+          .then((response) => {
+            self.setState(() => ({ users: response.data }));
+          })
+          .catch((err) => {
+            console.warn(err);
+          });
+      });
+    }
   }
 
   render() {
-    const qs = queryString.parse(this.props.location.search);
-    console.log(qs);
-    if (this.props.location.search !== undefined) {
-      return <UserDetail id={qs.id} />;
+    if (this.state.qs.id !== undefined) {
+      console.log(this.props);
+      return <UserDetail params={this.props.params} />;
     }
     const { users } = this.state;
     const clsUF = 'leftpane';
@@ -89,7 +91,12 @@ class Admin extends Component {
 }
 
 Admin.propTypes = {
-  location: PropTypes.string,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    hash: PropTypes.string,
+    state: PropTypes.string,
+  }),
 };
 
 Admin.defaultProps = {
