@@ -1,14 +1,33 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getUserById } from '../../actions/users';
 import './index.css';
 
 class UserDetail extends Component {
   constructor(props) {
     super(props);
-    // console.log(props);
+    this.state = { params: {} };
+    // this.state.params = { email: '' };
+  }
+
+  componentWillMount() {
+    const objUser = this.props.getUserById(this.props.idUser);
+    console.log('mk1');
+    console.log(objUser[this.props.idUser]);
+    // this.setState(() => ({ params: objUser[this.props.idUser]}));
+    this.setState({ params: objUser[this.props.idUser] });
   }
 
   render() {
+    console.log(this.props.params);
+    if (this.props.params === undefined) {
+      console.log(Object.keys(this.props.params));
+      return (
+        <div className="UserDetail" />
+      );
+    }
     return (
       <div className="UserDetail">
         <p>{this.props.params.email}</p>
@@ -18,6 +37,7 @@ class UserDetail extends Component {
 }
 
 UserDetail.propTypes = {
+  idUser: PropTypes.string,
   params: PropTypes.shape({
     blocked: PropTypes.bool,
     created_at: PropTypes.string,
@@ -35,7 +55,12 @@ UserDetail.propTypes = {
 };
 
 UserDetail.defaultProps = {
+  idUser: null,
   params: {},
 };
 
-export default UserDetail;
+function mapStateToProps(state) {
+  return {};
+}
+
+export default withRouter(connect(mapStateToProps, { getUserById })(UserDetail));

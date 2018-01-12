@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import UserDetail from '../UserDetail';
 import './index.css';
+import { addUsers, getAllUsers } from '../../actions/users';
 
 class User extends Component {
   constructor(props) {
@@ -13,11 +16,9 @@ class User extends Component {
     this.handleMouseOut = this.handleMouseOut.bind(this);
   }
 
-  handleClick() {
-    // console.warn(id);
-    // console.warn(e);
-    window.location = '/admin/Users?id=e';
-    this.setState({ showUserDetail: true });
+  handleClick(id) {
+    window.location = `/admin/Users?id=${id}`;
+    // this.setState({ showUserDetail: true });
   }
 
   handleKeyDown() {
@@ -42,7 +43,7 @@ class User extends Component {
   render() {
     const id = this.props.params.user_id;
     if (this.state.showUserDetail) {
-      return <UserDetail id={id} />;
+      return <UserDetail idUser={id} />;
     }
     return (
       <tr
@@ -86,4 +87,9 @@ User.defaultProps = {
   params: {},
 };
 
-export default User;
+function mapStateToProps(state) {
+  return {
+  };
+}
+
+export default withRouter(connect(mapStateToProps, { addUsers, getAllUsers })(User));

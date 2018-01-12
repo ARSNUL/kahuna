@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import AWS from 'aws-sdk';
 import queryString from 'query-string';
 import { PropTypes } from 'prop-types';
@@ -7,7 +9,7 @@ import Users from '../../components/Users';
 import SubHeader from '../../components/SubHeader';
 import UserDetail from '../../components/UserDetail';
 import './index.css';
-import User from '../../components/User';
+import { addUsers, getAllUsers } from '../../actions/users';
 
 class Admin extends Component {
   constructor(props) {
@@ -17,7 +19,9 @@ class Admin extends Component {
   }
 
   componentWillMount() {
+    // this.props.getAllUsers();
     if (this.state.qs.id === undefined) {
+      // const s1 = this.props.getAllUsers();
       const userPool = 'us-west-2:2440ab57-1a73-4701-91a1-0bfbf60a58a2';
       const token = localStorage.getItem('id_token');
       AWS.config.region = 'us-west-2';
@@ -42,6 +46,7 @@ class Admin extends Component {
 
         apigClient.invokeApi({}, '/cut/users', 'GET', {}, {})
           .then((response) => {
+            this.props.addUsers(response.data);
             self.setState(() => ({ users: response.data }));
           })
           .catch((err) => {
@@ -53,8 +58,7 @@ class Admin extends Component {
 
   render() {
     if (this.state.qs.id !== undefined) {
-      console.log(this.props);
-      return <UserDetail params={this.props.params} />;
+      return <UserDetail idUser={this.state.qs.id} />;
     }
     const { users } = this.state;
     const clsUF = 'leftpane';
@@ -91,6 +95,8 @@ class Admin extends Component {
 }
 
 Admin.propTypes = {
+  addUsers: PropTypes.func.isRequired,
+  getAllUsers: PropTypes.func.isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string,
     search: PropTypes.string,
@@ -103,4 +109,9 @@ Admin.defaultProps = {
   location: {},
 };
 
-export default Admin;
+function mapStateToProps(state) {
+  return {
+  };
+}
+
+export default withRouter(connect(mapStateToProps, { addUsers, getAllUsers })(Admin));
