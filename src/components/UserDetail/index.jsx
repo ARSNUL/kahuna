@@ -14,20 +14,19 @@ class UserDetail extends Component {
 
   componentWillMount() {
     const objUser = this.props.getUserById(this.props.idUser);
-    // this.setState(() => ({ params: objUser[this.props.idUser]}));
     this.setState({ params: objUser[this.props.idUser] });
   }
 
   render() {
-    if (this.props.params === undefined) {
+    if (this.state.params === undefined) {
       return (
-        <div className="UserDetail" />
+          <div className="UserDetail" />
       );
     }
     return (
-      <div className="UserDetail">
-        <p>{this.props.params.email}</p>
-      </div>
+        <div className="UserDetail">
+          <p>{this.state.params.email}</p>
+        </div>
     );
   }
 }
