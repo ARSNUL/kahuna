@@ -1,0 +1,11 @@
+
+.SearchForm {
+    position: relative;
+    /*width: 300px;*/
+    height: 100px;
+    background-color: darkred;
+}
+
+.SearchForm form {
+    height: 200px;
+}

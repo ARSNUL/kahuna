@@ -1,28 +1,28 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Home from './containers/Home';
-import Admin from './containers/Admin';
-import Upload from './containers/Upload';
-import Login from './containers/Login';
-import LoginFailure from './containers/LoginFailure';
-import Logout from './containers/Logout';
-import Inventory from './containers/Inventory';
-import NotFound from './containers/NotFound';
-import Callback from './containers/Callback';
-import Auth from './containers/Auth';
+import Home from './components/Home';
+import Admin from './components/Admin';
+import Upload from './components/Upload';
+import Login from './components/Login';
+import LoginFailure from './components/LoginFailure';
+import Logout from './components/Logout';
+import Inventory from './components/Inventory';
+import NotFound from './components/NotFound';
+import Callback from './components/Callback';
+import Auth from './components/Auth';
 import PrivateRoute from './components/PrivateRoute';
 
 export default () => (
   <Switch>
     <Route path="/" exact component={Home} />
-    <Route path="/login" exact component={Login} />
-    <Route path="/logout" exact component={Logout} />
-    <Route path="/callback" component={Callback} />
-    <Route path="/auth" component={Auth} />
-    <Route path="/notfound" component={NotFound} />
-    <Route path="/loginfailure" component={LoginFailure} />
-    <PrivateRoute path="/admin" component={Admin} />
-    <PrivateRoute path="/upload" component={Upload} />
-    <PrivateRoute path="/inventory" component={Inventory} />
+    <Route path="/Login" exact component={Login} />
+    <Route path="/Logout" exact component={Logout} />
+    <Route path="/Callback" component={Callback} />
+    <Route path="/Auth" component={Auth} />
+    <Route path="/NotFound" component={NotFound} />
+    <Route path="/LoginFailure" component={LoginFailure} />
+    <PrivateRoute path="/Admin" component={Admin} />
+    <PrivateRoute path="/Upload" component={Upload} />
+    <PrivateRoute path="/Inventory" component={Inventory} />
   </Switch>
 );

@@ -20,13 +20,24 @@ class UserDetail extends Component {
   render() {
     if (this.state.params === undefined) {
       return (
-          <div className="UserDetail" />
+        <div className="UserDetail" />
       );
     }
     return (
-        <div className="UserDetail">
-          <p>{this.state.params.email}</p>
-        </div>
+      <div className="UserDetail">
+        <p>{this.state.params.user_id}</p>
+        <p>{this.state.params.email}</p>
+        <p>{this.state.params.email_verified}</p>
+        <p>{this.state.params.blocked}</p>
+        <p>{this.state.params.created_at}</p>
+        <p>{this.state.params.last_ip}</p>
+        <p>{this.state.params.last_login}</p>
+        <p>{this.state.params.last_password_reset}</p>
+        <p>{this.state.params.logins_count}</p>
+        <p>{this.state.params.name}</p>
+        <p>{this.state.params.nickname}</p>
+        <p>{this.state.params.updated_at}</p>
+      </div>
     );
   }
 }
