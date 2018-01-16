@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './index.css';
 import Menu from '../Menu';
 import SearchForm from '../SearchForm';
+import MenuFlyout from '../MenuFlyout';
 
 class Header extends Component {
   render() {
@@ -9,6 +10,7 @@ class Header extends Component {
       <header className="Header">
         <Menu />
         <SearchForm />
+        <MenuFlyout />
       </header>
     );
   }
