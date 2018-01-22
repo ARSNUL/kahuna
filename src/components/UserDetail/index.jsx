@@ -9,7 +9,12 @@ class UserDetail extends Component {
   constructor(props) {
     super(props);
     this.state = { params: {} };
-    // this.state.params = { email: '' };
+    this.state.accountVisibility = 'hidden';
+    this.state.editName = false;
+    this.handleClick = this.handleClick.bind(this);
+    this.handleClickName = this.handleClickName.bind(this);
+    this.handleOnChangeName = this.handleOnChangeName.bind(this);
+    this.handleOnChangeEmail = this.handleOnChangeEmail.bind(this);
   }
 
   componentWillMount() {
@@ -17,7 +22,66 @@ class UserDetail extends Component {
     this.setState({ params: objUser[this.props.idUser] });
   }
 
+  handleOnChangeEmail(event) {
+    this.state.params.email = event.target.value;
+    this.setState({ params: this.state.params });
+  }
+
+  handleOnChangeName(event) {
+    this.state.params.name = event.target.value;
+    this.setState({ params: this.state.params });
+  }
+
+  handleClickName() {
+    this.setState({ editName: true });
+  }
+
+  handleClick() {
+    this.setState({ accountVisibility: 'visible' });
+  }
+
   render() {
+    let elName;
+    if (this.state.editName === true) {
+      elName = (
+        <form className="emk_t3" style={{ visibility: this.state.accountVisibility }}>
+          <p>Basic Information</p>
+          <label htmlFor="username">Name
+            <input
+              id="username"
+              type="text"
+              value={this.state.params.name}
+              onChange={e => this.handleOnChangeName(e)}
+            />
+          </label>
+          <label htmlFor="useremail">Email
+            <input
+              id="useremail"
+              type="text"
+              value={this.state.params.email}
+              onChange={e => this.handleOnChangeName(e)}
+            />
+          </label>
+        </form>);
+    } else {
+      elName = (
+        <form
+          className="emk_t3"
+          style={{ visibility: this.state.accountVisibility }}
+        >
+          <p>Basic Information</p>
+          <p>Name</p>
+          <div onClick={e => this.handleClickName(e)} role="presentation">
+            <p>{this.state.params.name}</p>
+          </div>
+          <p>Email</p>
+          <div onClick={e => this.handleClickName(e)} role="presentation">
+            <p>{this.state.params.email}</p>
+          </div>
+        </form>
+      );
+    }
+
     if (this.state.params === undefined) {
       return (
         <div className="UserDetail" />
@@ -25,18 +89,25 @@ class UserDetail extends Component {
     }
     return (
       <div className="UserDetail">
-        <p>{this.state.params.user_id}</p>
-        <p>{this.state.params.email}</p>
-        <p>{this.state.params.email_verified}</p>
-        <p>{this.state.params.blocked}</p>
-        <p>{this.state.params.created_at}</p>
-        <p>{this.state.params.last_ip}</p>
-        <p>{this.state.params.last_login}</p>
-        <p>{this.state.params.last_password_reset}</p>
-        <p>{this.state.params.logins_count}</p>
-        <p>{this.state.params.name}</p>
-        <p>{this.state.params.nickname}</p>
-        <p>{this.state.params.updated_at}</p>
+        <div className="UDSummary">
+          <div className="UDControls">
+            <img alt="Reset Password" src="/reset-password-24.svg" />
+          </div>
+          <div className="UDIcon"><br /></div>
+          <div className="UDSumCont">
+            <div className="">{this.state.params.name}</div>
+            <div className="">{this.state.params.email}</div>
+            <div className="">{this.state.params.last_login}</div>
+            <div className="">{this.state.params.blocked}</div>
+          </div>
+        </div>
+        <div onClick={e => this.handleClick(e)} role="presentation">
+          <div>
+            <h3>Account</h3>
+            <p>View and modify user profile</p>
+            {elName}
+          </div>
+        </div>
       </div>
     );
   }

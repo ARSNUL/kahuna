@@ -7,6 +7,7 @@ import { PropTypes } from 'prop-types';
 import apigClientFactory from 'aws-api-gateway-client';
 import Users from '../../components/Users';
 import SubHeader from '../../components/SubHeader';
+import FilterMenu from '../../components/FilterMenu';
 import UserDetail from '../../components/UserDetail';
 import './index.css';
 import { addUsers, getAllUsers } from '../../actions/users';
@@ -61,31 +62,10 @@ class Admin extends Component {
       return <UserDetail idUser={this.state.qs.id} />;
     }
     const { users } = this.state;
-    const clsUF = 'leftpane';
     return (
       <div className="Admin">
         <SubHeader />
-        <div className={clsUF}>
-          <div>
-            <div>
-              <div>
-                <div>
-                  <div>Filters</div>
-                  <div>
-                    <div>
-                      <div>By User Type</div>
-                      <div>
-                        <input type="text" aria-hidden="true" />
-                        <div>Active Users</div>
-                        <div>Disabled Users</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <FilterMenu />
         <div className="lander">
           <Users users={users} />
         </div>

@@ -8,16 +8,16 @@ class Users extends PureComponent {
     const users = this.props.users.map(user =>
       <User key={user.identities[0].user_id} params={user} />);
     return (
-      <div>
+      <div className="Users">
         <div>
-          <table>
+          <table className="Users">
             <colgroup>
               <col />
               <col />
               <col />
               <col />
             </colgroup>
-            <tbody>
+            <tbody className="Users">
               {users}
             </tbody>
           </table>

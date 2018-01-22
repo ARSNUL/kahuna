@@ -24,18 +24,6 @@
     color: #999;
 }
 
-.Admin .leftpane {
-    left: 0px;
-    width: 300px;
-    position: absolute;
-    background-color: #dadada;
-    overflow: hidden;
-    bottom: 0px;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    top: 56px;
-}
-
 .Admin .something {
     list-style: none;
 }

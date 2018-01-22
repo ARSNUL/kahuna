@@ -1,6 +1,46 @@
 
 .UserDetail {
-    width: 100px;
-    height: 100px;
-    background-color: #57A728;
+    background-color: #f9f9f9;
+    top: 200px;
+    position: relative;
+    display: inline-block;
+}
+
+.UDRow {
+    border-bottom: 1px solid rgba(208, 208, 208, 0.4);
+    text-align: left;
+    font-weight: 400;
+    font-size: 13px;
+}
+
+.UDAttribs {
+}
+
+.UDSummary {
+    height: 124px;
+    top: 200px;
+    width: 758px;
+    margin-left: 232px;
+}
+
+.UDIcon {
+    height: 124px;
+    width: 212px;
+    background-color: #FC0E2D;
+    position: relative;
+    display: inline;
+}
+
+.UDSumCont {
+    vertical-align: top;
+}
+
+.UDControls {
+    position: absolute;
+    right: 2px;
+    top: 8px;
+}
+
+.emk_t3 {
+    visibility: hidden;
 }
