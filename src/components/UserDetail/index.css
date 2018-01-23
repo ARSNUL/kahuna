@@ -1,9 +1,11 @@
 
 .UserDetail {
     background-color: #f9f9f9;
-    top: 200px;
-    position: relative;
-    display: inline-block;
+    top: 56px;
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    bottom: 0;
 }
 
 .UDRow {
@@ -17,10 +19,9 @@
 }
 
 .UDSummary {
-    height: 124px;
-    top: 200px;
     width: 758px;
     margin-left: 232px;
+    position: relative;
 }
 
 .UDIcon {
@@ -43,4 +44,14 @@
 
 .emk_t3 {
     visibility: hidden;
+}
+
+.emk_t4 {
+    overflow: scroll;
+}
+
+.emk_t5 {
+    position: relative;
+    width: 758px;
+    margin-left: 232px;
 }
