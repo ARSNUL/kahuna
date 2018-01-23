@@ -62,6 +62,27 @@ class UserDetail extends Component {
               onChange={e => this.handleOnChangeName(e)}
             />
           </label>
+          <label htmlFor="emailverified">Email Verified
+            <p>{this.state.params.email_verified}</p>
+          </label>
+          <label htmlFor="createdat">Created At
+            <p>{this.state.params.created_at}</p>
+          </label>
+          <label htmlFor="updatedat">Updated At
+            <p>{this.state.params.updated_at}</p>
+          </label>
+          <label htmlFor="lastip">Last IP
+            <p>{this.state.params.last_ip}</p>
+          </label>
+          <label htmlFor="lastlogin">Last Login
+            <p>{this.state.params.last_login}</p>
+          </label>
+          <label htmlFor="loginscount">Logins Count
+            <p>{this.state.params.logins_count}</p>
+          </label>
+          <label htmlFor="blocked">Blocked
+            <p>{this.state.params.blocked}</p>
+          </label>
         </form>);
     } else {
       elName = (
@@ -78,6 +99,27 @@ class UserDetail extends Component {
           <div onClick={e => this.handleClickName(e)} role="presentation">
             <p>{this.state.params.email}</p>
           </div>
+          <label htmlFor="emailverified">Email Verified
+            <p>{this.state.params.email_verified}</p>
+          </label>
+          <label htmlFor="createdat">Created At
+            <p>{this.state.params.created_at}</p>
+          </label>
+          <label htmlFor="updatedat">Updated At
+            <p>{this.state.params.updated_at}</p>
+          </label>
+          <label htmlFor="lastip">Last IP
+            <p>{this.state.params.last_ip}</p>
+          </label>
+          <label htmlFor="lastlogin">Last Login
+            <p>{this.state.params.last_login}</p>
+          </label>
+          <label htmlFor="loginscount">Logins Count
+            <p>{this.state.params.logins_count}</p>
+          </label>
+          <label htmlFor="blocked">Blocked
+            <p>{this.state.params.blocked}</p>
+          </label>
         </form>
       );
     }
