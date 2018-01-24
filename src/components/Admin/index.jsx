@@ -5,6 +5,7 @@ import AWS from 'aws-sdk';
 import queryString from 'query-string';
 import { PropTypes } from 'prop-types';
 import apigClientFactory from 'aws-api-gateway-client';
+import Loading from '../Loading';
 import Users from '../../components/Users';
 import SubHeader from '../../components/SubHeader';
 import FilterMenu from '../../components/FilterMenu';
@@ -15,14 +16,12 @@ import { addUsers, getAllUsers } from '../../actions/users';
 class Admin extends Component {
   constructor(props) {
     super(props);
-    this.state = { users: [] };
+    this.state = { users: [], loading: true };
     this.state.qs = queryString.parse(this.props.location.search);
   }
 
   componentWillMount() {
-    // this.props.getAllUsers();
     if (this.state.qs.id === undefined) {
-      // const s1 = this.props.getAllUsers();
       const userPool = 'us-west-2:2440ab57-1a73-4701-91a1-0bfbf60a58a2';
       const token = localStorage.getItem('id_token');
       AWS.config.region = 'us-west-2';
@@ -44,11 +43,14 @@ class Admin extends Component {
         };
 
         const apigClient = apigClientFactory.newClient(config);
-
         apigClient.invokeApi({}, '/cut/users', 'GET', {}, {})
           .then((response) => {
             this.props.addUsers(response.data);
+            console.log(response.data);
+            let objState = { users: response.data, loading: false };
+            self.setState(() => ({ loading: false }));
             self.setState(() => ({ users: response.data }));
+            console.warn(this.state);
           })
           .catch((err) => {
             console.warn(err);
@@ -58,12 +60,14 @@ class Admin extends Component {
   }
 
   render() {
+    console.log('mk1');
     if (this.state.qs.id !== undefined) {
       return <UserDetail idUser={this.state.qs.id} />;
     }
     const { users } = this.state;
     return (
       <div className="Admin">
+        <Loading loading={this.state.loading} />
         <SubHeader />
         <FilterMenu />
         <div className="lander">

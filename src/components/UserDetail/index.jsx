@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
+import AWS from 'aws-sdk';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUserById } from '../../actions/users';
 import './index.css';
+import apigClientFactory from 'aws-api-gateway-client';
 
 class UserDetail extends Component {
   constructor(props) {
@@ -15,11 +17,62 @@ class UserDetail extends Component {
     this.handleClickName = this.handleClickName.bind(this);
     this.handleOnChangeName = this.handleOnChangeName.bind(this);
     this.handleOnChangeEmail = this.handleOnChangeEmail.bind(this);
+    this.handleSubmitEmailChange = this.handleSubmitEmailChange.bind(this);
+    this.handleSubmitPasswordReset = this.handleSubmitPasswordReset.bind(this);
   }
 
   componentWillMount() {
     const objUser = this.props.getUserById(this.props.idUser);
     this.setState({ params: objUser[this.props.idUser] });
+  }
+
+  handleSubmitNameChange(e) {
+    e.preventDefault();
+    console.log('name change');
+  }
+
+  handleSubmitEmailChange(e) {
+    e.preventDefault();
+    console.log('email change');
+
+  }
+
+  handleSubmitPasswordReset(e) {
+    e.preventDefault();
+    console.log('password reset');
+    const userPool = 'us-west-2:2440ab57-1a73-4701-91a1-0bfbf60a58a2';
+    const token = localStorage.getItem('id_token');
+    AWS.config.region = 'us-west-2';
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: userPool,
+      Logins: {
+        '***REMOVED***rx.auth0.com': token,
+      },
+    });
+
+    const self = this;
+    AWS.config.credentials.get(() => {
+      const config = {
+        invokeUrl: 'https://api.***REMOVED***rx.io',
+        accessKey: AWS.config.credentials.accessKeyId,
+        secretKey: AWS.config.credentials.secretAccessKey,
+        sessionToken: AWS.config.credentials.sessionToken,
+        region: 'us-west-2',
+      };
+
+      const apigClient = apigClientFactory.newClient(config);
+      apigClient.invokeApi({}, '/cut/user/password', 'POST', {}, {})
+        .then((response) => {
+          console.log(response.data);
+          let objState = { users: response.data, loading: false };
+          self.setState(() => ({ loading: false }));
+          // self.setState(() => ({ users: response.data }));
+          console.warn(this.state);
+        })
+        .catch((err) => {
+          console.warn(err);
+        });
+    });
   }
 
   handleOnChangeEmail(event) {
@@ -57,7 +110,10 @@ class UserDetail extends Component {
                 onChange={e => this.handleOnChangeName(e)}
               />
             </label>
-            <input type="submit" />
+            <input
+              type="submit"
+              onClick={this.handleSubmitNameChange}
+            />
           </div>
           <div>
             <label htmlFor="useremail">Email&nbsp;
@@ -68,7 +124,10 @@ class UserDetail extends Component {
                 onChange={e => this.handleOnChangeName(e)}
               />
             </label>
-            <input type="submit" />
+            <input
+              type="submit"
+              onClick={this.handleSubmitEmailChange}
+            />
           </div>
           <div>
             <label htmlFor="emailverified">Email Verified&nbsp;
@@ -171,6 +230,10 @@ class UserDetail extends Component {
       <div className="UserDetail emk_t4">
         <div className="UDSummary">
           <div className="UDControls">
+            <button
+              onClick={this.handleSubmitPasswordReset}
+            >Reset Password
+            </button>
             <img alt="Reset Password" src="/reset-password-24.svg" />
           </div>
           <div className="UDIcon"><br /></div>

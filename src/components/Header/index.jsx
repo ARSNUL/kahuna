@@ -21,6 +21,11 @@ class Header extends Component {
                   <span>***REMOVED*** Admin</span>
                 </a>
               </div>
+              <div className="gb_8b">
+                <a className="Login" href="/Login">
+                  <span>Login</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
