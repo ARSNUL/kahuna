@@ -88,8 +88,7 @@ User.defaultProps = {
 };
 
 function mapStateToProps(state) {
-  return {
-  };
+  return { state };
 }
 
 export default withRouter(connect(mapStateToProps, { addUsers, getAllUsers })(User));

@@ -11,12 +11,13 @@ import SubHeader from '../../components/SubHeader';
 import FilterMenu from '../../components/FilterMenu';
 import UserDetail from '../../components/UserDetail';
 import './index.css';
-import { addUsers, getAllUsers } from '../../actions/users';
+import { addUsers } from '../../actions/users';
+import { setIsLoading } from '../../actions/loadingdata';
 
 class Admin extends Component {
   constructor(props) {
     super(props);
-    this.state = { users: [], loading: true };
+    this.state = { users: [] };
     this.state.qs = queryString.parse(this.props.location.search);
   }
 
@@ -42,15 +43,14 @@ class Admin extends Component {
           region: 'us-west-2',
         };
 
+        // const { setIsLoading } = this.props;
+        this.props.setIsLoading(true);
         const apigClient = apigClientFactory.newClient(config);
         apigClient.invokeApi({}, '/cut/users', 'GET', {}, {})
           .then((response) => {
+            this.props.setIsLoading(false);
             this.props.addUsers(response.data);
-            console.log(response.data);
-            let objState = { users: response.data, loading: false };
-            self.setState(() => ({ loading: false }));
             self.setState(() => ({ users: response.data }));
-            console.warn(this.state);
           })
           .catch((err) => {
             console.warn(err);
@@ -60,18 +60,16 @@ class Admin extends Component {
   }
 
   render() {
-    console.log('mk1');
     if (this.state.qs.id !== undefined) {
       return <UserDetail idUser={this.state.qs.id} />;
     }
-    const { users } = this.state;
     return (
       <div className="Admin">
-        <Loading loading={this.state.loading} />
+        <Loading />
         <SubHeader />
         <FilterMenu />
         <div className="lander">
-          <Users users={users} />
+          <Users users={this.state.users} />
         </div>
       </div>
     );
@@ -80,7 +78,7 @@ class Admin extends Component {
 
 Admin.propTypes = {
   addUsers: PropTypes.func.isRequired,
-  getAllUsers: PropTypes.func.isRequired,
+  setIsLoading: PropTypes.func.isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string,
     search: PropTypes.string,
@@ -94,8 +92,7 @@ Admin.defaultProps = {
 };
 
 function mapStateToProps(state) {
-  return {
-  };
+  return {};
 }
 
-export default withRouter(connect(mapStateToProps, { addUsers, getAllUsers })(Admin));
+export default withRouter(connect(mapStateToProps, { addUsers, setIsLoading })(Admin));

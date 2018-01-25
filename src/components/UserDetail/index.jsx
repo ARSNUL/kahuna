@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import AWS from 'aws-sdk';
+import apigClientFactory from 'aws-api-gateway-client';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUserById } from '../../actions/users';
+import { setIsLoading } from '../../actions/loadingdata';
 import './index.css';
-import apigClientFactory from 'aws-api-gateway-client';
 
 class UserDetail extends Component {
   constructor(props) {
     super(props);
-    this.state = { params: {} };
-    this.state.accountVisibility = 'hidden';
-    this.state.editName = false;
+    this.state = {
+      params: {},
+      accountVisibility: 'hidden',
+      editName: false,
+    };
+    // this.state.accountVisibility = 'hidden';
+    // this.state.editName = false;
     this.handleClick = this.handleClick.bind(this);
     this.handleClickName = this.handleClickName.bind(this);
     this.handleOnChangeName = this.handleOnChangeName.bind(this);
@@ -34,7 +39,6 @@ class UserDetail extends Component {
   handleSubmitEmailChange(e) {
     e.preventDefault();
     console.log('email change');
-
   }
 
   handleSubmitPasswordReset(e) {
@@ -61,13 +65,13 @@ class UserDetail extends Component {
       };
 
       const apigClient = apigClientFactory.newClient(config);
+      this.props.setIsLoading(true);
       apigClient.invokeApi({}, '/cut/user/password', 'POST', {}, {})
         .then((response) => {
-          console.log(response.data);
-          let objState = { users: response.data, loading: false };
-          self.setState(() => ({ loading: false }));
-          // self.setState(() => ({ users: response.data }));
-          console.warn(this.state);
+          console.log(response);
+          this.props.setIsLoading(false);
+          // let objState = { users: response.data, isLoading: false };
+          self.setState(() => ({ isLoading: false }));
         })
         .catch((err) => {
           console.warn(err);
@@ -94,8 +98,6 @@ class UserDetail extends Component {
   }
 
   render() {
-    console.log(this.state.params);
-
     let elName;
     if (this.state.editName === true) {
       elName = (
@@ -262,6 +264,8 @@ class UserDetail extends Component {
 
 UserDetail.propTypes = {
   idUser: PropTypes.string,
+  setIsLoading: PropTypes.func.isRequired,
+  getUserById: PropTypes.func.isRequired,
   params: PropTypes.shape({
     blocked: PropTypes.bool,
     created_at: PropTypes.string,
@@ -284,7 +288,7 @@ UserDetail.defaultProps = {
 };
 
 function mapStateToProps(state) {
-  return {};
+  return { state };
 }
 
-export default withRouter(connect(mapStateToProps, { getUserById })(UserDetail));
+export default withRouter(connect(mapStateToProps, { getUserById, setIsLoading })(UserDetail));
