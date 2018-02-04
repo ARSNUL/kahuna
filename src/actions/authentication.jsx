@@ -1,4 +1,5 @@
 import auth0 from 'auth0-js';
+import appConfig from '../config.json';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -7,10 +8,10 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 export const handleAuthentication = () => (dispatch) => {
   const webAuth = new auth0.WebAuth({
-    domain: '***REMOVED***rx.auth0.com',
-    clientID: '0IiT2J2k96uMLgoFuq991mxCYOPytITk',
+    domain: appConfig.auth0.domain,
+    clientID: appConfig.auth0.clientID,
     redirectUri: `${window.location.protocol}//${window.location.host}/callback`,
-    audience: 'https://***REMOVED***rx.auth0.com/userinfo',
+    audience: appConfig.auth0.audience,
     responseType: 'token id_token',
     scope: 'openid',
   });
@@ -28,10 +29,10 @@ export const handleAuthentication = () => (dispatch) => {
 
 export const loginUser = () => (dispatch) => {
   new auth0.WebAuth({
-    domain: '***REMOVED***rx.auth0.com',
-    clientID: '0IiT2J2k96uMLgoFuq991mxCYOPytITk',
+    domain: appConfig.auth0.domain,
+    clientID: appConfig.auth0.clientID,
     redirectUri: `${window.location.protocol}//${window.location.host}/callback`,
-    audience: 'https://***REMOVED***rx.auth0.com/userinfo',
+    audience: appConfig.auth0.audience,
     responseType: 'token id_token',
     scope: 'openid',
   })
