@@ -1,56 +1,68 @@
 
 .Admin {
-    background-color: white;
+  background-color: white;
 }
 
-.Admin .lander {
-    padding: 80px 0;
-    text-align: center;
-    left: 300px;
-    right: 0px;
-    position: absolute;
-    bottom: 0px;
-    display: block;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    top: 56px;
+.Admin .content {
+  padding: 80px 0;
+  text-align: center;
+  left: 300px;
+  right: 0;
+  position: relative;
+  bottom: 0;
+  display: block;
+  top: 56px;
 }
 
-.Admin .lander h1 {
-    font-weight: 600;
+.Admin .content h1 {
+  font-weight: 600;
 }
 
-.Admin .lander p {
-    color: #999;
+.Admin .content p {
+  color: #999;
 }
 
 .Admin .something {
-    list-style: none;
+  list-style: none;
 }
 
 .Admin .users {
-    height: 100px;
-    width: 100px;
-    padding: 5px;
-    margin: 10px;
-    display: inline-block;
-    opacity: 0.85;
-    overflow: hidden;
-    font-size: 8px;
+  height: 100px;
+  padding: 5px;
+  margin: 10px;
+  display: inline-block;
+  opacity: 0.85;
+  font-size: 8px;
 }
 
 .Admin .usernormal {
-    background-color: #181818;
+  background-color: #181818;
 }
 
 .Admin .useryellow {
-    background-color: #FDB92C;
+  background-color: #FDB92C;
 }
 
 .Admin .usergreen {
-    background-color: #57A728;
+  background-color: #57A728;
 }
 
 .Admin .userred {
-    background-color: #FC0E2D;
+  background-color: #FC0E2D;
+}
+
+.abdhr {
+  position: relative;
+}
+
+.abdhs {
+  display: inline-block;
+  position: absolute;
+}
+
+.a {
+  left: 0;
+}
+
+.b {
 }

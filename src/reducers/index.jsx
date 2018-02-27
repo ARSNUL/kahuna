@@ -15,7 +15,7 @@ const combination = combineReducers({
     phone: 568,
     tabletPortrait: 768,
     tablet: 1025,
-    desktop: 1280,
+    desktop: 800,
     giant: 1600,
   }),
 });

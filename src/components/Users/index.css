@@ -1,4 +1,10 @@
 
 .Users {
-    overflow: scroll;
+  overflow: hidden;
+}
+
+.U2 {
+  position: absolute;
+  overflow: scroll;
+  height: 200px;
 }

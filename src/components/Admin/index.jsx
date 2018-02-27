@@ -68,7 +68,15 @@ class Admin extends Component {
         <Loading />
         <SubHeader />
         <FilterMenu />
-        <div className="lander">
+        <div className="content">
+          <div className="abdhr">
+            <div className="abdhs a">
+              <h3>Users</h3>
+            </div>
+            <div className="abdhs b">
+              <button>Create New User</button>
+            </div>
+          </div>
           <Users users={this.state.users} />
         </div>
       </div>

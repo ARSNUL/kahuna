@@ -9,15 +9,15 @@ class Users extends PureComponent {
       <User key={user.identities[0].user_id} params={user} />);
     return (
       <div className="Users">
-        <div>
-          <table className="Users">
+        <div className="U2">
+          <table>
             <colgroup>
               <col />
               <col />
               <col />
               <col />
             </colgroup>
-            <tbody className="Users">
+            <tbody>
               {users}
             </tbody>
           </table>
