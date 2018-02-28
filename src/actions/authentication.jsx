@@ -7,15 +7,19 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 export const handleAuthentication = () => (dispatch) => {
+  console.warn("mk1");
   const webAuth = new auth0.WebAuth({
     domain: appConfig.auth0.domain,
     clientID: appConfig.auth0.clientID,
     redirectUri: `${window.location.protocol}//${window.location.host}/callback`,
     audience: appConfig.auth0.audience,
-    responseType: 'token id_token',
+    responseType: 'code token id_token',
     scope: 'openid',
   });
   webAuth.parseHash((err, authResult) => {
+    console.warn("mk2");
+    console.log(authResult);
+    console.warn(err);
     if (authResult && authResult.accessToken && authResult.idToken) {
       localStorage.setItem('access_token', authResult.accessToken);
       localStorage.setItem('id_token', authResult.idToken);
@@ -33,9 +37,8 @@ export const loginUser = () => (dispatch) => {
     clientID: appConfig.auth0.clientID,
     redirectUri: `${window.location.protocol}//${window.location.host}/callback`,
     audience: appConfig.auth0.audience,
-    responseType: 'token id_token',
+    responseType: 'code token id_token',
     scope: 'openid',
-  })
-    .authorize();
+  }).authorize();
   dispatch({ type: LOGIN_REQUEST });
 };
