@@ -18,7 +18,7 @@ class Header extends Component {
             <div className="gb_7b">
               <div className="gb_8b">
                 <a className="AdminTitle" href="/Admin">
-                  <span>***REMOVED*** Admin</span>
+                  <span>Kahuna Admin</span>
                 </a>
               </div>
               <div className="gb_8b">

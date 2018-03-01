@@ -1,7 +1,10 @@
 {
   "auth0": {
-    "domain": "***REMOVED***rx.auth0.com",
-    "clientID": "0IiT2J2k96uMLgoFuq991mxCYOPytITk",
-    "audience": "https://***REMOVED***rx.auth0.com/userinfo"
+    "domain": "cloudywaters.auth0.com",
+    "clientID": "Kb0qTvaGdC3YrpNmbADsZhD6iSuqGg3N",
+    "audience": "https://cloudywaters.auth0.com/userinfo"
+  },
+  "api": {
+    "url": "https://kahuha.arsnul.com"
   }
 }

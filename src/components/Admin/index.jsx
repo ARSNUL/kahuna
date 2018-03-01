@@ -13,6 +13,7 @@ import UserDetail from '../../components/UserDetail';
 import './index.css';
 import { addUsers } from '../../actions/users';
 import { setIsLoading } from '../../actions/loadingdata';
+import appConfig from '../../config.json';
 
 class Admin extends Component {
   constructor(props) {
@@ -29,14 +30,14 @@ class Admin extends Component {
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: userPool,
         Logins: {
-          '***REMOVED***rx.auth0.com': token,
+          'cloudywaters.auth0.com': token,
         },
       });
 
       const self = this;
       AWS.config.credentials.get(() => {
         const config = {
-          invokeUrl: 'https://api.***REMOVED***rx.io',
+          invokeUrl: appConfig.api.url,
           accessKey: AWS.config.credentials.accessKeyId,
           secretKey: AWS.config.credentials.secretAccessKey,
           sessionToken: AWS.config.credentials.sessionToken,

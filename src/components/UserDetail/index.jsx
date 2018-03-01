@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { getUserById } from '../../actions/users';
 import { setIsLoading } from '../../actions/loadingdata';
 import './index.css';
+import appConfig from '../../config.json';
 
 class UserDetail extends Component {
   constructor(props) {
@@ -50,14 +51,14 @@ class UserDetail extends Component {
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
       IdentityPoolId: userPool,
       Logins: {
-        '***REMOVED***rx.auth0.com': token,
+        'cloudywaters.auth0.com': token,
       },
     });
 
     const self = this;
     AWS.config.credentials.get(() => {
       const config = {
-        invokeUrl: 'https://api.***REMOVED***rx.io',
+        invokeUrl: appConfig.api.url,
         accessKey: AWS.config.credentials.accessKeyId,
         secretKey: AWS.config.credentials.secretAccessKey,
         sessionToken: AWS.config.credentials.sessionToken,
