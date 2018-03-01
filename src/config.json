@@ -5,6 +5,11 @@
     "audience": "https://cloudywaters.auth0.com/userinfo"
   },
   "api": {
-    "url": "https://kahuha.arsnul.com"
+    "url": "https://kahuna.arsnul.com",
+    "users": "/users"
+  },
+  "cognito": {
+    "poolId": "us-west-2:05996891-aa09-4bcd-9606-d0a2a7f0ccb6",
+    "region": "us-west-2"
   }
 }

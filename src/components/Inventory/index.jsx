@@ -12,9 +12,9 @@ export default class Inventory extends Component {
   }
 
   componentWillMount() {
-    const userPool = 'us-west-2:2440ab57-1a73-4701-91a1-0bfbf60a58a2';
+    const userPool = appConfig.cognito.poolId;
     const token = localStorage.getItem('id_token');
-    AWS.config.region = 'us-west-2';
+    AWS.config.region = appConfig.cognito.region;
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
       IdentityPoolId: userPool,
       Logins: {
@@ -25,12 +25,11 @@ export default class Inventory extends Component {
     const self = this;
     AWS.config.credentials.get(() => {
       const config = {
-        // invokeUrl: 'https://6nkuz9s0m5.execute-api.us-west-2.amazonaws.com',
         invokeUrl: appConfig.api.url,
         accessKey: AWS.config.credentials.accessKeyId,
         secretKey: AWS.config.credentials.secretAccessKey,
         sessionToken: AWS.config.credentials.sessionToken,
-        region: 'us-west-2',
+        region: appConfig.cognito.region,
       };
 
       const apigClient = apigClientFactory.newClient(config);

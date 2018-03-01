@@ -32,6 +32,7 @@ export const handleAuthentication = () => (dispatch) => {
 };
 
 export const loginUser = () => (dispatch) => {
+  console.log('mk0');
   new auth0.WebAuth({
     domain: appConfig.auth0.domain,
     clientID: appConfig.auth0.clientID,

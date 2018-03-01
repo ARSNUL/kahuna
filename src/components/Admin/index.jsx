@@ -24,15 +24,24 @@ class Admin extends Component {
 
   componentWillMount() {
     if (this.state.qs.id === undefined) {
-      const userPool = 'us-west-2:2440ab57-1a73-4701-91a1-0bfbf60a58a2';
       const token = localStorage.getItem('id_token');
-      AWS.config.region = 'us-west-2';
+      console.log('mk4');
+      console.log(token);
+      AWS.config.region = appConfig.cognito.region;
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: userPool,
+        IdentityPoolId: appConfig.cognito.poolId,
+        RoleArn: 'arn:aws:iam::588439395328:role/Cognito_Auth0Auth_Role',
         Logins: {
           'cloudywaters.auth0.com': token,
         },
       });
+
+      AWS.config.update({
+        region: AWS.config.region,
+        credentials: AWS.config.credentials,
+      });
+
+      console.warn(AWS.config.credentials);
 
       const self = this;
       AWS.config.credentials.get(() => {
@@ -41,13 +50,13 @@ class Admin extends Component {
           accessKey: AWS.config.credentials.accessKeyId,
           secretKey: AWS.config.credentials.secretAccessKey,
           sessionToken: AWS.config.credentials.sessionToken,
-          region: 'us-west-2',
+          region: appConfig.cognito.region,
         };
+        console.warn(config);
 
-        // const { setIsLoading } = this.props;
         this.props.setIsLoading(true);
         const apigClient = apigClientFactory.newClient(config);
-        apigClient.invokeApi({}, '/cut/users', 'GET', {}, {})
+        apigClient.invokeApi({}, appConfig.api.users, 'GET', {}, {})
           .then((response) => {
             this.props.setIsLoading(false);
             this.props.addUsers(response.data);
