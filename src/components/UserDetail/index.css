@@ -1,55 +1,55 @@
 
 .UserDetail {
-    background-color: #f9f9f9;
-    top: 56px;
-    position: absolute;
-    width: 100%;
-    bottom: 0;
+  background-color: #f9f9f9;
+  top: 56px;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }
 
 .UDRow {
-    border-bottom: 1px solid rgba(208, 208, 208, 0.4);
-    text-align: left;
-    font-weight: 400;
-    font-size: 13px;
+  border-bottom: 1px solid rgba(208, 208, 208, 0.4);
+  text-align: left;
+  font-weight: 400;
+  font-size: 13px;
 }
 
 .UDAttribs {
 }
 
 .UDSummary {
-    width: 758px;
-    margin-left: 232px;
-    position: relative;
+  width: 658px;
+  margin-left: 232px;
+  position: relative;
 }
 
 .UDIcon {
-    height: 124px;
-    width: 212px;
-    background-color: #FC0E2D;
-    position: relative;
-    display: inline;
+  height: 124px;
+  width: 212px;
+  background-color: #FC0E2D;
+  position: relative;
+  display: inline;
 }
 
 .UDSumCont {
-    vertical-align: top;
+  vertical-align: top;
 }
 
 .UDControls {
-    position: absolute;
-    right: 2px;
-    top: 8px;
+  position: absolute;
+  right: 2px;
+  top: 8px;
 }
 
 .emk_t3 {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .emk_t4 {
 }
 
 .emk_t5 {
-    position: relative;
-    width: 758px;
-    margin-left: 232px;
+  position: relative;
+  width: 758px;
+  margin-left: 232px;
 }

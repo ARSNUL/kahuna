@@ -1,55 +1,54 @@
 
 .gb_xc {
-    background-color: #3367d6;
-    height: 64px;
-    display: block;
-    min-width: 320px;
+  background-color: white;
+  height: 64px;
+  display: block;
+  min-width: 100%;
 }
 
 .gb_Cd {
-    position: fixed;
-    width: 100%;
-    top: 0;
+  position: fixed;
+  width: 200px;
+  top: 0;
 }
 
 .gb_yc {
-    height: 48px;
-    vertical-align: middle;
-    white-space: nowrap;
-    align-items: center;
-    display: flex;
+  height: 48px;
+  vertical-align: middle;
+  white-space: nowrap;
+  align-items: center;
+  display: flex;
 }
 
 .gb_yd {
-    font: 13px/27px Roboto, RobotoDraft, Arial, sans-serif;
-    z-index: 986;
+  font: 13px/27px Roboto, RobotoDraft, Arial, sans-serif;
+  z-index: 986;
 }
 
 .gb_Nd {
-    display: block;
+  display: block;
 }
 
 .gb_Ie {
-    position: relative;
-    height: 48px;
+  position: relative;
+  height: 48px;
 }
 
 .gb_Td {
-    padding-right: 32px;
-    box-sizing: border-box;
+  padding-right: 32px;
+  box-sizing: border-box;
 }
 
 .gb_Bd {
-    padding: 8px;
+  padding: 8px;
 }
 
 .gb_2e {
-    background: none;
-    border: none;
-    padding: 0 4px;
-    line-height: 0;
+  background: none;
+  padding: 0 4px;
+  line-height: 0;
 }
 
 .AdminTitle {
-    color: white;
+  color: white;
 }

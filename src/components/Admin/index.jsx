@@ -28,7 +28,7 @@ class Admin extends Component {
       AWS.config.region = appConfig.cognito.region;
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: appConfig.cognito.poolId,
-        RoleArn: 'arn:aws:iam::588439395328:role/Cognito_Auth0Auth_Role',
+        RoleArn: appConfig.cognito.roleArn,
         Logins: {
           [appConfig.auth0.domain]: token,
         },

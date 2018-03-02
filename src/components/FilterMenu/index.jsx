@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './index.css';
-import Menu from '../Menu';
-import SearchForm from '../SearchForm';
-import MenuFlyout from '../MenuFlyout';
+// import Menu from '../Menu';
+// import SearchForm from '../SearchForm';
+// import MenuFlyout from '../MenuFlyout';
 
 class FilterMenu extends Component {
   render() {

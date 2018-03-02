@@ -13,6 +13,7 @@
   },
   "cognito": {
     "poolId": "us-west-2:05996891-aa09-4bcd-9606-d0a2a7f0ccb6",
-    "region": "us-west-2"
+    "region": "us-west-2",
+    "roleArn": "arn:aws:iam::588439395328:role/Cognito_Auth0Auth_Role"
   }
 }

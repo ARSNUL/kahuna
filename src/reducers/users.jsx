@@ -23,13 +23,13 @@ function users(state = initialState, action) {
         currentUser: action.user,
       });
     case GET_USER:
-      let foundUser;
-      state.auth0Users.forEach((item) => {
-        if (item.user_id === action.idUser) {
-          foundUser = item;
-        }
-      });
-      return foundUser;
+      // let foundUser;
+      // state.auth0Users.forEach((item) => {
+      // if (item.user_id === action.idUser) {
+      //   return item;
+      // }
+      // });
+      return state;
     case GET_USERS:
       return state;
     default:
