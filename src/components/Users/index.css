@@ -1,6 +1,8 @@
 
 .Users {
   overflow: hidden;
+  opacity: 0.85;
+  font-size: 8px;
 }
 
 .U2 {

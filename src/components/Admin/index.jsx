@@ -74,11 +74,11 @@ class Admin extends Component {
         <SubHeader />
         <FilterMenu />
         <div className="content">
-          <div className="abdhr">
-            <div className="abdhs a">
+          <div>
+            <div className="abdhs">
               <h3>Users</h3>
             </div>
-            <div className="abdhs b">
+            <div className="abdhs">
               <button>Create New User</button>
             </div>
           </div>

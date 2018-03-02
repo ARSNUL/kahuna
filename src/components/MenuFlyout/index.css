@@ -1,8 +1,7 @@
 
 .MenuFlyout {
-    visibility: visible;
-    background-color: #FC0E2D;
-    height: 100%;
-    width: 300px;
-    z-index: 10000;
+  visibility: visible;
+  background-color: #fc0e2d;
+  width: 300px;
+  z-index: 10000;
 }

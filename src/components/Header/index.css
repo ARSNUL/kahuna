@@ -3,7 +3,6 @@
   background-color: white;
   height: 64px;
   display: block;
-  min-width: 100%;
 }
 
 .gb_Cd {
@@ -37,10 +36,6 @@
 .gb_Td {
   padding-right: 32px;
   box-sizing: border-box;
-}
-
-.gb_Bd {
-  padding: 8px;
 }
 
 .gb_2e {

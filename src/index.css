@@ -1,7 +1,10 @@
 
+* {
+  border: 1px solid #fc0e2d;
+}
+
 body {
   margin: 0;
   padding: 0;
   display: block;
-  height: 100%;
 }
