@@ -7,7 +7,6 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 export const handleAuthentication = () => (dispatch) => {
-  console.warn("mk1");
   const webAuth = new auth0.WebAuth({
     domain: appConfig.auth0.domain,
     clientID: appConfig.auth0.clientID,
@@ -17,9 +16,6 @@ export const handleAuthentication = () => (dispatch) => {
     scope: 'openid',
   });
   webAuth.parseHash((err, authResult) => {
-    console.warn("mk2");
-    console.log(authResult);
-    console.warn(err);
     if (authResult && authResult.accessToken && authResult.idToken) {
       localStorage.setItem('access_token', authResult.accessToken);
       localStorage.setItem('id_token', authResult.idToken);
@@ -32,7 +28,6 @@ export const handleAuthentication = () => (dispatch) => {
 };
 
 export const loginUser = () => (dispatch) => {
-  console.log('mk0');
   new auth0.WebAuth({
     domain: appConfig.auth0.domain,
     clientID: appConfig.auth0.clientID,

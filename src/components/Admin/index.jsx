@@ -25,14 +25,12 @@ class Admin extends Component {
   componentWillMount() {
     if (this.state.qs.id === undefined) {
       const token = localStorage.getItem('id_token');
-      console.log('mk4');
-      console.log(token);
       AWS.config.region = appConfig.cognito.region;
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: appConfig.cognito.poolId,
         RoleArn: 'arn:aws:iam::588439395328:role/Cognito_Auth0Auth_Role',
         Logins: {
-          'cloudywaters.auth0.com': token,
+          [appConfig.auth0.domain]: token,
         },
       });
 
@@ -40,8 +38,6 @@ class Admin extends Component {
         region: AWS.config.region,
         credentials: AWS.config.credentials,
       });
-
-      console.warn(AWS.config.credentials);
 
       const self = this;
       AWS.config.credentials.get(() => {
@@ -52,11 +48,10 @@ class Admin extends Component {
           sessionToken: AWS.config.credentials.sessionToken,
           region: appConfig.cognito.region,
         };
-        console.warn(config);
 
         this.props.setIsLoading(true);
         const apigClient = apigClientFactory.newClient(config);
-        apigClient.invokeApi({}, appConfig.api.users, 'GET', {}, {})
+        apigClient.invokeApi({}, appConfig.api.uris.users, 'GET', {}, {})
           .then((response) => {
             this.props.setIsLoading(false);
             this.props.addUsers(response.data);

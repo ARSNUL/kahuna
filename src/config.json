@@ -6,7 +6,10 @@
   },
   "api": {
     "url": "https://kahuna.arsnul.com",
-    "users": "/users"
+    "uris": {
+      "users": "/users",
+      "userPassword": "/user/password"
+    }
   },
   "cognito": {
     "poolId": "us-west-2:05996891-aa09-4bcd-9606-d0a2a7f0ccb6",

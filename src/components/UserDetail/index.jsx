@@ -48,7 +48,7 @@ class UserDetail extends Component {
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
       IdentityPoolId: userPool,
       Logins: {
-        'cloudywaters.auth0.com': token,
+        [appConfig.auth0.domain]: token,
       },
     });
 
@@ -64,7 +64,7 @@ class UserDetail extends Component {
 
       const apigClient = apigClientFactory.newClient(config);
       this.props.setIsLoading(true);
-      apigClient.invokeApi({}, '/cut/user/password', 'POST', {}, {})
+      apigClient.invokeApi({}, appConfig.api.uris.userPassword, 'POST', {}, {})
         .then((response) => {
           console.log(response);
           this.props.setIsLoading(false);

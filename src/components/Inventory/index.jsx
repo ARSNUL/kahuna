@@ -18,7 +18,7 @@ export default class Inventory extends Component {
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
       IdentityPoolId: userPool,
       Logins: {
-        'cloudywaters.auth0.com': token,
+        [appConfig.auth0.domain]: token,
       },
     });
 
