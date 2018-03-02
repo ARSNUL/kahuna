@@ -1,6 +1,6 @@
 {
   "ignoreFiles": [
-    "./node_modules/**",
+    "./node_modules/**"
   ],
   "plugins": [
     "stylelint-scss"
@@ -39,7 +39,6 @@
     "function-parentheses-space-inside": "never",
     "number-leading-zero": "always",
     "color-hex-case": "lower",
-    "selector-class-pattern": "^((?:-{1,2}|_{2})?[a-z0-9]+(?:(?:-{1,2}|_{2})[a-z0-9]+)*)(?:-{1,2}|_{2})?$",
     "no-duplicate-selectors": true,
     "max-nesting-depth": 4,
     "string-quotes": "single",
@@ -67,7 +66,7 @@
     "length-zero-no-unit": true,
     "at-rule-no-unknown": [
       true, {
-        "ignoreAtRules": ['include', 'for']
+        "ignoreAtRules": ["include", "for"]
       }
     ]
   }
