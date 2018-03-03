@@ -7,7 +7,7 @@ import { PropTypes } from 'prop-types';
 import apigClientFactory from 'aws-api-gateway-client';
 import Loading from '../Loading';
 import Users from '../../components/Users';
-import FilterMenu from '../../components/FilterMenu';
+import LeftNav from '../../components/LeftNav';
 import UserDetail from '../../components/UserDetail';
 import './index.css';
 import { addUsers } from '../../actions/users';
@@ -71,7 +71,7 @@ class Admin extends Component {
     return (
       <div className="Admin">
         <Loading />
-        <FilterMenu />
+        <LeftNav />
         <div className="content">
           <div>
             <div className="abdhs">

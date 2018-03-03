@@ -33,6 +33,13 @@ class User extends Component {
     this.setState({ hovered: false });
   }
 
+  theClass() {
+    if (this.state.hovered) {
+      return 'User Hovered';
+    }
+    return 'User';
+  }
+
   style() {
     if (this.state.hovered) {
       return { backgroundColor: '#dadada' };
@@ -47,7 +54,7 @@ class User extends Component {
     }
     return (
       <tr
-        className="User"
+        className={this.theClass()}
         onMouseOver={this.handleMouseOver}
         onFocus={this.handleMouseOver}
         onMouseOut={this.handleMouseOut}
@@ -55,7 +62,7 @@ class User extends Component {
         onClick={e => this.handleClick(id, e)}
         onKeyDown={this.handleKeyDown}
         role="presentation"
-        style={this.style()}
+        // style={this.style()}
       >
         <td>{this.props.params.given_name}&nbsp;{this.props.params.family_name}</td>
         <td>{this.props.params.email}</td>

@@ -1,4 +1,8 @@
 
 .User {
-    height: 59px;
+  height: 59px;
+}
+
+.Hovered {
+  color: darkslategray;
 }

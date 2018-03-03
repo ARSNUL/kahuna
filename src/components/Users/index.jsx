@@ -10,7 +10,7 @@ class Users extends PureComponent {
     return (
       <div className="Users">
         <div className="U2">
-          <table>
+          <table cellSpacing="0" cellPadding="0">
             <colgroup>
               <col />
               <col />
