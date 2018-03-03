@@ -57,10 +57,11 @@ class User extends Component {
         role="presentation"
         style={this.style()}
       >
-        <td>{this.props.params.name}</td>
+        <td>{this.props.params.given_name}&nbsp;{this.props.params.family_name}</td>
         <td>{this.props.params.email}</td>
         <td>{this.props.params.last_login}</td>
         <td>{this.props.params.created_at}</td>
+        <td>{this.props.params.email_verified}</td>
       </tr>
     );
   }
@@ -77,6 +78,8 @@ User.propTypes = {
     last_password_reset: PropTypes.string,
     logins_count: PropTypes.number,
     name: PropTypes.string,
+    given_name: PropTypes.string,
+    family_name: PropTypes.string,
     nickname: PropTypes.string,
     updated_at: PropTypes.string,
     user_id: PropTypes.string,

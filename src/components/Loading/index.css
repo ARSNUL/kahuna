@@ -1,9 +1,10 @@
 
 .Loading {
   font-size: 11px;
-  background-color: red;
+  background-color: #fc0e2d;
   visibility: hidden;
   z-index: 1000;
-  top: 200px;
   position: absolute;
+  left: 50%;
+  padding: 10px;
 }

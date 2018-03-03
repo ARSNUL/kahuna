@@ -16,7 +16,7 @@ class Loading extends Component {
         className="Loading"
         style={{ visibility: strVisibility }}
       >
-        <h1>Loading...</h1>
+        <h3>Loading...</h3>
       </div>
     );
   }

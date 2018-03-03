@@ -7,7 +7,6 @@ import { PropTypes } from 'prop-types';
 import apigClientFactory from 'aws-api-gateway-client';
 import Loading from '../Loading';
 import Users from '../../components/Users';
-import SubHeader from '../../components/SubHeader';
 import FilterMenu from '../../components/FilterMenu';
 import UserDetail from '../../components/UserDetail';
 import './index.css';
@@ -55,6 +54,7 @@ class Admin extends Component {
           .then((response) => {
             this.props.setIsLoading(false);
             this.props.addUsers(response.data);
+            console.log(response.data);
             self.setState(() => ({ users: response.data }));
           })
           .catch((err) => {
@@ -71,7 +71,6 @@ class Admin extends Component {
     return (
       <div className="Admin">
         <Loading />
-        <SubHeader />
         <FilterMenu />
         <div className="content">
           <div>
@@ -104,7 +103,7 @@ Admin.defaultProps = {
   location: {},
 };
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {};
 }
 

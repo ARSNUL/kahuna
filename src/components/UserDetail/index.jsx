@@ -264,25 +264,10 @@ UserDetail.propTypes = {
   idUser: PropTypes.string,
   setIsLoading: PropTypes.func.isRequired,
   getUserById: PropTypes.func.isRequired,
-  params: PropTypes.shape({
-    blocked: PropTypes.bool,
-    created_at: PropTypes.string,
-    email: PropTypes.string,
-    email_verified: PropTypes.bool,
-    last_ip: PropTypes.string,
-    last_login: PropTypes.string,
-    last_password_reset: PropTypes.string,
-    logins_count: PropTypes.number,
-    name: PropTypes.string,
-    nickname: PropTypes.string,
-    updated_at: PropTypes.string,
-    user_id: PropTypes.string,
-  }),
 };
 
 UserDetail.defaultProps = {
   idUser: null,
-  params: {},
 };
 
 function mapStateToProps(state) {

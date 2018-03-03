@@ -16,7 +16,17 @@ class Users extends PureComponent {
               <col />
               <col />
               <col />
+              <col />
             </colgroup>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Last Login</th>
+                <th>Created</th>
+                <th>Email Verified</th>
+              </tr>
+            </thead>
             <tbody>
               {users}
             </tbody>
