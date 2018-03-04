@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import './index.css';
 
 class Menu extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { showMenu: false };
-    this.handleClick = this.handleClick.bind(this);
+  static handleClick() {
+    // this.setState({ showMenu: true });
   }
 
-  handleClick() {
-    this.setState({ showMenu: true });
+  constructor(props) {
+    super(props);
+    // this.state = { showMenu: false };
+    this.handleClick = this.handleClick.bind(this);
   }
 
   render() {

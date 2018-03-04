@@ -7,6 +7,11 @@ import './index.css';
 import { addUsers, getAllUsers } from '../../actions/users';
 
 class User extends Component {
+  static handleClick(id) {
+    window.location = `/admin/Users?id=${id}`;
+    // this.setState({ showUserDetail: true });
+  }
+
   constructor(props) {
     super(props);
     this.state = { showUserDetail: false };
@@ -14,11 +19,6 @@ class User extends Component {
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleMouseOver = this.handleMouseOver.bind(this);
     this.handleMouseOut = this.handleMouseOut.bind(this);
-  }
-
-  handleClick(id) {
-    window.location = `/admin/Users?id=${id}`;
-    // this.setState({ showUserDetail: true });
   }
 
   handleKeyDown() {

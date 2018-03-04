@@ -10,6 +10,14 @@ import './index.css';
 import appConfig from '../../config.json';
 
 class UserDetail extends Component {
+  static handleSubmitNameChange(e) {
+    e.preventDefault();
+  }
+
+  static handleSubmitEmailChange(e) {
+    e.preventDefault();
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -30,14 +38,6 @@ class UserDetail extends Component {
   componentWillMount() {
     const objUser = this.props.getUserById(this.props.idUser);
     this.setState({ params: objUser[this.props.idUser] });
-  }
-
-  handleSubmitNameChange(e) {
-    e.preventDefault();
-  }
-
-  handleSubmitEmailChange(e) {
-    e.preventDefault();
   }
 
   handleSubmitPasswordReset(e) {

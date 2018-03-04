@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 
 class S3Object extends Component {
+  static handleClick(e) {
+    console.warn(e);
+  }
+
+  static handleKeyDown(e) {
+    console.warn(e);
+  }
+
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
-  }
-
-  handleClick(e) {
-    console.warn(e);
-  }
-
-  handleKeyDown(e) {
-    console.warn(e);
   }
 
   render() {

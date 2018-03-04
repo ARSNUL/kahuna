@@ -26,6 +26,7 @@ export const getUserById = idUser => (dispatch) => {
       objUser = hello;
       return dispatch({ type: SET_USER, user: hello });
     }
+    return null;
   });
   return objUser;
 };

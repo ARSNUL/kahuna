@@ -6,4 +6,19 @@
   position: absolute;
   bottom: 0;
   top: 56px;
+  text-align: left;
+}
+
+.NavItem {
+  font-size: 10px;
+  color: #666666;
+  text-decoration-line: none;
+}
+
+.NavSelected {
+  color: #fc0e2d;
+}
+
+li {
+  list-style: none;
 }
