@@ -2,6 +2,7 @@
 .Users {
   overflow: hidden;
   font-size: 8px;
+  position: relative;
 }
 
 .U2 {

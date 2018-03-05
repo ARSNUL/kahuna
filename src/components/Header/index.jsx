@@ -15,18 +15,10 @@ class Header extends Component {
                 <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
               </svg>
             </div>
-            <div className="gb_7b">
-              <div className="gb_8b">
-                <a className="AdminTitle" href="/Admin">
-                  <span>Kahuna Admin</span>
-                </a>
-              </div>
-              <div className="gb_8b">
-                <a className="Login" href="/Login">
-                  <span>Login</span>
-                </a>
-              </div>
-            </div>
+            <span>Kahuna</span>
+            <a className="Login" href="/Login">
+              <span>Login</span>
+            </a>
           </div>
         </div>
       </header>

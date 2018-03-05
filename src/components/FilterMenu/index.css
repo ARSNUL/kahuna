@@ -1,9 +1,9 @@
 
 .FilterMenu {
   background-color: lightgreen;
-  left: 0px;
+  /*left: 0;*/
   width: 200px;
   position: absolute;
-  bottom: 0px;
-  top: 56px;
+  /*bottom: 0;*/
+  /*top: 56px;*/
 }

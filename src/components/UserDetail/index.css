@@ -1,7 +1,7 @@
 
 .UserDetail {
   background-color: #f9f9f9;
-  top: 56px;
+  /*top: 56px;*/
   position: absolute;
   bottom: 0;
 }
@@ -25,7 +25,7 @@
 .UDIcon {
   height: 124px;
   width: 212px;
-  background-color: #FC0E2D;
+  background-color: #fc0e2d;
   position: relative;
   display: inline;
 }
@@ -37,7 +37,7 @@
 .UDControls {
   position: absolute;
   right: 2px;
-  top: 8px;
+  /*top: 8px;*/
 }
 
 .emk_t3 {

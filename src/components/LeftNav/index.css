@@ -4,6 +4,7 @@
   width: 200px;
   position: relative;
   text-align: left;
+  display: inline-block;
 }
 
 .NavItem {
