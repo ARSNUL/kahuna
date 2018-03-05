@@ -21,8 +21,8 @@ export const handleAuthentication = () => (dispatch) => {
       localStorage.setItem('id_token', authResult.idToken);
       localStorage.setItem('expires_at', authResult.idTokenPayload.exp);
       dispatch({ type: LOGIN_SUCCESS });
-    } else if (err) {
-      console.warn(err);
+    // } else if (err) {
+    //   console.warn(err);
     }
   });
 };

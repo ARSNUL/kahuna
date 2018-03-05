@@ -54,12 +54,11 @@ class Admin extends Component {
           .then((response) => {
             this.props.setIsLoading(false);
             this.props.addUsers(response.data);
-            console.log(response.data);
             self.setState(() => ({ users: response.data }));
-          })
-          .catch((err) => {
-            console.warn(err);
           });
+        // .catch((err) => {
+        //   console.warn(err);
+        // });
       });
     }
   }
@@ -73,11 +72,11 @@ class Admin extends Component {
         <Loading />
         <LeftNav />
         <div className="content">
-          <div>
+          <div className="">
             <div className="abdhs">
               <h3>Users</h3>
             </div>
-            <div className="abdhs">
+            <div className="abdht">
               <button>Create New User</button>
             </div>
           </div>

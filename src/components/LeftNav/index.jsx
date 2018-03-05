@@ -23,37 +23,12 @@ class LeftNav extends Component {
           </li>
           <li>
             <a className="NavItem" href="/Admin">
-              <span>SSO Integrations</span>
-            </a>
-          </li>
-          <li>
-            <a className="NavItem" href="/Admin">
               <span>Connections</span>
             </a>
           </li>
           <li>
             <a className="NavItem NavSelected" href="/Admin">
               <span>Users</span>
-            </a>
-          </li>
-          <li>
-            <a className="NavItem" href="/Admin">
-              <span>Rules</span>
-            </a>
-          </li>
-          <li>
-            <a className="NavItem" href="/Admin">
-              <span>Hooks</span>
-            </a>
-          </li>
-          <li>
-            <a className="NavItem" href="/Admin">
-              <span>Multifactor Auth</span>
-            </a>
-          </li>
-          <li>
-            <a className="NavItem" href="/Admin">
-              <span>Hosted Pages</span>
             </a>
           </li>
           <li>
@@ -68,17 +43,7 @@ class LeftNav extends Component {
           </li>
           <li>
             <a className="NavItem" href="/Admin">
-              <span>Anomaly Detection</span>
-            </a>
-          </li>
-          <li>
-            <a className="NavItem" href="/Admin">
               <span>Analytics</span>
-            </a>
-          </li>
-          <li>
-            <a className="NavItem" href="/Admin">
-              <span>Extensions</span>
             </a>
           </li>
           <li>

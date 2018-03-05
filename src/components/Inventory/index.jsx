@@ -37,10 +37,10 @@ export default class Inventory extends Component {
       apigClient.invokeApi({}, '/cut/objects', 'GET', {}, {})
         .then((response) => {
           self.setState(() => ({ s3objects: response.data.objects }));
-        })
-        .catch((err) => {
-          console.warn(err);
         });
+      // .catch((err) => {
+      //   console.warn(err);
+      // });
     });
   }
 

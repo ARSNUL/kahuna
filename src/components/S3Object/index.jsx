@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 
 class S3Object extends Component {
-  static handleClick(e) {
-    console.warn(e);
+  static handleClick() {
+    // console.warn(e);
   }
 
-  static handleKeyDown(e) {
-    console.warn(e);
+  static handleKeyDown() {
+    // console.warn(e);
   }
 
   constructor(props) {

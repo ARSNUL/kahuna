@@ -15,7 +15,7 @@ class User extends Component {
   constructor(props) {
     super(props);
     this.state = { showUserDetail: false };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClick = User.handleClick.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleMouseOver = this.handleMouseOver.bind(this);
     this.handleMouseOut = this.handleMouseOut.bind(this);

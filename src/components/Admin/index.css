@@ -43,14 +43,19 @@
   background-color: #fc0e2d;
 }
 
-.abdhs {
-  display: inline-block;
-  position: absolute;
-}
-
 .a {
   left: 0;
 }
 
-.b {
+.abdhs {
+  display: inline-block;
+  left: 20px;
+  border: 1px solid green;
+  float: left;
+}
+
+.abdht {
+  display: inline-block;
+  right: 20px;
+  float: right;
 }

@@ -6,7 +6,6 @@
 }
 
 .gb_Cd {
-  position: fixed;
   width: 100%;
   top: 0;
 }
@@ -28,7 +27,6 @@
 }
 
 .gb_Ie {
-  position: relative;
   height: 48px;
 }
 

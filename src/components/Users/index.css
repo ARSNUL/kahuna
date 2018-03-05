@@ -1,12 +1,11 @@
 
 .Users {
   overflow: hidden;
-  opacity: 0.85;
   font-size: 8px;
 }
 
 .U2 {
-  position: absolute;
+  /*position: absolute;*/
   overflow-y: scroll;
   overflow-x: hidden;
   height: 200px;

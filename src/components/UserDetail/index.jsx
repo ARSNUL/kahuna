@@ -31,7 +31,7 @@ class UserDetail extends Component {
     this.handleClickName = this.handleClickName.bind(this);
     this.handleOnChangeName = this.handleOnChangeName.bind(this);
     this.handleOnChangeEmail = this.handleOnChangeEmail.bind(this);
-    this.handleSubmitEmailChange = this.handleSubmitEmailChange.bind(this);
+    this.handleSubmitEmailChange = UserDetail.handleSubmitEmailChange.bind(this);
     this.handleSubmitPasswordReset = this.handleSubmitPasswordReset.bind(this);
   }
 
@@ -65,15 +65,14 @@ class UserDetail extends Component {
       const apigClient = apigClientFactory.newClient(config);
       this.props.setIsLoading(true);
       apigClient.invokeApi({}, appConfig.api.uris.userPassword, 'POST', {}, {})
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           this.props.setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
           self.setState(() => ({ isLoading: false }));
-        })
-        .catch((err) => {
-          console.warn(err);
         });
+      // .catch((err) => {
+      //   console.warn(err);
+      // });
     });
   }
 
@@ -112,7 +111,7 @@ class UserDetail extends Component {
             </label>
             <input
               type="submit"
-              onClick={this.handleSubmitNameChange}
+              onClick={UserDetail.handleSubmitNameChange}
             />
           </div>
           <div>
@@ -126,7 +125,7 @@ class UserDetail extends Component {
             </label>
             <input
               type="submit"
-              onClick={this.handleSubmitEmailChange}
+              onClick={UserDetail.handleSubmitEmailChange}
             />
           </div>
           <div>
