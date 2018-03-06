@@ -20,10 +20,10 @@ class Users extends PureComponent {
             </colgroup>
             <thead>
               <tr>
-                <th>Name</th>
                 <th>Email</th>
-                <th>Last Login</th>
+                <th>Name</th>
                 <th>Created</th>
+                <th>Last Login</th>
                 <th>Email Verified</th>
               </tr>
             </thead>

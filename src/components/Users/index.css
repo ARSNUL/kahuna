@@ -8,6 +8,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
   width: 100%;
+  text-align: left;
 }
 
 .U2 table {
@@ -21,4 +22,8 @@ thead {
 
 td {
   font-weight: 300;
+}
+
+tr.User {
+  cursor: pointer;
 }

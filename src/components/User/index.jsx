@@ -64,11 +64,11 @@ class User extends Component {
         role="presentation"
         // style={this.style()}
       >
-        <td>{this.props.params.given_name}&nbsp;{this.props.params.family_name}</td>
-        <td>{this.props.params.email}</td>
-        <td>{this.props.params.last_login}</td>
-        <td>{this.props.params.created_at}</td>
-        <td>{this.props.params.email_verified}</td>
+        <td className="User Email">{this.props.params.email}</td>
+        <td className="User GivenName">{this.props.params.given_name}&nbsp;{this.props.params.family_name}</td>
+        <td className="User CreatedAt">{this.props.params.created_at}</td>
+        <td className="User LastLogin">{this.props.params.last_login}</td>
+        <td className="User EmailVerified">{this.props.params.email_verified}</td>
       </tr>
     );
   }
