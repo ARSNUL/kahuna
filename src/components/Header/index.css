@@ -50,3 +50,9 @@
 .Login {
   float: right;
 }
+
+header {
+  border-bottom-style: solid;
+  border-bottom-color: #eeeeee;
+  border-bottom-width: 1px;
+}

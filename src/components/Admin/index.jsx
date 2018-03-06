@@ -22,6 +22,7 @@ class Admin extends Component {
   }
 
   componentWillMount() {
+    // return;
     if (this.state.qs.id === undefined) {
       const token = localStorage.getItem('id_token');
       AWS.config.region = appConfig.cognito.region;
@@ -72,9 +73,9 @@ class Admin extends Component {
         <Loading />
         <LeftNav />
         <div className="content">
-          <div className="">
+          <div className="abdhr">
             <div className="abdhs">
-              <h3>Users</h3>
+              <h1>Users</h1>
             </div>
             <div className="abdht">
               <button>Create New User</button>

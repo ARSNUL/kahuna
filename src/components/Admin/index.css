@@ -4,17 +4,14 @@
 }
 
 .Admin .content {
+  top: 80px;
   width: 70%;
-  /*padding: 80px 0;*/
   text-align: center;
-  /*left: 300px;*/
-  /*right: 0;*/
-  /*position: relative;*/
   display: inline-block;
-  /*top: 0;*/
-  /*bottom: 0;*/
-  /*display: block;*/
-  /*top: 56px;*/
+  position: relative;
+}
+
+.content {
 }
 
 .Admin .content h1 {
@@ -45,10 +42,14 @@
   background-color: #fc0e2d;
 }
 
+.abdhr {
+  display: inline-block;
+  width: 100%;
+}
+
 .abdhs {
   display: inline-block;
   left: 20px;
-  border: 1px solid green;
   float: left;
 }
 
