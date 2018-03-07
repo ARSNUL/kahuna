@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUserById } from '../../actions/users';
 import { setIsLoading } from '../../actions/loadingdata';
+import LeftNav from '../../components/LeftNav';
 import './index.css';
 import appConfig from '../../config.json';
 
@@ -22,12 +23,9 @@ class UserDetail extends Component {
     super(props);
     this.state = {
       params: {},
-      accountVisibility: 'hidden',
+      // accountVisibility: 'visible',
       editName: false,
     };
-    // this.state.accountVisibility = 'hidden';
-    // this.state.editName = false;
-    this.handleClick = this.handleClick.bind(this);
     this.handleClickName = this.handleClickName.bind(this);
     this.handleOnChangeName = this.handleOnChangeName.bind(this);
     this.handleOnChangeEmail = this.handleOnChangeEmail.bind(this);
@@ -90,135 +88,75 @@ class UserDetail extends Component {
     this.setState({ editName: true });
   }
 
-  handleClick() {
-    this.setState({ accountVisibility: 'visible' });
-  }
-
   render() {
-    let elName;
-    if (this.state.editName === true) {
-      elName = (
-        <form className="emk_t3" style={{ visibility: this.state.accountVisibility }}>
+    let isOnClick = null;
+    if (this.state.editName !== true) {
+      isOnClick = e => this.handleClickName(e);
+    }
+    const elName = (
+      <div className="UDt2">
+        <form className="UDt3">
           <p>Basic Information</p>
-          <div>
-            <label htmlFor="username">Name&nbsp;
+          <div className="field" onClick={isOnClick} role="presentation">
+            <div className="field-title">Name</div>
+            {this.state.editName ?
               <input
                 id="username"
                 type="text"
                 value={this.state.params.name}
                 onChange={e => this.handleOnChangeName(e)}
               />
-            </label>
-            <input
+              : <span id="username">{this.state.params.name}</span>}
+            {this.state.editName ? <input
               type="submit"
               onClick={UserDetail.handleSubmitNameChange}
-            />
+            /> : null}
           </div>
-          <div>
-            <label htmlFor="useremail">Email&nbsp;
+          <div className="field">
+            <div className="field-title">Email</div>
+            {this.state.editName ?
               <input
                 id="useremail"
                 type="text"
                 value={this.state.params.email}
-                onChange={e => this.handleOnChangeName(e)}
+                onChange={e => this.handleOnChangeEmail(e)}
               />
-            </label>
-            <input
+              : <span id="useremail">{this.state.params.email}</span>}
+            {this.state.editName ? <input
               type="submit"
               onClick={UserDetail.handleSubmitEmailChange}
-            />
+            /> : null}
           </div>
-          <div>
-            <label htmlFor="emailverified">Email Verified&nbsp;
-              <span>{this.state.params.email_verified ? 'yes' : 'no'}</span>
-            </label>
+          <div className="field">
+            <div className="field-title">Email Verified</div>
+            <span>{this.state.params.email_verified ? 'yes' : 'no'}</span>
           </div>
-          <div>
-            <label htmlFor="createdat">Created At&nbsp;
-              <span id="createdat">{this.state.params.created_at}</span>
-            </label>
+          <div className="field">
+            <div className="field-title">Created At</div>
+            <span id="createdat">{this.state.params.created_at}</span>
           </div>
-          <div>
-            <label htmlFor="updatedat">Updated At&nbsp;
-              <span id="updatedat">{this.state.params.updated_at}</span>
-            </label>
+          <div className="field">
+            <div className="field-title">Updated At</div>
+            <span id="updatedat">{this.state.params.updated_at}</span>
           </div>
-          <div>
-            <label htmlFor="lastip">Last IP&nbsp;
-              <span id="lastip">{this.state.params.last_ip}</span>
-            </label>
+          <div className="field">
+            <div className="field-title">Last IP</div>
+            <span id="lastip">{this.state.params.last_ip}</span>
           </div>
-          <div>
-            <label htmlFor="lastlogin">Last Login&nbsp;
-              <span id="lastlogin">{this.state.params.last_login}</span>
-            </label>
+          <div className="field">
+            <div className="field-title">Last Login</div>
+            <span id="lastlogin">{this.state.params.last_login}</span>
           </div>
-          <div>
-            <label htmlFor="loginscount">Logins Count&nbsp;
-              <span id="loginscount">{this.state.params.logins_count}</span>
-            </label>
+          <div className="field">
+            <div className="field-title">Logins Count</div>
+            <span id="loginscount">{this.state.params.logins_count}</span>
           </div>
-          <div>
-            <label htmlFor="userid">User ID&nbsp;
-              <span id="userid">{this.state.params.user_id}</span>
-            </label>
-          </div>
-        </form>);
-    } else {
-      elName = (
-        <form
-          className="emk_t3"
-          style={{ visibility: this.state.accountVisibility }}
-        >
-          <p>Basic Information</p>
-          <div onClick={e => this.handleClickName(e)} role="presentation">
-            <label htmlFor="username">Name&nbsp;
-              <span id="username">{this.state.params.name}</span>
-            </label>
-          </div>
-          <div onClick={e => this.handleClickName(e)} role="presentation">
-            <label htmlFor="useremail">Email&nbsp;
-              <span id="useremail">{this.state.params.email}</span>
-            </label>
-          </div>
-          <div>
-            <label htmlFor="emailverified">Email Verified&nbsp;
-              <span>{this.state.params.email_verified ? 'yes' : 'no'}</span>
-            </label>
-          </div>
-          <div>
-            <label htmlFor="createdat">Created At&nbsp;
-              <span id="createdat">{this.state.params.created_at}</span>
-            </label>
-          </div>
-          <div>
-            <label htmlFor="updatedat">Updated At&nbsp;
-              <span id="updatedat">{this.state.params.updated_at}</span>
-            </label>
-          </div>
-          <div>
-            <label htmlFor="lastip">Last IP&nbsp;
-              <span id="lastip">{this.state.params.last_ip}</span>
-            </label>
-          </div>
-          <div>
-            <label htmlFor="lastlogin">Last Login&nbsp;
-              <span id="lastlogin">{this.state.params.last_login}</span>
-            </label>
-          </div>
-          <div>
-            <label htmlFor="loginscount">Logins Count&nbsp;
-              <span id="loginscount">{this.state.params.logins_count}</span>
-            </label>
-          </div>
-          <div>
-            <label htmlFor="userid">User ID&nbsp;
-              <span id="userid">{this.state.params.user_id}</span>
-            </label>
+          <div className="field">
+            <div className="field-title">User ID</div>
+            <span id="userid">{this.state.params.user_id}</span>
           </div>
         </form>
-      );
-    }
+      </div>);
 
     if (this.state.params === undefined) {
       return (
@@ -226,7 +164,8 @@ class UserDetail extends Component {
       );
     }
     return (
-      <div className="UserDetail emk_t4">
+      <div className="UserDetail">
+        <LeftNav />
         <div className="UDSummary">
           <div className="UDControls">
             <button
@@ -236,20 +175,10 @@ class UserDetail extends Component {
             <img alt="Reset Password" src="/reset-password-24.svg" />
           </div>
           <div className="UDIcon"><br /></div>
-          <div className="UDSumCont">
-            <div className="">{this.state.params.name}</div>
-            <div className="">{this.state.params.email}</div>
-            <div className="">{this.state.params.last_login}</div>
-            <div className="">{this.state.params.blocked}</div>
-          </div>
         </div>
-        <div
-          className="emk_t5"
-          onClick={e => this.handleClick(e)}
-          role="presentation"
-        >
+        <div className="UDt5">
           <div>
-            <h3>Account</h3>
+            <h1>Account</h1>
             <p>View and modify user profile</p>
             {elName}
           </div>

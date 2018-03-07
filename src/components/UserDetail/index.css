@@ -1,9 +1,6 @@
 
 .UserDetail {
-  background-color: #f9f9f9;
-  /*top: 56px;*/
-  position: absolute;
-  bottom: 0;
+  background-color: #ffffff;
 }
 
 .UDRow {
@@ -12,13 +9,11 @@
   font-weight: 400;
 }
 
-.UDAttribs {
-}
-
 .UDSummary {
   width: 658px;
   margin-left: 232px;
   position: relative;
+  background-color: #f9f9f9;
 }
 
 .UDIcon {
@@ -31,23 +26,33 @@
 
 .UDSumCont {
   vertical-align: top;
+  display: flex;
 }
 
 .UDControls {
   position: absolute;
   right: 2px;
-  /*top: 8px;*/
 }
 
-.emk_t3 {
-  visibility: hidden;
-}
-
-.emk_t4 {
-}
-
-.emk_t5 {
+.UDt2 {
+  width: 80%;
   position: relative;
-  width: 758px;
-  margin-left: 232px;
+}
+
+.UDt3 {
+  /*width: 300px;*/
+  /*position: relative;*/
+}
+
+.UDt5 {
+  /*position: relative;*/
+}
+
+.field {
+  float: left;
+}
+
+.field-title {
+  color: #57a728;
+  font-weight: 300;
 }
