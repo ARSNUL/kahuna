@@ -89,80 +89,17 @@ class UserDetail extends Component {
   }
 
   render() {
-    let isOnClick = null;
-    if (this.state.editName !== true) {
-      isOnClick = e => this.handleClickName(e);
-    }
-    const elName = (
-      <div className="UDt2">
-        <form className="UDt3">
-          <p>Basic Information</p>
-          <div className="field" onClick={isOnClick} role="presentation">
-            <div className="field-title">Name</div>
-            {this.state.editName ?
-              <input
-                id="username"
-                type="text"
-                value={this.state.params.name}
-                onChange={e => this.handleOnChangeName(e)}
-              />
-              : <span id="username">{this.state.params.name}</span>}
-            {this.state.editName ? <input
-              type="submit"
-              onClick={UserDetail.handleSubmitNameChange}
-            /> : null}
-          </div>
-          <div className="field">
-            <div className="field-title">Email</div>
-            {this.state.editName ?
-              <input
-                id="useremail"
-                type="text"
-                value={this.state.params.email}
-                onChange={e => this.handleOnChangeEmail(e)}
-              />
-              : <span id="useremail">{this.state.params.email}</span>}
-            {this.state.editName ? <input
-              type="submit"
-              onClick={UserDetail.handleSubmitEmailChange}
-            /> : null}
-          </div>
-          <div className="field">
-            <div className="field-title">Email Verified</div>
-            <span>{this.state.params.email_verified ? 'yes' : 'no'}</span>
-          </div>
-          <div className="field">
-            <div className="field-title">Created At</div>
-            <span id="createdat">{this.state.params.created_at}</span>
-          </div>
-          <div className="field">
-            <div className="field-title">Updated At</div>
-            <span id="updatedat">{this.state.params.updated_at}</span>
-          </div>
-          <div className="field">
-            <div className="field-title">Last IP</div>
-            <span id="lastip">{this.state.params.last_ip}</span>
-          </div>
-          <div className="field">
-            <div className="field-title">Last Login</div>
-            <span id="lastlogin">{this.state.params.last_login}</span>
-          </div>
-          <div className="field">
-            <div className="field-title">Logins Count</div>
-            <span id="loginscount">{this.state.params.logins_count}</span>
-          </div>
-          <div className="field">
-            <div className="field-title">User ID</div>
-            <span id="userid">{this.state.params.user_id}</span>
-          </div>
-        </form>
-      </div>);
-
     if (this.state.params === undefined) {
       return (
         <div className="UserDetail" />
       );
     }
+
+    let isOnClick = null;
+    if (this.state.editName !== true) {
+      isOnClick = e => this.handleClickName(e);
+    }
+
     return (
       <div className="UserDetail">
         <LeftNav />
@@ -180,7 +117,69 @@ class UserDetail extends Component {
           <div>
             <h1>Account</h1>
             <p>View and modify user profile</p>
-            {elName}
+            <div className="UDt2">
+              <form className="UDt3">
+                <p>Basic Information</p>
+                <div className="field" onClick={isOnClick} role="presentation">
+                  <div className="field-title">Name</div>
+                  {this.state.editName ?
+                    <input
+                      id="username"
+                      type="text"
+                      value={this.state.params.name}
+                      onChange={e => this.handleOnChangeName(e)}
+                    />
+                    : <p id="username">{this.state.params.name}</p>}
+                  {this.state.editName ? <input
+                    type="submit"
+                    onClick={UserDetail.handleSubmitNameChange}
+                  /> : null}
+                </div>
+                <div className="field" onClick={isOnClick} role="presentation">
+                  <div className="field-title">Email</div>
+                  {this.state.editName ?
+                    <input
+                      id="useremail"
+                      type="text"
+                      value={this.state.params.email}
+                      onChange={e => this.handleOnChangeEmail(e)}
+                    />
+                    : <span id="useremail">{this.state.params.email}</span>}
+                  {this.state.editName ? <input
+                    type="submit"
+                    onClick={UserDetail.handleSubmitEmailChange}
+                  /> : null}
+                </div>
+                <div className="field">
+                  <div className="field-title">Email Verified</div>
+                  <span>{this.state.params.email_verified ? 'yes' : 'no'}</span>
+                </div>
+                <div className="field">
+                  <div className="field-title">Created At</div>
+                  <span id="createdat">{this.state.params.created_at}</span>
+                </div>
+                <div className="field">
+                  <div className="field-title">Updated At</div>
+                  <span id="updatedat">{this.state.params.updated_at}</span>
+                </div>
+                <div className="field">
+                  <div className="field-title">Last IP</div>
+                  <span id="lastip">{this.state.params.last_ip}</span>
+                </div>
+                <div className="field">
+                  <div className="field-title">Last Login</div>
+                  <span id="lastlogin">{this.state.params.last_login}</span>
+                </div>
+                <div className="field">
+                  <div className="field-title">Logins Count</div>
+                  <span id="loginscount">{this.state.params.logins_count}</span>
+                </div>
+                <div className="field">
+                  <div className="field-title">User ID</div>
+                  <span id="userid">{this.state.params.user_id}</span>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

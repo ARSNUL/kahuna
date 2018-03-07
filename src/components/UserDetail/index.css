@@ -50,9 +50,11 @@
 
 .field {
   float: left;
+  overflow: hidden;
+  width: 250px;
 }
 
 .field-title {
-  color: #57a728;
+  color: #cccccc;
   font-weight: 300;
 }
