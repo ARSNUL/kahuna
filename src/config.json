@@ -10,6 +10,9 @@
     },
     "userPassword": {
       "uri": "/user/password"
+    },
+    "resendEmailVerification": {
+      "uri": "/user/resendemailverification"
     }
   },
   "api": {

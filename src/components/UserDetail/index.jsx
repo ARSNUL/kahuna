@@ -39,11 +39,49 @@ class UserDetail extends Component {
     this.handleOnChangeEmail = this.handleOnChangeEmail.bind(this);
     this.handleSubmitEmailChange = UserDetail.handleSubmitEmailChange.bind(this);
     this.handleSubmitPasswordReset = this.handleSubmitPasswordReset.bind(this);
+    this.handleButtonClickResendEmailVerification =
+      this.handleButtonClickResendEmailVerification.bind(this);
   }
 
   componentWillMount() {
     const objUser = this.props.getUserById(this.props.idUser);
     this.setState({ params: objUser[this.props.idUser] });
+  }
+
+  handleButtonClickResendEmailVerification(e) {
+    e.preventDefault();
+    const userPool = appConfig.cognito.poolId;
+    const token = localStorage.getItem('id_token');
+    AWS.config.region = appConfig.cognito.region;
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: userPool,
+      Logins: {
+        [appConfig.auth0.domain]: token,
+      },
+    });
+
+    const self = this;
+    AWS.config.credentials.get(() => {
+      const config = {
+        invokeUrl: appConfig.api.baseUrl,
+        accessKey: AWS.config.credentials.accessKeyId,
+        secretKey: AWS.config.credentials.secretAccessKey,
+        sessionToken: AWS.config.credentials.sessionToken,
+        region: appConfig.cognito.region,
+      };
+
+      const apigClient = apigClientFactory.newClient(config);
+      this.props.setIsLoading(true);
+      apigClient.invokeApi({}, appConfig.apis.resendEmailVerification.uri, 'POST', {}, {})
+        .then(() => {
+          this.props.setIsLoading(false);
+          // let objState = { users: response.data, isLoading: false };
+          self.setState(() => ({ isLoading: false }));
+        });
+      // .catch((err) => {
+      //   console.warn(err);
+      // });
+    });
   }
 
   handleSubmitPasswordReset(e) {
@@ -119,17 +157,24 @@ class UserDetail extends Component {
         <div className="content">
           <div className="UDSummary">
             <div className="UDControls">
-              <button
-                onClick={this.handleSubmitPasswordReset}
-              >Reset Password
-              </button>
-              <img alt="Reset Password" src="/reset-password-24.svg" />
+              <div>
+                <button onClick={this.handleButtonClickResendEmailVerification}>
+                  Reverify Email
+                </button>
+              </div>
+              <div>
+                <button
+                  onClick={this.handleSubmitPasswordReset}
+                >Reset Password
+                </button>
+                <img alt="Reset Password" src="/reset-password-24.svg" />
+              </div>
             </div>
             <div className="UDIcon"><br /></div>
           </div>
           <div>
             <div className="UDt6">
-              <h1>Account</h1>
+              <h1>User Details</h1>
               <div className="UDt2">
                 <form>
                   <p>Basic Information</p>

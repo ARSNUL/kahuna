@@ -12,18 +12,13 @@ class LeftNav extends Component {
             </a>
           </li>
           <li>
-            <a className="NavItem" href="/Admin">
-              <span>Clients</span>
-            </a>
-          </li>
-          <li>
             <a className="NavItem" href="/Inventory">
               <span>Inventory</span>
             </a>
           </li>
           <li>
             <a className="NavItem" href="/Admin">
-              <span>Connections</span>
+              <span>Pipeline Management</span>
             </a>
           </li>
           <li>

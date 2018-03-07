@@ -11,10 +11,6 @@
   position: relative;
 }
 
-.Admin .content h1 {
-  font-weight: 600;
-}
-
 .Admin .content p {
   color: #999;
 }
