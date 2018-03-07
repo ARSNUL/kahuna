@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { handleAuthentication } from '../../actions/authentication';
+import LeftNav from '../LeftNav';
 
 class Callback extends Component {
   componentWillMount() {
@@ -13,6 +14,7 @@ class Callback extends Component {
     const { errorMessage } = this.props;
     return (
       <div className="Callback">
+        <LeftNav />
         <div className="lander">
           <h1>Callback</h1>
           {errorMessage &&

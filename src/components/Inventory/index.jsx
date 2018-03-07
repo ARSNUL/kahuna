@@ -25,7 +25,7 @@ export default class Inventory extends Component {
     const self = this;
     AWS.config.credentials.get(() => {
       const config = {
-        invokeUrl: appConfig.api.url,
+        invokeUrl: appConfig.api.baseUrl,
         accessKey: AWS.config.credentials.accessKeyId,
         secretKey: AWS.config.credentials.secretAccessKey,
         sessionToken: AWS.config.credentials.sessionToken,

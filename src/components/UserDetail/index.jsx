@@ -11,7 +11,11 @@ import './index.css';
 import appConfig from '../../config.json';
 
 class UserDetail extends Component {
-  static handleSubmitNameChange(e) {
+  static handleSubmitFirstNameChange(e) {
+    e.preventDefault();
+  }
+
+  static handleSubmitLastNameChange(e) {
     e.preventDefault();
   }
 
@@ -23,11 +27,15 @@ class UserDetail extends Component {
     super(props);
     this.state = {
       params: {},
-      // accountVisibility: 'visible',
-      editName: false,
+      edit: {
+        firstname: false,
+        lastname: false,
+        useremail: false,
+      },
     };
-    this.handleClickName = this.handleClickName.bind(this);
-    this.handleOnChangeName = this.handleOnChangeName.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleOnChangeFirstName = this.handleOnChangeFirstName.bind(this);
+    this.handleOnChangeLastName = this.handleOnChangeLastName.bind(this);
     this.handleOnChangeEmail = this.handleOnChangeEmail.bind(this);
     this.handleSubmitEmailChange = UserDetail.handleSubmitEmailChange.bind(this);
     this.handleSubmitPasswordReset = this.handleSubmitPasswordReset.bind(this);
@@ -53,7 +61,7 @@ class UserDetail extends Component {
     const self = this;
     AWS.config.credentials.get(() => {
       const config = {
-        invokeUrl: appConfig.api.url,
+        invokeUrl: appConfig.api.baseUrl,
         accessKey: AWS.config.credentials.accessKeyId,
         secretKey: AWS.config.credentials.secretAccessKey,
         sessionToken: AWS.config.credentials.sessionToken,
@@ -62,7 +70,7 @@ class UserDetail extends Component {
 
       const apigClient = apigClientFactory.newClient(config);
       this.props.setIsLoading(true);
-      apigClient.invokeApi({}, appConfig.api.uris.userPassword, 'POST', {}, {})
+      apigClient.invokeApi({}, appConfig.apis.userPassword.uri, 'POST', {}, {})
         .then(() => {
           this.props.setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
@@ -79,13 +87,19 @@ class UserDetail extends Component {
     this.setState({ params: this.state.params });
   }
 
-  handleOnChangeName(event) {
+  handleOnChangeFirstName(event) {
     this.state.params.name = event.target.value;
     this.setState({ params: this.state.params });
   }
 
-  handleClickName() {
-    this.setState({ editName: true });
+  handleOnChangeLastName(event) {
+    this.state.params.name = event.target.value;
+    this.setState({ params: this.state.params });
+  }
+
+  handleClick(e) {
+    // console.warn(e.target.id);
+    this.setState({ edit: { [e.target.id]: true } });
   }
 
   render() {
@@ -95,90 +109,105 @@ class UserDetail extends Component {
       );
     }
 
-    let isOnClick = null;
-    if (this.state.editName !== true) {
-      isOnClick = e => this.handleClickName(e);
-    }
+    const isOnClickFirstName = this.state.edit.firstname ? null : e => this.handleClick(e);
+    const isOnClickLastName = this.state.edit.lastname ? null : e => this.handleClick(e);
+    const isOnClickUserEmail = this.state.edit.useremail ? null : e => this.handleClick(e);
 
     return (
       <div className="UserDetail">
         <LeftNav />
-        <div className="UDSummary">
-          <div className="UDControls">
-            <button
-              onClick={this.handleSubmitPasswordReset}
-            >Reset Password
-            </button>
-            <img alt="Reset Password" src="/reset-password-24.svg" />
+        <div className="content">
+          <div className="UDSummary">
+            <div className="UDControls">
+              <button
+                onClick={this.handleSubmitPasswordReset}
+              >Reset Password
+              </button>
+              <img alt="Reset Password" src="/reset-password-24.svg" />
+            </div>
+            <div className="UDIcon"><br /></div>
           </div>
-          <div className="UDIcon"><br /></div>
-        </div>
-        <div className="UDt5">
           <div>
-            <h1>Account</h1>
-            <p>View and modify user profile</p>
-            <div className="UDt2">
-              <form className="UDt3">
-                <p>Basic Information</p>
-                <div className="field" onClick={isOnClick} role="presentation">
-                  <div className="field-title">Name</div>
-                  {this.state.editName ?
-                    <input
-                      id="username"
-                      type="text"
-                      value={this.state.params.name}
-                      onChange={e => this.handleOnChangeName(e)}
-                    />
-                    : <p id="username">{this.state.params.name}</p>}
-                  {this.state.editName ? <input
-                    type="submit"
-                    onClick={UserDetail.handleSubmitNameChange}
-                  /> : null}
-                </div>
-                <div className="field" onClick={isOnClick} role="presentation">
-                  <div className="field-title">Email</div>
-                  {this.state.editName ?
-                    <input
-                      id="useremail"
-                      type="text"
-                      value={this.state.params.email}
-                      onChange={e => this.handleOnChangeEmail(e)}
-                    />
-                    : <span id="useremail">{this.state.params.email}</span>}
-                  {this.state.editName ? <input
-                    type="submit"
-                    onClick={UserDetail.handleSubmitEmailChange}
-                  /> : null}
-                </div>
-                <div className="field">
-                  <div className="field-title">Email Verified</div>
-                  <span>{this.state.params.email_verified ? 'yes' : 'no'}</span>
-                </div>
-                <div className="field">
-                  <div className="field-title">Created At</div>
-                  <span id="createdat">{this.state.params.created_at}</span>
-                </div>
-                <div className="field">
-                  <div className="field-title">Updated At</div>
-                  <span id="updatedat">{this.state.params.updated_at}</span>
-                </div>
-                <div className="field">
-                  <div className="field-title">Last IP</div>
-                  <span id="lastip">{this.state.params.last_ip}</span>
-                </div>
-                <div className="field">
-                  <div className="field-title">Last Login</div>
-                  <span id="lastlogin">{this.state.params.last_login}</span>
-                </div>
-                <div className="field">
-                  <div className="field-title">Logins Count</div>
-                  <span id="loginscount">{this.state.params.logins_count}</span>
-                </div>
-                <div className="field">
-                  <div className="field-title">User ID</div>
-                  <span id="userid">{this.state.params.user_id}</span>
-                </div>
-              </form>
+            <div className="UDt6">
+              <h1>Account</h1>
+              <div className="UDt2">
+                <form>
+                  <p>Basic Information</p>
+                  <div className="field" onClick={isOnClickFirstName} role="presentation">
+                    <div className="field-title">First Name</div>
+                    {this.state.edit.firstname ?
+                      <input
+                        id="firstname"
+                        type="text"
+                        value={this.state.params.firstname}
+                        onChange={e => this.handleOnChangeFirstName(e)}
+                      />
+                      : <p id="firstname">{this.state.params.firstname}</p>}
+                    {this.state.edit.firstname ? <input
+                      type="submit"
+                      onClick={UserDetail.handleSubmitFirstNameChange}
+                    /> : null}
+                  </div>
+                  <div className="field" onClick={isOnClickLastName} role="presentation">
+                    <div className="field-title">Last Name</div>
+                    {this.state.edit.lastname ?
+                      <input
+                        id="lastname"
+                        type="text"
+                        value={this.state.params.lastname}
+                        onChange={e => this.handleOnChangeLastName(e)}
+                      />
+                      : <p id="lastname">{this.state.params.lastname}</p>}
+                    {this.state.edit.lastname ? <input
+                      type="submit"
+                      onClick={UserDetail.handleSubmitLastNameChange}
+                    /> : null}
+                  </div>
+                  <div className="field" onClick={isOnClickUserEmail} role="presentation">
+                    <div className="field-title">Email</div>
+                    {this.state.edit.useremail ?
+                      <input
+                        id="useremail"
+                        type="text"
+                        value={this.state.params.email}
+                        onChange={e => this.handleOnChangeEmail(e)}
+                      />
+                      : <span id="useremail">{this.state.params.email}</span>}
+                    {this.state.edit.useremail ? <input
+                      type="submit"
+                      onClick={UserDetail.handleSubmitEmailChange}
+                    /> : null}
+                  </div>
+                  <div className="field">
+                    <div className="field-title">Email Verified</div>
+                    <span>{this.state.params.email_verified ? 'yes' : 'no'}</span>
+                  </div>
+                  <div className="field">
+                    <div className="field-title">Created At</div>
+                    <span id="createdat">{this.state.params.created_at}</span>
+                  </div>
+                  <div className="field">
+                    <div className="field-title">Updated At</div>
+                    <span id="updatedat">{this.state.params.updated_at}</span>
+                  </div>
+                  <div className="field">
+                    <div className="field-title">Last IP</div>
+                    <span id="lastip">{this.state.params.last_ip}</span>
+                  </div>
+                  <div className="field">
+                    <div className="field-title">Last Login</div>
+                    <span id="lastlogin">{this.state.params.last_login}</span>
+                  </div>
+                  <div className="field">
+                    <div className="field-title">Logins Count</div>
+                    <span id="loginscount">{this.state.params.logins_count}</span>
+                  </div>
+                  <div className="field">
+                    <div className="field-title">User ID</div>
+                    <span id="userid">{this.state.params.user_id}</span>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>

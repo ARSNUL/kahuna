@@ -7,8 +7,8 @@ class LeftNav extends Component {
       <nav className="LeftNav">
         <ul>
           <li>
-            <a className="NavItem" href="/Admin">
-              <span>Dashboard</span>
+            <a className="NavItem NavSelected" href="/Admin">
+              <span>Users</span>
             </a>
           </li>
           <li>
@@ -17,18 +17,13 @@ class LeftNav extends Component {
             </a>
           </li>
           <li>
-            <a className="NavItem" href="/Admin">
-              <span>APIs</span>
+            <a className="NavItem" href="/Inventory">
+              <span>Inventory</span>
             </a>
           </li>
           <li>
             <a className="NavItem" href="/Admin">
               <span>Connections</span>
-            </a>
-          </li>
-          <li>
-            <a className="NavItem NavSelected" href="/Admin">
-              <span>Users</span>
             </a>
           </li>
           <li>

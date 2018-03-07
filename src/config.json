@@ -4,12 +4,16 @@
     "clientID": "Kb0qTvaGdC3YrpNmbADsZhD6iSuqGg3N",
     "audience": "https://cloudywaters.auth0.com/userinfo"
   },
-  "api": {
-    "url": "https://kahuna.arsnul.com",
-    "uris": {
-      "users": "/users",
-      "userPassword": "/user/password"
+  "apis": {
+    "users": {
+      "uri": "/users"
+    },
+    "userPassword": {
+      "uri": "/user/password"
     }
+  },
+  "api": {
+    "baseUrl": "https://kahuna.arsnul.com"
   },
   "cognito": {
     "poolId": "us-west-2:05996891-aa09-4bcd-9606-d0a2a7f0ccb6",
@@ -17,7 +21,19 @@
     "roleArn": "arn:aws:iam::588439395328:role/Cognito_Auth0Auth_Role"
   },
   "datalake": {
-    "bucket": "",
+    "bucket": "stub-bucket",
     "bucket-region": "us-west-2"
-  }
+  },
+  "modules": [
+    {
+      "users": {
+        "enabled": true
+      }
+    },
+    {
+      "inventory": {
+        "enabled": true
+      }
+    }
+  ]
 }

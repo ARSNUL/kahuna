@@ -3,6 +3,14 @@
   background-color: #ffffff;
 }
 
+.UserDetail .content {
+  top: 80px;
+  width: 70%;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+}
+
 .UDRow {
   border-bottom: 1px solid rgba(208, 208, 208, 0.4);
   text-align: left;
@@ -13,13 +21,11 @@
   width: 658px;
   margin-left: 232px;
   position: relative;
-  background-color: #f9f9f9;
 }
 
 .UDIcon {
   height: 124px;
   width: 212px;
-  background-color: #fc0e2d;
   position: relative;
   display: inline;
 }
@@ -39,13 +45,8 @@
   position: relative;
 }
 
-.UDt3 {
-  /*width: 300px;*/
-  /*position: relative;*/
-}
-
-.UDt5 {
-  /*position: relative;*/
+.UDt6 {
+  float: left;
 }
 
 .field {

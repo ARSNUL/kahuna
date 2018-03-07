@@ -42,7 +42,7 @@ class Admin extends Component {
       const self = this;
       AWS.config.credentials.get(() => {
         const config = {
-          invokeUrl: appConfig.api.url,
+          invokeUrl: appConfig.api.baseUrl,
           accessKey: AWS.config.credentials.accessKeyId,
           secretKey: AWS.config.credentials.secretAccessKey,
           sessionToken: AWS.config.credentials.sessionToken,
@@ -51,7 +51,7 @@ class Admin extends Component {
 
         this.props.setIsLoading(true);
         const apigClient = apigClientFactory.newClient(config);
-        apigClient.invokeApi({}, appConfig.api.uris.users, 'GET', {}, {})
+        apigClient.invokeApi({}, appConfig.apis.users.uri, 'GET', {}, {})
           .then((response) => {
             this.props.setIsLoading(false);
             this.props.addUsers(response.data);
