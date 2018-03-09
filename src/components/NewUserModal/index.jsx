@@ -74,19 +74,21 @@ class NewUserModal extends Component {
       return null;
     }
     return (
-      <div className="NewUserModal">
-        <form>
-          <label htmlFor="firstName">First Name
-            <input onChange={this.handleChange} autoComplete="first-name" id="firstName" name="firstName" />
-          </label>
-          <label htmlFor="LastName">Last Name
-            <input onChange={this.handleChange} autoComplete="last-name" id="lastName" name="lastName" />
-          </label>
-          <label htmlFor="email">Email
-            <input onChange={this.handleChange} autoComplete="email" id="email" name="email" />
-          </label>
-          <button typeof="submit" onClick={e => this.handleSave(e)}>Save</button>
-        </form>
+      <div className="NewUserModalBackground">
+        <div className="NewUserModal">
+          <form>
+            <label htmlFor="firstName">First Name
+              <input className="field" onChange={this.handleChange} autoComplete="first-name" id="firstName" name="firstName" />
+            </label>
+            <label htmlFor="LastName">Last Name
+              <input className="field" onChange={this.handleChange} autoComplete="last-name" id="lastName" name="lastName" />
+            </label>
+            <label htmlFor="email">Email
+              <input className="field" onChange={this.handleChange} autoComplete="email" id="email" name="email" />
+            </label>
+            <button typeof="submit" onClick={e => this.handleSave(e)}>Save</button>
+          </form>
+        </div>
       </div>
     );
   }

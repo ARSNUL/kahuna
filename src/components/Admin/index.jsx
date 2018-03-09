@@ -75,6 +75,7 @@ class Admin extends Component {
     if (this.state.qs.id !== undefined) {
       return <UserDetail idUser={this.state.qs.id} />;
     }
+
     return (
       <div className="Admin">
         <Loading />

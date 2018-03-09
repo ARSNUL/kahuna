@@ -1,13 +1,25 @@
 
+.NewUserModalBackground {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(240, 240, 240, 0.9);
+  z-index: 10000;
+  position: fixed;
+}
+
 .NewUserModal {
-  background-color: #999999;
-  /*display: none;*/
-  /*visibility: hidden;*/
+  top: 40px;
+  background-color: rgba(255, 255, 255, 1);
   width: 640px;
   height: 400px;
-  z-index: 10000;
-  position: absolute;
+  z-index: 10001;
   margin: auto;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .NewUserModal .content {
@@ -18,11 +30,21 @@
   position: relative;
 }
 
+.NewUserModal label {
+  display: block;
+}
+
+.NewUserModal form {
+  display: block;
+}
+
 .NewUserModal .field {
   float: left;
   overflow: hidden;
-  width: 230px;
   margin-bottom: 40px;
+  width: 300px;
+  height: 40px;
+  display: block;
 }
 
 .NewUserModal .field-title {
