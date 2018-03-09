@@ -1,0 +1,32 @@
+
+.NewUserModal {
+  background-color: #999999;
+  /*display: none;*/
+  /*visibility: hidden;*/
+  width: 640px;
+  height: 400px;
+  z-index: 10000;
+  position: absolute;
+  margin: auto;
+}
+
+.NewUserModal .content {
+  top: 80px;
+  width: 70%;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+}
+
+.NewUserModal .field {
+  float: left;
+  overflow: hidden;
+  width: 230px;
+  margin-bottom: 40px;
+}
+
+.NewUserModal .field-title {
+  color: #cccccc;
+  font-weight: 500;
+  font-size: 18px;
+}

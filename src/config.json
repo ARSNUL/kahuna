@@ -13,6 +13,9 @@
     },
     "resendEmailVerification": {
       "uri": "/user/resendemailverification"
+    },
+    "newUser": {
+      "uri": "/user"
     }
   },
   "api": {

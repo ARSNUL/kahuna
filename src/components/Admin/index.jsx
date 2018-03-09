@@ -9,6 +9,7 @@ import Loading from '../Loading';
 import Users from '../../components/Users';
 import LeftNav from '../../components/LeftNav';
 import UserDetail from '../../components/UserDetail';
+import NewUserModal from '../../components/NewUserModal';
 import './index.css';
 import { addUsers } from '../../actions/users';
 import { setIsLoading } from '../../actions/loadingdata';
@@ -19,6 +20,8 @@ class Admin extends Component {
     super(props);
     this.state = { users: [] };
     this.state.qs = queryString.parse(this.props.location.search);
+    this.state.newUserModalActive = false;
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentWillMount() {
@@ -64,6 +67,10 @@ class Admin extends Component {
     }
   }
 
+  handleClick() {
+    this.setState({ newUserModalActive: true });
+  }
+
   render() {
     if (this.state.qs.id !== undefined) {
       return <UserDetail idUser={this.state.qs.id} />;
@@ -72,13 +79,14 @@ class Admin extends Component {
       <div className="Admin">
         <Loading />
         <LeftNav />
+        <NewUserModal active={this.state.newUserModalActive} />
         <div className="content">
           <div className="abdhr">
             <div className="abdhs">
               <h1>Users</h1>
             </div>
             <div className="abdht">
-              <button>Create New User</button>
+              <button onClick={e => this.handleClick(e)}>Create New User</button>
             </div>
           </div>
           <Users users={this.state.users} />
