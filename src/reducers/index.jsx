@@ -4,9 +4,11 @@ import { createResponsiveStateReducer } from 'redux-responsive';
 import authentication from './authentication';
 import users from './users';
 import loadingdata from './loadingdata';
+import creatinguser from './creatinguser';
 
 const combination = combineReducers({
   loadingdata,
+  creatinguser,
   users,
   authentication,
   routing: routerReducer,

@@ -5,7 +5,7 @@ import apigClientFactory from 'aws-api-gateway-client';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUserById } from '../../actions/users';
-import { setIsLoading } from '../../actions/loadingdata';
+import { setIsCreating, getIsCreating } from '../../actions/creatinguser';
 import './index.css';
 import appConfig from '../../config.json';
 
@@ -18,6 +18,10 @@ class NewUserModal extends Component {
     this.state.lastName = null;
     this.handleSave = this.handleSave.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.setIsCreating(true);
   }
 
   handleChange(e) {
@@ -52,13 +56,20 @@ class NewUserModal extends Component {
         region: appConfig.cognito.region,
       };
 
-      // this.props.setIsLoading(true);
+      this.props.setIsCreating(true);
+      const encodedFirstName = encodeURIComponent(this.state.firstName);
+      const encodedLastName = encodeURIComponent(this.state.lastName);
       const encodedEmail = encodeURIComponent(this.state.email);
       const apigClient = apigClientFactory.newClient(config);
-      apigClient.invokeApi({}, `${appConfig.apis.newUser.uri}/${encodedEmail}`, 'POST', {}, {})
+      apigClient.invokeApi({}, `${appConfig.apis.newUser.uri}/${encodedEmail}`, 'POST', {
+        queryParams: {
+          firstName: encodedFirstName,
+          lastName: encodedLastName,
+        },
+      }, {})
         .then((response) => {
           console.warn(response);
-          // this.props.setIsLoading(false);
+          this.props.setIsCreating(false);
           // this.props.addUsers(response.data);
           // self.setState(() => ({ users: response.data }));
         })
@@ -73,20 +84,72 @@ class NewUserModal extends Component {
     if (this.props.active !== true) {
       return null;
     }
+    const poop = this.props.getIsCreating;
+    console.log('mk5');
+    // poop(() => {
+    //   console.log("in HERE?");
+    // });
+    console.warn(poop());
     return (
       <div className="NewUserModalBackground">
         <div className="NewUserModal">
+          <div>
+            <button className="ModalExit">x</button>
+            <p>Create New User</p>
+          </div>
+          <div>
+            <hr />
+          </div>
           <form>
-            <label htmlFor="firstName">First Name
-              <input className="field" onChange={this.handleChange} autoComplete="first-name" id="firstName" name="firstName" />
-            </label>
-            <label htmlFor="LastName">Last Name
-              <input className="field" onChange={this.handleChange} autoComplete="last-name" id="lastName" name="lastName" />
-            </label>
-            <label htmlFor="email">Email
-              <input className="field" onChange={this.handleChange} autoComplete="email" id="email" name="email" />
-            </label>
-            <button typeof="submit" onClick={e => this.handleSave(e)}>Save</button>
+            <div className="field-group">
+              <label htmlFor="firstName">
+                <span>First Name</span>
+                <input
+                  className="field"
+                  onChange={this.handleChange}
+                  autoComplete="first-name"
+                  id="firstName"
+                  name="firstName"
+                />
+              </label>
+            </div>
+            <div className="field-group">
+              <label htmlFor="lastName">
+                <span>Last Name</span>
+                <input
+                  className="field"
+                  onChange={this.handleChange}
+                  autoComplete="last-name"
+                  id="lastName"
+                  name="lastName"
+                />
+              </label>
+            </div>
+            <div className="field-group">
+              <label htmlFor="email">
+                <span>Email</span>
+                <input
+                  className="field"
+                  onChange={this.handleChange}
+                  autoComplete="email"
+                  id="email"
+                  name="email"
+                />
+                <abbr title="required">*</abbr>
+              </label>
+            </div>
+            <div>
+              <hr />
+            </div>
+            <div className="field-group">
+              <button
+                id="submitNewUser"
+                typeof="submit"
+                onClick={e => this.handleSave(e)}
+              >
+                <span>{poop ? 'Creating' : 'Save'}</span>
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -96,6 +159,8 @@ class NewUserModal extends Component {
 
 NewUserModal.propTypes = {
   active: PropTypes.bool,
+  setIsCreating: PropTypes.func.isRequired,
+  getIsCreating: PropTypes.func.isRequired,
 };
 
 NewUserModal.defaultProps = {
@@ -106,4 +171,8 @@ function mapStateToProps(state) {
   return { state };
 }
 
-export default withRouter(connect(mapStateToProps, { getUserById, setIsLoading })(NewUserModal));
+export default withRouter(connect(mapStateToProps, {
+  getUserById,
+  setIsCreating,
+  getIsCreating,
+})(NewUserModal));

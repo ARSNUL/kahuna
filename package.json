@@ -12,6 +12,7 @@
     "dynamodb-store": "^1.0.7",
     "file-loader": "^1.1.11",
     "history": "^4.7.2",
+    "immutable": "^3.8.2",
     "path": "^0.12.7",
     "prop-types": "^15.6.1",
     "query-string": "^5.1.0",

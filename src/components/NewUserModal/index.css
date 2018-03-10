@@ -20,6 +20,7 @@
   margin: auto;
   position: relative;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .NewUserModal .content {
@@ -32,23 +33,49 @@
 
 .NewUserModal label {
   display: block;
+  width: 480px;
+  text-align: left;
+  font-size: 18px;
 }
 
-.NewUserModal form {
-  display: block;
+.NewUserModal input {
+  vertical-align: middle;
+  height: 30px;
+  width: 340px;
+  margin: 3px;
+  font-size: 16px;
 }
 
 .NewUserModal .field {
-  float: left;
   overflow: hidden;
-  margin-bottom: 40px;
-  width: 300px;
-  height: 40px;
-  display: block;
 }
 
 .NewUserModal .field-title {
   color: #cccccc;
   font-weight: 500;
   font-size: 18px;
+}
+
+.NewUserModal .field-group {
+  height: 100px;
+}
+
+.NewUserModal abbr {
+  border-bottom: none;
+  cursor: inherit;
+  text-decoration: none;
+}
+
+#submitNewUser {
+  height: 40px;
+  width: 60px;
+  background-color: rgba(250, 128, 114, 0.8);
+  border-color: rgba(250, 128, 114, 1);
+  color: white;
+  font-size: 18px;
+}
+
+.ModalExit button {
+  cursor: pointer;
+  right: 10px;
 }

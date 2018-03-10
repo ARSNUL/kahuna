@@ -22,8 +22,8 @@ class LeftNav extends Component {
             </a>
           </li>
           <li>
-            <a className="NavItem" href="/Admin">
-              <span>Emails</span>
+            <a className="NavItem" href="/Upload">
+              <span>Upload</span>
             </a>
           </li>
           <li>

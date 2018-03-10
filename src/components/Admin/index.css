@@ -19,22 +19,6 @@
   list-style: none;
 }
 
-.Admin .usernormal {
-  background-color: #181818;
-}
-
-.Admin .useryellow {
-  background-color: #fdb92c;
-}
-
-.Admin .usergreen {
-  background-color: #57a728;
-}
-
-.Admin .userred {
-  background-color: #fc0e2d;
-}
-
 .abdhr {
   display: inline-block;
   width: 100%;

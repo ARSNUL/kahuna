@@ -49,14 +49,14 @@
   text-align: left;
 }
 
-.field {
+.UserDetail .field {
   float: left;
   overflow: hidden;
   width: 230px;
   margin-bottom: 40px;
 }
 
-.field-title {
+.UserDetail .field-title {
   color: #cccccc;
   font-weight: 500;
   font-size: 18px;
