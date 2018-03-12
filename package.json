@@ -8,9 +8,6 @@
     "auth0-js": "^9.3.2",
     "aws-api-gateway-client": "^0.2.10",
     "aws-sdk": "^2.205.0",
-    "connect-ensure-login": "^0.1.1",
-    "dynamodb-store": "^1.0.7",
-    "file-loader": "^1.1.11",
     "fine-uploader": "^5.16.0",
     "fine-uploader-wrappers": "^1.0.1",
     "history": "^4.7.2",
@@ -31,11 +28,7 @@
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-responsive": "^4.3.5",
-    "redux-thunk": "^2.2.0",
-    "uglifyjs-webpack-plugin": "^1.2.2",
-    "url-loader": "^1.0.1",
-    "webpack": "^3.11.0",
-    "webpack-dev-server": "^2.11.1"
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.dev.js",
@@ -49,6 +42,8 @@
     "precommit": "lint-staged"
   },
   "devDependencies": {
+    "uglifyjs-webpack-plugin": "^1.2.2",
+    "url-loader": "^1.0.1",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.2",
     "babel-loader": "^7.1.3",

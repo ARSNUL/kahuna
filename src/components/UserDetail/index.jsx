@@ -167,7 +167,6 @@ class UserDetail extends Component {
                   onClick={this.handleSubmitPasswordReset}
                 >Reset Password
                 </button>
-                <img alt="Reset Password" src="/reset-password-24.svg" />
               </div>
             </div>
             <div className="UDIcon"><br /></div>

@@ -87,7 +87,7 @@ class Admin extends Component {
               <h1>Users</h1>
             </div>
             <div className="abdht">
-              <button onClick={e => this.handleClick(e)}>Create New User</button>
+              <button onClick={e => this.handleClick(e)}>+ New User</button>
             </div>
           </div>
           <Users users={this.state.users} />

@@ -35,3 +35,12 @@
   right: 20px;
   float: right;
 }
+
+.abdht button {
+  height: 40px;
+  width: 100px;
+  background-color: rgba(53, 99, 115, 1);
+  border-color: #a8cbd7;
+  color: white;
+  font-size: 12px;
+}
