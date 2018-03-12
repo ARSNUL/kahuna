@@ -62,7 +62,6 @@
 
 .NewUserModal abbr {
   border-bottom: none;
-  cursor: inherit;
   text-decoration: none;
 }
 
@@ -76,6 +75,5 @@
 }
 
 .ModalExit button {
-  cursor: pointer;
   right: 10px;
 }

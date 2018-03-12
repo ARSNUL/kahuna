@@ -35,10 +35,6 @@
   display: flex;
 }
 
-.UDControls {
-  float: right;
-}
-
 .UDControls button {
   height: 40px;
   width: 120px;
@@ -46,6 +42,13 @@
   border-color: #a8cbd7;
   color: white;
   font-size: 12px;
+  text-align: center;
+  margin: 2px;
+}
+
+.UDControls button.danger {
+  background-color: #e23636;
+  border-color: #ef8f8f;
 }
 
 .UDt2 {

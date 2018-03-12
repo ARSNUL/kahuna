@@ -39,6 +39,7 @@ class UserDetail extends Component {
     this.handleOnChangeEmail = this.handleOnChangeEmail.bind(this);
     this.handleSubmitEmailChange = UserDetail.handleSubmitEmailChange.bind(this);
     this.handleSubmitPasswordReset = this.handleSubmitPasswordReset.bind(this);
+    this.handleSubmitDeleteUser = this.handleSubmitDeleteUser.bind(this);
     this.handleButtonClickResendEmailVerification =
       this.handleButtonClickResendEmailVerification.bind(this);
   }
@@ -73,6 +74,42 @@ class UserDetail extends Component {
       const apigClient = apigClientFactory.newClient(config);
       this.props.setIsLoading(true);
       apigClient.invokeApi({}, appConfig.apis.resendEmailVerification.uri, 'POST', {}, {})
+        .then(() => {
+          this.props.setIsLoading(false);
+          // let objState = { users: response.data, isLoading: false };
+          self.setState(() => ({ isLoading: false }));
+        });
+      // .catch((err) => {
+      //   console.warn(err);
+      // });
+    });
+  }
+
+  handleSubmitDeleteUser(e) {
+    e.preventDefault();
+    const userPool = appConfig.cognito.poolId;
+    const token = localStorage.getItem('id_token');
+    AWS.config.region = appConfig.cognito.region;
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: userPool,
+      Logins: {
+        [appConfig.auth0.domain]: token,
+      },
+    });
+
+    const self = this;
+    AWS.config.credentials.get(() => {
+      const config = {
+        invokeUrl: appConfig.api.baseUrl,
+        accessKey: AWS.config.credentials.accessKeyId,
+        secretKey: AWS.config.credentials.secretAccessKey,
+        sessionToken: AWS.config.credentials.sessionToken,
+        region: appConfig.cognito.region,
+      };
+
+      const apigClient = apigClientFactory.newClient(config);
+      this.props.setIsLoading(true);
+      apigClient.invokeApi({}, appConfig.apis.userDelete.uri, 'POST', {}, {})
         .then(() => {
           this.props.setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
@@ -166,6 +203,13 @@ class UserDetail extends Component {
                 <button
                   onClick={this.handleSubmitPasswordReset}
                 >Reset Password
+                </button>
+              </div>
+              <div>
+                <button
+                  className="danger"
+                  onClick={this.handleSubmitDeleteUser}
+                >Delete User
                 </button>
               </div>
             </div>

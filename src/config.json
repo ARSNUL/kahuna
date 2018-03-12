@@ -11,6 +11,9 @@
     "userPassword": {
       "uri": "/user/password"
     },
+    "userDelete": {
+      "uri": "/user/delete"
+    },
     "resendEmailVerification": {
       "uri": "/user/resendemailverification"
     },
