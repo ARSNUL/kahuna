@@ -9,28 +9,29 @@ import './index.css';
 import LeftNav from '../../components/LeftNav';
 import { addUsers } from '../../actions/users';
 import { setIsLoading } from '../../actions/loadingdata';
+import appConfig from '../../config.json';
 
 const uploader = new FineUploaderS3({
   options: {
     request: {
-      endpoint: 'https://588439395328-kahuna-lake-v1.s3-us-west-2.amazonaws.com',
-      accessKey: 'AKIAIZC55BRNE7NHOIFA',
+      endpoint: appConfig.datalake.uploadEndpoint,
+      accessKey: appConfig.datalake.accessKey,
       params: {
         loggedinuser: '',
       },
     },
     signature: {
-      endpoint: 'https://kahuna.arsnul.com/upload',
+      endpoint: appConfig.datalake.signatureEndpoint,
     },
     objectProperties: {
-      serverSideEncryption: true,
+      serverSideEncryption: appConfig.datalake.serverSideEncryption,
     },
     chunking: {
-      enabled: true,
+      enabled: appConfig.datalake.chunking,
     },
     validation: {
-      itemLimit: 50,
-      sizeLimit: 2000000000,
+      itemLimit: appConfig.datalake.validation.itemLimit,
+      sizeLimit: appConfig.datalake.validation.sizeLimit,
     },
   },
 });

@@ -29,7 +29,16 @@
   },
   "datalake": {
     "bucket": "stub-bucket",
-    "bucket-region": "us-west-2"
+    "bucketRegion": "us-west-2",
+    "uploadEndpoint": "https://588439395328-kahuna-lake-v1.s3-us-west-2.amazonaws.com",
+    "accessKey": "AKIAIZC55BRNE7NHOIFA",
+    "signatureEndpoint": "https://kahuna.arsnul.com/upload",
+    "serverSideEncryption": true,
+    "chunking": true,
+    "validation": {
+      "itemLimit": 50,
+      "sizeLimit": 2000000000
+    }
   },
   "modules": [
     {
@@ -39,6 +48,11 @@
     },
     {
       "inventory": {
+        "enabled": true
+      }
+    },
+    {
+      "upload": {
         "enabled": true
       }
     }
