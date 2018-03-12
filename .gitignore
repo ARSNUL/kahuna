@@ -13,3 +13,4 @@ yarn-error.log*
 /dist
 package-lock.json
 .eslintcache
+src/config.json
