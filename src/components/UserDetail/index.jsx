@@ -8,7 +8,7 @@ import { getUserById } from '../../actions/users';
 import { setIsLoading } from '../../actions/loadingdata';
 import LeftNav from '../../components/LeftNav';
 import './index.css';
-import appConfig from '../../config.json';
+import appConfig from '../../appConfig.json';
 
 class UserDetail extends Component {
   static handleSubmitFirstNameChange(e) {

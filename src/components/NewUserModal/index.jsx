@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { getUserById } from '../../actions/users';
 import { setIsCreating, getIsCreating } from '../../actions/creatinguser';
 import './index.css';
-import appConfig from '../../config.json';
+import appConfig from '../../appConfig.json';
 
 class NewUserModal extends Component {
   constructor(props) {

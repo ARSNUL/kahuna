@@ -9,7 +9,7 @@ import './index.css';
 import LeftNav from '../../components/LeftNav';
 import { addUsers } from '../../actions/users';
 import { setIsLoading } from '../../actions/loadingdata';
-import appConfig from '../../config.json';
+import appConfig from '../../appConfig.json';
 
 const uploader = new FineUploaderS3({
   options: {

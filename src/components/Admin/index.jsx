@@ -13,7 +13,7 @@ import NewUserModal from '../../components/NewUserModal';
 import './index.css';
 import { addUsers } from '../../actions/users';
 import { setIsLoading } from '../../actions/loadingdata';
-import appConfig from '../../config.json';
+import appConfig from '../../appConfig.json';
 
 class Admin extends Component {
   constructor(props) {

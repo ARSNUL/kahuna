@@ -1,5 +1,5 @@
 import auth0 from 'auth0-js';
-import appConfig from '../config.json';
+import appConfig from '../appConfig.json';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';

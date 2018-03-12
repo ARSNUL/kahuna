@@ -3,7 +3,7 @@ import AWS from 'aws-sdk';
 import apigClientFactory from 'aws-api-gateway-client';
 import S3Objects from '../../components/S3Objects';
 import './index.css';
-import appConfig from '../../config.json';
+import appConfig from '../../appConfig.json';
 
 export default class Inventory extends Component {
   constructor(props) {
