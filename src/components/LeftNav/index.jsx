@@ -32,6 +32,11 @@ class LeftNav extends Component {
             </a>
           </li>
           <li>
+            <a className="NavItem" href="/Spark">
+              <span>Spark</span>
+            </a>
+          </li>
+          <li>
             <a className="NavItem" href="/Admin">
               <span>Analytics</span>
             </a>
