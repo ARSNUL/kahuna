@@ -1,7 +1,8 @@
 
 .Loading {
-  background-color: #e23636;
-  border-color: #ef8f8f;
+  background-color: hsl(45, 45%, 65%);
+  /*background-color: #e23636;*/
+  /*border-color: #ef8f8f;*/
   visibility: hidden;
   z-index: 10000;
   position: relative;

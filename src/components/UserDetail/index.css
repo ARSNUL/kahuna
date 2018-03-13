@@ -38,8 +38,9 @@
 .UDControls button {
   height: 40px;
   width: 120px;
-  background-color: rgba(53, 99, 115, 1);
-  border-color: #a8cbd7;
+  background-color: hsl(224, 25%, 65%);
+  /*background-color: rgba(53, 99, 115, 1);*/
+  /*border-color: #a8cbd7;*/
   color: white;
   font-size: 12px;
   text-align: center;
@@ -47,8 +48,9 @@
 }
 
 .UDControls button.danger {
-  background-color: #e23636;
-  border-color: #ef8f8f;
+  background-color: hsl(0, 100%, 65%);
+  /*background-color: #e23636;*/
+  /*border-color: #ef8f8f;*/
 }
 
 .UDt2 {

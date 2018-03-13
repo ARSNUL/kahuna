@@ -4,6 +4,7 @@ import 'react-fine-uploader/gallery/gallery.css';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import FineUploaderS3 from 'fine-uploader-wrappers/s3';
+// import Gallery from '../../../../react-fine-uploader/lib/gallery';
 import Gallery from 'react-fine-uploader';
 import './index.css';
 import './fine-uploader.css';
