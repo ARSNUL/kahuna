@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import logo from './logo.svg';
@@ -7,15 +7,13 @@ import Header from './components/Header';
 import './common/style.scss';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App container">
-        <Header />
-        <Routes />
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className="App container">
+      <Header />
+      <Routes />
+    </div>
+  );
 }
 
 function mapStateToProps(state) {

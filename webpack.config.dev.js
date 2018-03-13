@@ -53,6 +53,10 @@ module.exports = {
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({ template: './public/index.html' }),
+    new HtmlWebpackPlugin({
+      title: 'Kahuna - Data Management Platform',
+      template: './public/index.html',
+      locale: 'en',
+    }),
   ],
 };

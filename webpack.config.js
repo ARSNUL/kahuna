@@ -13,7 +13,6 @@ module.exports = {
     // hot: true,
     host: '0.0.0.0',
     disableHostCheck: true,
-    // contentBase: resolve(__dirname, '../assets'),
     publicPath: '/',
     historyApiFallback: true,
   },
@@ -49,6 +48,10 @@ module.exports = {
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({ template: './public/index.html' }),
+    new HtmlWebpackPlugin({
+      title: 'Kahuna - Data Management Platform',
+      template: './public/index.html',
+      locale: 'en',
+    }),
   ],
 };

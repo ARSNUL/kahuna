@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 // import { PropTypes } from 'prop-types';
 import 'react-fine-uploader/gallery/gallery.css';
 import { connect } from 'react-redux';
@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import FineUploaderS3 from 'fine-uploader-wrappers/s3';
 import Gallery from 'react-fine-uploader';
 import './index.css';
+import './fine-uploader.css';
 import LeftNav from '../../components/LeftNav';
 import { addUsers } from '../../actions/users';
 import { setIsLoading } from '../../actions/loadingdata';
@@ -36,15 +37,13 @@ const uploader = new FineUploaderS3({
   },
 });
 
-class Upload extends Component {
-  render() {
-    return (
-      <div className="Upload">
-        <LeftNav />
-        <Gallery uploader={uploader} />
-      </div>
-    );
-  }
+function Upload() {
+  return (
+    <div className="Upload">
+      <LeftNav />
+      <Gallery uploader={uploader} />
+    </div>
+  );
 }
 
 Upload.propTypes = {

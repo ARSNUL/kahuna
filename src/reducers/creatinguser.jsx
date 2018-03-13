@@ -15,7 +15,6 @@ function creatinguser(state = initialState, action) {
       });
 
     case GET_IS_CREATING:
-      console.warn("does that mean we're here?");
       return state;
 
     default:

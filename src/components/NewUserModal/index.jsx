@@ -85,11 +85,9 @@ class NewUserModal extends Component {
       return null;
     }
     const poop = this.props.getIsCreating;
-    console.log('mk5');
     // poop(() => {
     //   console.log("in HERE?");
     // });
-    console.warn(poop());
     return (
       <div className="NewUserModalBackground">
         <div className="NewUserModal">
