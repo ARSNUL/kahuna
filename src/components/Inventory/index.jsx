@@ -4,6 +4,7 @@ import apigClientFactory from 'aws-api-gateway-client';
 import S3Objects from '../../components/S3Objects';
 import './index.css';
 import appConfig from '../../appConfig.json';
+import LeftNav from '../../components/LeftNav';
 
 export default class Inventory extends Component {
   constructor(props) {
@@ -48,6 +49,7 @@ export default class Inventory extends Component {
     const { s3objects } = this.state;
     return (
       <div className="Inventory">
+        <LeftNav />
         <div className="lander">
           <h1>Inventory</h1>
           <h3>Search</h3>

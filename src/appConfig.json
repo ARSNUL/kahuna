@@ -24,7 +24,7 @@
   "api": {
     "baseUrl": "https://kahuna.arsnul.com"
   },
-  "searchUrl": "search-kahuna-lake-v1-kqxfvg36udhoek77655adhuvzu.us-west-2.cloudsearch.amazonaws.com",
+  "searchUrl": "search-kahuna-lake-v1-ojtpptlqb75sglcdreasjjo7aq.us-west-2.cloudsearch.amazonaws.com",
   "cognito": {
     "poolId": "us-west-2:05996891-aa09-4bcd-9606-d0a2a7f0ccb6",
     "region": "us-west-2",

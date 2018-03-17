@@ -22,6 +22,7 @@ class Admin extends Component {
     this.state.qs = queryString.parse(this.props.location.search);
     this.state.newUserModalActive = false;
     this.handleClick = this.handleClick.bind(this);
+    this.escFunction = this.escFunction.bind(this);
   }
 
   componentWillMount() {
@@ -64,6 +65,28 @@ class Admin extends Component {
         //   console.warn(err);
         // });
       });
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.escFunction, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.escFunction, false);
+  }
+
+  hideModal = () => {
+    console.log('mk2');
+    this.setState({
+      newUserModalActive: false,
+    });
+    console.log(this.state);
+  };
+
+  escFunction(event) {
+    if (event.keyCode === 27) {
+      this.hideModal();
     }
   }
 

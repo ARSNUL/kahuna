@@ -16,6 +16,7 @@ class NewUserModal extends Component {
     this.state.email = null;
     this.state.firstName = null;
     this.state.lastName = null;
+    this.state.active = props.active;
     this.handleSave = this.handleSave.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -90,7 +91,11 @@ class NewUserModal extends Component {
     // });
     return (
       <div className="NewUserModalBackground">
-        <div className="NewUserModal">
+        <div
+          role="presentation"
+          className="NewUserModal"
+          onKeyDown={this.handleEscKeyCloseModal}
+        >
           <div>
             <button className="ModalExit">x</button>
             <p>Create New User</p>
