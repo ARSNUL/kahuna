@@ -40,6 +40,7 @@ class UserDetail extends Component {
     this.handleSubmitEmailChange = UserDetail.handleSubmitEmailChange.bind(this);
     this.handleSubmitPasswordReset = this.handleSubmitPasswordReset.bind(this);
     this.handleSubmitDeleteUser = this.handleSubmitDeleteUser.bind(this);
+    this.handleSubmitUpdateUser = this.handleSubmitUpdateUser.bind(this);
     this.handleButtonClickResendEmailVerification =
       this.handleButtonClickResendEmailVerification.bind(this);
   }
@@ -85,8 +86,9 @@ class UserDetail extends Component {
     });
   }
 
-  handleSubmitDeleteUser(e) {
+  handleSubmitUpdateUser(e, objParams) {
     e.preventDefault();
+    console.warn(objParams);
     const userPool = appConfig.cognito.poolId;
     const token = localStorage.getItem('id_token');
     AWS.config.region = appConfig.cognito.region;
@@ -108,9 +110,48 @@ class UserDetail extends Component {
       };
 
       const apigClient = apigClientFactory.newClient(config);
-      this.props.setIsLoading(true);
-      apigClient.invokeApi({}, appConfig.apis.userDelete.uri, 'POST', {}, {})
-        .then(() => {
+      // this.props.setIsLoading(true);
+      apigClient.invokeApi({}, `${appConfig.apis.userUpdate.uri}/${objParams.userId}`, 'PATCH', {}, {})
+        .then((response) => {
+          console.log(response);
+          this.props.setIsLoading(false);
+          // let objState = { users: response.data, isLoading: false };
+          self.setState(() => ({ isLoading: false }));
+        });
+      // .catch((err) => {
+      //   console.warn(err);
+      // });
+    });
+  }
+
+  handleSubmitDeleteUser(e, userId) {
+    e.preventDefault();
+    console.warn(userId);
+    const userPool = appConfig.cognito.poolId;
+    const token = localStorage.getItem('id_token');
+    AWS.config.region = appConfig.cognito.region;
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: userPool,
+      Logins: {
+        [appConfig.auth0.domain]: token,
+      },
+    });
+
+    const self = this;
+    AWS.config.credentials.get(() => {
+      const config = {
+        invokeUrl: appConfig.api.baseUrl,
+        accessKey: AWS.config.credentials.accessKeyId,
+        secretKey: AWS.config.credentials.secretAccessKey,
+        sessionToken: AWS.config.credentials.sessionToken,
+        region: appConfig.cognito.region,
+      };
+
+      const apigClient = apigClientFactory.newClient(config);
+      // this.props.setIsLoading(true);
+      apigClient.invokeApi({}, `${appConfig.apis.userDelete.uri}/${userId}`, 'DELETE', {}, {})
+        .then((response) => {
+          console.log(response);
           this.props.setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
           self.setState(() => ({ isLoading: false }));
@@ -207,8 +248,15 @@ class UserDetail extends Component {
               </div>
               <div>
                 <button
+                  className="warning"
+                  onClick={e => this.handleSubmitUpdateUser(e, { action: 'block', userId: this.state.params.user_id })}
+                >Block User
+                </button>
+              </div>
+              <div>
+                <button
                   className="danger"
-                  onClick={this.handleSubmitDeleteUser}
+                  onClick={e => this.handleSubmitDeleteUser(e, this.state.params.user_id)}
                 >Delete User
                 </button>
               </div>

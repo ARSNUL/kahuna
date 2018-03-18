@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { handleAuthentication } from '../../actions/authentication';
@@ -9,7 +9,8 @@ class Callback extends Component {
     // const { errorMessage } = this.props;
     this.props.handleAuthentication();
     return (
-      <Redirect to="/Admin" />
+      <div />
+      // <Redirect to="/Admin" />
     );
   }
 }

@@ -47,6 +47,12 @@
   margin: 2px;
 }
 
+.UDControls button.warning {
+  background-color: hsl(40, 100%, 65%);
+  /*background-color: #e23636;*/
+  /*border-color: #ef8f8f;*/
+}
+
 .UDControls button.danger {
   background-color: hsl(0, 100%, 65%);
   /*background-color: #e23636;*/
