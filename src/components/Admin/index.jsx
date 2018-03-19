@@ -55,11 +55,11 @@ class Admin extends Component {
 
         this.props.setIsLoading(true);
         const apigClient = apigClientFactory.newClient(config);
-        apigClient.invokeApi({}, appConfig.apis.users.uri, 'GET', {}, {})
+        apigClient.invokeApi({}, appConfig.apis.users.uri, 'GET', { queryParams: { fields: appConfig.apis.users.fields } }, {})
           .then((response) => {
             this.props.setIsLoading(false);
             this.props.addUsers(response.data);
-            self.setState(() => ({ users: response.data }));
+            self.setState({ users: response.data });
           });
         // .catch((err) => {
         //   console.warn(err);

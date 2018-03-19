@@ -6,7 +6,7 @@ import './index.css';
 class Users extends PureComponent {
   render() {
     const users = this.props.users.map(user =>
-      <User key={user.identities[0].user_id} params={user} />);
+      <User key={user.user_id} params={user} />);
     return (
       <div className="Users">
         <div className="U2">
@@ -51,11 +51,30 @@ Users.propTypes = {
     nickname: PropTypes.string,
     updated_at: PropTypes.string,
     user_id: PropTypes.string,
+    given_name: PropTypes.string,
+    family_name: PropTypes.string,
   })),
 };
 
 Users.defaultProps = {
-  users: [],
+  users: [
+    {
+      blocked: false,
+      created_at: null,
+      email: null,
+      email_verified: false,
+      last_ip: null,
+      last_login: null,
+      last_password_reset: null,
+      logins_count: 0,
+      name: null,
+      nickname: null,
+      updated_at: null,
+      user_id: null,
+      given_name: '<EMPTY>',
+      family_name: '<EMPTY>',
+    },
+  ],
 };
 
 export default Users;

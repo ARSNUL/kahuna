@@ -6,7 +6,8 @@
   },
   "apis": {
     "users": {
-      "uri": "/users"
+      "uri": "/users",
+      "fields": "app_metadata,user_metadata,identities,username,picture,given_name,family_name,created_at,updated_at,email,email_verified,last_ip,last_login,last_password_reset,name,nickname,user_id,blocked,logins_count"
     },
     "userPassword": {
       "uri": "/user/password"

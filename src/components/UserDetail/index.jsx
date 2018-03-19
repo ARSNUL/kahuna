@@ -9,17 +9,22 @@ import { setIsLoading } from '../../actions/loadingdata';
 import LeftNav from '../../components/LeftNav';
 import './index.css';
 import appConfig from '../../appConfig.json';
+import UserDetailButton from '../UserDetailButton';
 
 class UserDetail extends Component {
-  static handleSubmitFirstNameChange(e) {
+  static handleSubmitGivenNameChange(e) {
     e.preventDefault();
   }
 
-  static handleSubmitLastNameChange(e) {
+  static handleSubmitFamilyNameChange(e) {
     e.preventDefault();
   }
 
   static handleSubmitEmailChange(e) {
+    e.preventDefault();
+  }
+
+  static handleSubmitCancel(e) {
     e.preventDefault();
   }
 
@@ -28,16 +33,17 @@ class UserDetail extends Component {
     this.state = {
       params: {},
       edit: {
-        firstname: false,
-        lastname: false,
+        given_name: false,
+        family_name: false,
         useremail: false,
       },
     };
     this.handleClick = this.handleClick.bind(this);
-    this.handleOnChangeFirstName = this.handleOnChangeFirstName.bind(this);
-    this.handleOnChangeLastName = this.handleOnChangeLastName.bind(this);
+    this.handleOnChangeGivenName = this.handleOnChangeGivenName.bind(this);
+    this.handleOnChangeFamilyName = this.handleOnChangeFamilyName.bind(this);
     this.handleOnChangeEmail = this.handleOnChangeEmail.bind(this);
     this.handleSubmitEmailChange = UserDetail.handleSubmitEmailChange.bind(this);
+    this.handleSubmitCancel = UserDetail.handleSubmitCancel.bind(this);
     this.handleSubmitPasswordReset = this.handleSubmitPasswordReset.bind(this);
     this.handleSubmitDeleteUser = this.handleSubmitDeleteUser.bind(this);
     this.handleSubmitUpdateUser = this.handleSubmitUpdateUser.bind(this);
@@ -86,9 +92,8 @@ class UserDetail extends Component {
     });
   }
 
-  handleSubmitUpdateUser(e, objParams) {
+  handleSubmitUpdateUser(e, userId, queryParams) {
     e.preventDefault();
-    console.warn(objParams);
     const userPool = appConfig.cognito.poolId;
     const token = localStorage.getItem('id_token');
     AWS.config.region = appConfig.cognito.region;
@@ -111,7 +116,10 @@ class UserDetail extends Component {
 
       const apigClient = apigClientFactory.newClient(config);
       // this.props.setIsLoading(true);
-      apigClient.invokeApi({}, `${appConfig.apis.userUpdate.uri}/${objParams.userId}`, 'PATCH', {}, {})
+      const additionalParams = {
+        queryParams,
+      };
+      apigClient.invokeApi({}, `${appConfig.apis.userUpdate.uri}/${userId}`, 'PATCH', additionalParams, {})
         .then((response) => {
           console.log(response);
           this.props.setIsLoading(false);
@@ -203,12 +211,12 @@ class UserDetail extends Component {
     this.setState({ params: this.state.params });
   }
 
-  handleOnChangeFirstName(event) {
+  handleOnChangeGivenName(event) {
     this.state.params.name = event.target.value;
     this.setState({ params: this.state.params });
   }
 
-  handleOnChangeLastName(event) {
+  handleOnChangeFamilyName(event) {
     this.state.params.name = event.target.value;
     this.setState({ params: this.state.params });
   }
@@ -225,8 +233,8 @@ class UserDetail extends Component {
       );
     }
 
-    const isOnClickFirstName = this.state.edit.firstname ? null : e => this.handleClick(e);
-    const isOnClickLastName = this.state.edit.lastname ? null : e => this.handleClick(e);
+    const isOnClickGivenName = this.state.edit.given_name ? null : e => this.handleClick(e);
+    const isOnClickFamilyName = this.state.edit.family_name ? null : e => this.handleClick(e);
     const isOnClickUserEmail = this.state.edit.useremail ? null : e => this.handleClick(e);
 
     return (
@@ -249,7 +257,11 @@ class UserDetail extends Component {
               <div>
                 <button
                   className="warning"
-                  onClick={e => this.handleSubmitUpdateUser(e, { action: 'block', userId: this.state.params.user_id })}
+                  onClick={e => this.handleSubmitUpdateUser(
+                    e,
+                    this.state.params.user_id,
+                    { blocked: true },
+                  )}
                 >Block User
                 </button>
               </div>
@@ -269,35 +281,49 @@ class UserDetail extends Component {
               <div className="UDt2">
                 <form>
                   <p>Basic Information</p>
-                  <div className="field" onClick={isOnClickFirstName} role="presentation">
+                  <div className="field" onClick={isOnClickGivenName} role="presentation">
                     <div className="field-title">First Name</div>
-                    {this.state.edit.firstname ?
+                    {this.state.edit.given_name ?
                       <input
-                        id="firstname"
+                        id="given_name"
                         type="text"
-                        value={this.state.params.firstname}
-                        onChange={e => this.handleOnChangeFirstName(e)}
+                        value={this.state.params.given_name}
+                        onChange={e => this.handleOnChangeGivenName(e)}
                       />
-                      : <p id="firstname">{this.state.params.firstname}</p>}
-                    {this.state.edit.firstname ? <input
-                      type="submit"
-                      onClick={UserDetail.handleSubmitFirstNameChange}
-                    /> : null}
+                      : <p id="given_name">{this.state.params.given_name}</p>}
+                    {this.state.edit.given_name ?
+                      <div>
+                        <UserDetailButton
+                          value="SUBMIT"
+                          handler={UserDetail.handleSubmitGivenNameChange}
+                        />
+                        <UserDetailButton
+                          value="CANCEL"
+                          handler={UserDetail.handleSubmitCancel}
+                        />
+                      </div> : null}
                   </div>
-                  <div className="field" onClick={isOnClickLastName} role="presentation">
+                  <div className="field" onClick={isOnClickFamilyName} role="presentation">
                     <div className="field-title">Last Name</div>
-                    {this.state.edit.lastname ?
+                    {this.state.edit.family_name ?
                       <input
-                        id="lastname"
+                        id="family_name"
                         type="text"
-                        value={this.state.params.lastname}
-                        onChange={e => this.handleOnChangeLastName(e)}
+                        value={this.state.params.family_name}
+                        onChange={e => this.handleOnChangeFamilyName(e)}
                       />
-                      : <p id="lastname">{this.state.params.lastname}</p>}
-                    {this.state.edit.lastname ? <input
-                      type="submit"
-                      onClick={UserDetail.handleSubmitLastNameChange}
-                    /> : null}
+                      : <p id="family_name">{this.state.params.family_name}</p>}
+                    {this.state.edit.family_name ?
+                      <div>
+                        <UserDetailButton
+                          value="SUBMIT"
+                          handler={UserDetail.handleSubmitFamilyNameChange}
+                        />
+                        <UserDetailButton
+                          value="CANCEL"
+                          handler={UserDetail.handleSubmitCancel}
+                        />
+                      </div> : null}
                   </div>
                   <div className="field" onClick={isOnClickUserEmail} role="presentation">
                     <div className="field-title">Email</div>
@@ -309,10 +335,17 @@ class UserDetail extends Component {
                         onChange={e => this.handleOnChangeEmail(e)}
                       />
                       : <span id="useremail">{this.state.params.email}</span>}
-                    {this.state.edit.useremail ? <input
-                      type="submit"
-                      onClick={UserDetail.handleSubmitEmailChange}
-                    /> : null}
+                    {this.state.edit.useremail ?
+                      <div>
+                        <UserDetailButton
+                          value="SUBMIT"
+                          handler={UserDetail.handleSubmitEmailChange}
+                        />
+                        <UserDetailButton
+                          value="CANCEL"
+                          handler={UserDetail.handleSubmitCancel}
+                        />
+                      </div> : null}
                   </div>
                   <div className="field">
                     <div className="field-title">Email Verified</div>
