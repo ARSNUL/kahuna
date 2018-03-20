@@ -76,6 +76,11 @@
   margin-bottom: 40px;
 }
 
+.UserDetail .field p {
+  height: 20px;
+  width: 60px;
+}
+
 .UserDetail .field-title {
   color: #cccccc;
   font-weight: 500;

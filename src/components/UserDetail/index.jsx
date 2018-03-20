@@ -12,6 +12,10 @@ import appConfig from '../../appConfig.json';
 import UserDetailButton from '../UserDetailButton';
 
 class UserDetail extends Component {
+  static handleKeyPress(e) {
+    e.preventDefault();
+  }
+
   static handleSubmitGivenNameChange(e) {
     e.preventDefault();
   }
@@ -21,10 +25,6 @@ class UserDetail extends Component {
   }
 
   static handleSubmitEmailChange(e) {
-    e.preventDefault();
-  }
-
-  static handleSubmitCancel(e) {
     e.preventDefault();
   }
 
@@ -42,8 +42,9 @@ class UserDetail extends Component {
     this.handleOnChangeGivenName = this.handleOnChangeGivenName.bind(this);
     this.handleOnChangeFamilyName = this.handleOnChangeFamilyName.bind(this);
     this.handleOnChangeEmail = this.handleOnChangeEmail.bind(this);
+    this.handleKeyPress = UserDetail.handleKeyPress.bind(this);
     this.handleSubmitEmailChange = UserDetail.handleSubmitEmailChange.bind(this);
-    this.handleSubmitCancel = UserDetail.handleSubmitCancel.bind(this);
+    this.handleSubmitCancel = this.handleSubmitCancel.bind(this);
     this.handleSubmitPasswordReset = this.handleSubmitPasswordReset.bind(this);
     this.handleSubmitDeleteUser = this.handleSubmitDeleteUser.bind(this);
     this.handleSubmitUpdateUser = this.handleSubmitUpdateUser.bind(this);
@@ -54,6 +55,11 @@ class UserDetail extends Component {
   componentWillMount() {
     const objUser = this.props.getUserById(this.props.idUser);
     this.setState({ params: objUser[this.props.idUser] });
+  }
+
+  handleSubmitCancel(param) {
+    // e.preventDefault();
+    this.setState({ edit: { [param]: false } });
   }
 
   handleButtonClickResendEmailVerification(e) {
@@ -134,7 +140,6 @@ class UserDetail extends Component {
 
   handleSubmitDeleteUser(e, userId) {
     e.preventDefault();
-    console.warn(userId);
     const userPool = appConfig.cognito.poolId;
     const token = localStorage.getItem('id_token');
     AWS.config.region = appConfig.cognito.region;
@@ -222,7 +227,6 @@ class UserDetail extends Component {
   }
 
   handleClick(e) {
-    // console.warn(e.target.id);
     this.setState({ edit: { [e.target.id]: true } });
   }
 
@@ -232,10 +236,6 @@ class UserDetail extends Component {
         <div className="UserDetail" />
       );
     }
-
-    const isOnClickGivenName = this.state.edit.given_name ? null : e => this.handleClick(e);
-    const isOnClickFamilyName = this.state.edit.family_name ? null : e => this.handleClick(e);
-    const isOnClickUserEmail = this.state.edit.useremail ? null : e => this.handleClick(e);
 
     return (
       <div className="UserDetail">
@@ -281,7 +281,7 @@ class UserDetail extends Component {
               <div className="UDt2">
                 <form>
                   <p>Basic Information</p>
-                  <div className="field" onClick={isOnClickGivenName} role="presentation">
+                  <div className="field" role="presentation">
                     <div className="field-title">First Name</div>
                     {this.state.edit.given_name ?
                       <input
@@ -290,7 +290,14 @@ class UserDetail extends Component {
                         value={this.state.params.given_name}
                         onChange={e => this.handleOnChangeGivenName(e)}
                       />
-                      : <p id="given_name">{this.state.params.given_name}</p>}
+                      :
+                      <p
+                        role="presentation"
+                        onKeyPress={this.handleKeyPress}
+                        id="given_name"
+                        onClick={this.state.edit.given_name ? null : e => this.handleClick(e)}
+                      >{this.state.params.given_name}
+                      </p>}
                     {this.state.edit.given_name ?
                       <div>
                         <UserDetailButton
@@ -299,11 +306,11 @@ class UserDetail extends Component {
                         />
                         <UserDetailButton
                           value="CANCEL"
-                          handler={UserDetail.handleSubmitCancel}
+                          handler={e => this.handleSubmitCancel('given_name', e)}
                         />
                       </div> : null}
                   </div>
-                  <div className="field" onClick={isOnClickFamilyName} role="presentation">
+                  <div className="field" role="presentation">
                     <div className="field-title">Last Name</div>
                     {this.state.edit.family_name ?
                       <input
@@ -312,7 +319,14 @@ class UserDetail extends Component {
                         value={this.state.params.family_name}
                         onChange={e => this.handleOnChangeFamilyName(e)}
                       />
-                      : <p id="family_name">{this.state.params.family_name}</p>}
+                      :
+                      <p
+                        role="presentation"
+                        onKeyPress={this.handleKeyPress}
+                        id="family_name"
+                        onClick={this.state.edit.family_name ? null : e => this.handleClick(e)}
+                      >{this.state.params.family_name}
+                      </p>}
                     {this.state.edit.family_name ?
                       <div>
                         <UserDetailButton
@@ -321,11 +335,11 @@ class UserDetail extends Component {
                         />
                         <UserDetailButton
                           value="CANCEL"
-                          handler={UserDetail.handleSubmitCancel}
+                          handler={e => this.handleSubmitCancel('family_name', e)}
                         />
                       </div> : null}
                   </div>
-                  <div className="field" onClick={isOnClickUserEmail} role="presentation">
+                  <div className="field">
                     <div className="field-title">Email</div>
                     {this.state.edit.useremail ?
                       <input
@@ -334,7 +348,14 @@ class UserDetail extends Component {
                         value={this.state.params.email}
                         onChange={e => this.handleOnChangeEmail(e)}
                       />
-                      : <span id="useremail">{this.state.params.email}</span>}
+                      :
+                      <p
+                        role="presentation"
+                        onKeyPress={this.handleKeyPress}
+                        id="useremail"
+                        onClick={this.state.edit.useremail ? null : e => this.handleClick(e)}
+                      >{this.state.params.email}
+                      </p>}
                     {this.state.edit.useremail ?
                       <div>
                         <UserDetailButton
@@ -343,7 +364,7 @@ class UserDetail extends Component {
                         />
                         <UserDetailButton
                           value="CANCEL"
-                          handler={UserDetail.handleSubmitCancel}
+                          handler={e => this.handleSubmitCancel('useremail', e)}
                         />
                       </div> : null}
                   </div>
