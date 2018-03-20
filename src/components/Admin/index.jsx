@@ -57,6 +57,7 @@ class Admin extends Component {
         const apigClient = apigClientFactory.newClient(config);
         apigClient.invokeApi({}, appConfig.apis.users.uri, 'GET', { queryParams: { fields: appConfig.apis.users.fields } }, {})
           .then((response) => {
+            // console.warn(response);
             this.props.setIsLoading(false);
             this.props.addUsers(response.data);
             self.setState({ users: response.data });
@@ -77,11 +78,9 @@ class Admin extends Component {
   }
 
   hideModal = () => {
-    console.log('mk2');
     this.setState({
       newUserModalActive: false,
     });
-    console.log(this.state);
   };
 
   escFunction(event) {

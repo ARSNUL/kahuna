@@ -5,6 +5,7 @@ import { PropTypes } from 'prop-types';
 import UserDetail from '../UserDetail';
 import './index.css';
 import { addUsers, getAllUsers } from '../../actions/users';
+import DateReadable from '../DateReadable';
 
 class User extends Component {
   static handleClick(id) {
@@ -62,12 +63,15 @@ class User extends Component {
         onClick={e => this.handleClick(id, e)}
         onKeyDown={this.handleKeyDown}
         role="presentation"
-        // style={this.style()}
       >
         <td className="User Email">{this.props.params.email}</td>
         <td className="User GivenName">{this.props.params.given_name}&nbsp;{this.props.params.family_name}</td>
-        <td className="User CreatedAt">{this.props.params.created_at}</td>
-        <td className="User LastLogin">{this.props.params.last_login}</td>
+        <td className="User CreatedAt">
+          <DateReadable id="created_at" value={this.props.params.created_at} />
+        </td>
+        <td className="User LastLogin">
+          <DateReadable id="last_login" value={this.props.params.last_login} />
+        </td>
         <td className="User EmailVerified">{this.props.params.email_verified}</td>
       </tr>
     );

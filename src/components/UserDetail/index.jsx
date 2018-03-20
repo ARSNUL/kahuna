@@ -10,6 +10,7 @@ import LeftNav from '../../components/LeftNav';
 import './index.css';
 import appConfig from '../../appConfig.json';
 import UserDetailButton from '../UserDetailButton';
+import DateReadable from '../DateReadable';
 
 class UserDetail extends Component {
   static handleKeyPress(e) {
@@ -126,8 +127,8 @@ class UserDetail extends Component {
         queryParams,
       };
       apigClient.invokeApi({}, `${appConfig.apis.userUpdate.uri}/${userId}`, 'PATCH', additionalParams, {})
-        .then((response) => {
-          console.log(response);
+        .then(() => {
+          // console.log(response);
           this.props.setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
           self.setState(() => ({ isLoading: false }));
@@ -163,8 +164,8 @@ class UserDetail extends Component {
       const apigClient = apigClientFactory.newClient(config);
       // this.props.setIsLoading(true);
       apigClient.invokeApi({}, `${appConfig.apis.userDelete.uri}/${userId}`, 'DELETE', {}, {})
-        .then((response) => {
-          console.log(response);
+        .then(() => {
+          // console.log(response);
           this.props.setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
           self.setState(() => ({ isLoading: false }));
@@ -374,11 +375,11 @@ class UserDetail extends Component {
                   </div>
                   <div className="field">
                     <div className="field-title">Created At</div>
-                    <span id="createdat">{this.state.params.created_at}</span>
+                    <DateReadable id="created_at" value={this.state.params.created_at} />
                   </div>
                   <div className="field">
                     <div className="field-title">Updated At</div>
-                    <span id="updatedat">{this.state.params.updated_at}</span>
+                    <DateReadable id="updated_at" value={this.state.params.updated_at} />
                   </div>
                   <div className="field">
                     <div className="field-title">Last IP</div>
@@ -386,7 +387,7 @@ class UserDetail extends Component {
                   </div>
                   <div className="field">
                     <div className="field-title">Last Login</div>
-                    <span id="lastlogin">{this.state.params.last_login}</span>
+                    <DateReadable id="last_login" value={this.state.params.last_login} />
                   </div>
                   <div className="field">
                     <div className="field-title">Logins Count</div>

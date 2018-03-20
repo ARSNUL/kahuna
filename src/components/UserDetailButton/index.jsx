@@ -1,19 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { PropTypes } from 'prop-types';
 import './index.css';
 
-class UserDetailButton extends Component {
-  render() {
-    const { handler } = this.props;
-    const { value } = this.props;
-    return (
-      <input
-        type="button"
-        onClick={handler}
-        value={value}
-      />
-    );
-  }
+function UserDetailButton(props) {
+  const { handler } = props;
+  const { value } = props;
+  return (
+    <input
+      type="button"
+      onClick={handler}
+      value={value}
+    />
+  );
 }
 
 UserDetailButton.propTypes = {

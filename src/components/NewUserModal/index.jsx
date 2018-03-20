@@ -68,15 +68,15 @@ class NewUserModal extends Component {
           lastName: encodedLastName,
         },
       }, {})
-        .then((response) => {
-          console.warn(response);
+        .then(() => {
+          // console.warn(response);
           this.props.setIsCreating(false);
           // this.props.addUsers(response.data);
           // self.setState(() => ({ users: response.data }));
-        })
-        .catch((err) => {
-          console.warn(err);
         });
+      // .catch((err) => {
+      //   console.warn(err);
+      // });
     });
     // }
   }
