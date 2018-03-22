@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 
-class S3Object extends Component {
+class DLObject extends Component {
   static handleClick() {
     // console.warn(e);
   }
@@ -17,7 +17,7 @@ class S3Object extends Component {
   }
 
   render() {
-    const strClass = 's3objectnormal s3objects';
+    const strClass = 'dlobjectnormal dlobjects';
     return (
       <li
         key={this.props.params.sourceKey}
@@ -34,7 +34,7 @@ class S3Object extends Component {
   }
 }
 
-S3Object.propTypes = {
+DLObject.propTypes = {
   params: PropTypes.shape({
     sourceKey: PropTypes.string,
     destinationKey: PropTypes.string,
@@ -42,8 +42,8 @@ S3Object.propTypes = {
   }),
 };
 
-S3Object.defaultProps = {
+DLObject.defaultProps = {
   params: {},
 };
 
-export default S3Object;
+export default DLObject;

@@ -126,9 +126,15 @@ class UserDetail extends Component {
       const additionalParams = {
         queryParams,
       };
+      // console.log(additionalParams);
+      this.props.setIsLoading(true);
       apigClient.invokeApi({}, `${appConfig.apis.userUpdate.uri}/${userId}`, 'PATCH', additionalParams, {})
-        .then(() => {
-          // console.log(response);
+        .then((response) => {
+          this.props.setIsLoading(false);
+          console.log(response);
+          if (response.data.statusCode === 200) {
+            this.setState({ params: response.data.body });
+          }
           this.props.setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
           self.setState(() => ({ isLoading: false }));
@@ -238,6 +244,13 @@ class UserDetail extends Component {
       );
     }
 
+    console.warn(this.state.params.blocked);
+    let boolBlock = true;
+    let strBlockAction = 'Block';
+    if (this.state.params.blocked) {
+      boolBlock = false;
+      strBlockAction = 'Unblock';
+    }
     return (
       <div className="UserDetail">
         <LeftNav />
@@ -261,9 +274,9 @@ class UserDetail extends Component {
                   onClick={e => this.handleSubmitUpdateUser(
                     e,
                     this.state.params.user_id,
-                    { blocked: true },
+                    { blocked: boolBlock },
                   )}
-                >Block User
+                >{strBlockAction} User
                 </button>
               </div>
               <div>
@@ -396,6 +409,10 @@ class UserDetail extends Component {
                   <div className="field">
                     <div className="field-title">User ID</div>
                     <span id="userid">{this.state.params.user_id}</span>
+                  </div>
+                  <div className="field">
+                    <div className="field-title">Blocked</div>
+                    <span id="blocked">{this.state.params.blocked ? 'Yes' : 'No'}</span>
                   </div>
                 </form>
               </div>

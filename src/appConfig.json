@@ -23,6 +23,9 @@
     },
     "newUser": {
       "uri": "/user"
+    },
+    "objects": {
+      "uri": "/objects"
     }
   },
   "api": {

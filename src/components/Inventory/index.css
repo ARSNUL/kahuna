@@ -1,18 +1,17 @@
 
 .Inventory {
-  background-color: black;
+  background-color: white;
 }
 
-.Inventory .lander {
-  padding: 80px 0;
+.Inventory .content {
+  top: 80px;
+  width: 70%;
   text-align: center;
+  display: inline-block;
+  position: relative;
 }
 
-.Inventory .lander h1 {
-  font-weight: 500;
-}
-
-.Inventory .lander p {
+.Inventory .content p {
   color: #999;
 }
 
@@ -20,26 +19,29 @@
   list-style: none;
 }
 
-.Inventory .s3objects {
-  height: 100px;
-  width: 100px;
-  padding: 5px;
+.abdhr {
   display: inline-block;
-  opacity: 0.85;
+  width: 100%;
 }
 
-.Inventory .s3objectnormal {
-  background-color: #dadada;
+.abdhs {
+  display: inline-block;
+  left: 20px;
+  float: left;
 }
 
-.Inventory .s3objectyellow {
-  background-color: #FDB92C;
+.abdht {
+  display: inline-block;
+  right: 20px;
+  float: right;
 }
 
-.Inventory .s3objectgreen {
-  background-color: #57A728;
-}
-
-.Inventory .s3objectred {
-  background-color: #FC0E2D;
+.abdht button {
+  height: 40px;
+  width: 100px;
+  background-color: hsl(120, 25%, 65%);
+  /*background-color: rgba(53, 99, 115, 1);*/
+  /*border-color: #a8cbd7;*/
+  color: white;
+  font-size: 12px;
 }
