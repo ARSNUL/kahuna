@@ -57,10 +57,30 @@ class Admin extends Component {
         const apigClient = apigClientFactory.newClient(config);
         apigClient.invokeApi({}, appConfig.apis.users.uri, 'GET', { queryParams: { fields: appConfig.apis.users.fields } }, {})
           .then((response) => {
-            // console.warn(response);
+            // console.warn(response.data);
             this.props.setIsLoading(false);
-            this.props.addUsers(response.data);
-            self.setState({ users: response.data });
+            const arrUserParams = [];
+            response.data.forEach((objItem) => {
+              const objUserParams = {};
+              Object.keys(objItem).forEach((key) => {
+                switch (key) {
+                  case 'created_at':
+                    objUserParams[key] = new Date(objItem[key]);
+                    break;
+                  case 'updated_at':
+                    objUserParams[key] = new Date(objItem[key]);
+                    break;
+                  case 'last_login':
+                    objUserParams[key] = new Date(objItem[key]);
+                    break;
+                  default:
+                    objUserParams[key] = objItem[key];
+                }
+              });
+              arrUserParams.push(objUserParams);
+            });
+            this.props.addUsers(arrUserParams);
+            self.setState({ users: arrUserParams });
           });
         // .catch((err) => {
         //   console.warn(err);

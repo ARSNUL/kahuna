@@ -96,9 +96,9 @@ class NewUserModal extends Component {
           className="NewUserModal"
           onKeyDown={this.handleEscKeyCloseModal}
         >
-          <div>
-            <button className="ModalExit">x</button>
-            <p>Create New User</p>
+          <div className="ModalTitle">
+            <h1>Create New User</h1>
+            <button aria-hidden="true" className="ModalExit">x</button>
           </div>
           <div>
             <hr />

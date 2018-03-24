@@ -46,8 +46,8 @@
     "serverSideEncryption": true,
     "chunking": true,
     "validation": {
-      "itemLimit": 50,
-      "sizeLimit": 2000000000
+      "itemLimit": 1000,
+      "sizeLimit": 20000000000
     }
   },
   "modules": [

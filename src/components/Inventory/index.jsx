@@ -50,7 +50,7 @@ class Inventory extends Component {
         const apigClient = apigClientFactory.newClient(config);
         apigClient.invokeApi({}, appConfig.apis.objects.uri, 'GET', {}, {})
           .then((response) => {
-            console.warn(response);
+            console.log(response);
             this.props.setIsLoading(false);
             // this.props.addUsers(response.data);
             self.setState({ users: response.data });

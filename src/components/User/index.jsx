@@ -53,6 +53,11 @@ class User extends Component {
     if (this.state.showUserDetail) {
       return <UserDetail idUser={id} />;
     }
+    // if (this.props.params.last_login === undefined) {
+    //   this.props.params.last_login = 0;
+    // }
+    console.log(this.props.params.created_at);
+    // console.log(this.props.params.last_login);
     return (
       <tr
         className={this.theClass()}
@@ -81,18 +86,18 @@ class User extends Component {
 User.propTypes = {
   params: PropTypes.shape({
     blocked: PropTypes.bool,
-    created_at: PropTypes.string,
+    created_at: PropTypes.instanceOf(Date),
     email: PropTypes.string,
     email_verified: PropTypes.bool,
     last_ip: PropTypes.string,
-    last_login: PropTypes.string,
+    last_login: PropTypes.instanceOf(Date),
     last_password_reset: PropTypes.string,
     logins_count: PropTypes.number,
     name: PropTypes.string,
     given_name: PropTypes.string,
     family_name: PropTypes.string,
     nickname: PropTypes.string,
-    updated_at: PropTypes.string,
+    updated_at: PropTypes.instanceOf(Date),
     user_id: PropTypes.string,
   }),
 };

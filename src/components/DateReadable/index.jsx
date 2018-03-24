@@ -5,7 +5,7 @@ import './index.css';
 function DateReadable(props) {
   let strDateReadable = '';
   if (props.value !== null) {
-    const diffTime = parseInt((Date.now() - new Date(props.value)) / 1000, 10);
+    const diffTime = parseInt((Date.now() - props.value) / 1000, 10);
     if (diffTime < 60) {
       strDateReadable = `~${diffTime} seconds ago`;
     } else if (diffTime < (60 * 60)) {
@@ -29,7 +29,7 @@ function DateReadable(props) {
 
 DateReadable.propTypes = {
   id: PropTypes.string,
-  value: PropTypes.number,
+  value: PropTypes.instanceOf(Date),
 };
 
 DateReadable.defaultProps = {

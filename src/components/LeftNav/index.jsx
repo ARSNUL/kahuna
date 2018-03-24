@@ -16,17 +16,12 @@ function LeftNav() {
           </a>
         </li>
         <li>
-          <a className="NavItem" href="/Admin">
-            <span>Pipeline Management</span>
-          </a>
-        </li>
-        <li>
           <a className="NavItem" href="/Upload">
             <span>Upload</span>
           </a>
         </li>
         <li>
-          <a className="NavItem" href="/Admin">
+          <a className="NavItem" href="/Logs">
             <span>Logs</span>
           </a>
         </li>
@@ -36,13 +31,13 @@ function LeftNav() {
           </a>
         </li>
         <li>
-          <a className="NavItem" href="/Admin">
+          <a className="NavItem" href="/Analytics">
             <span>Analytics</span>
           </a>
         </li>
         <li>
-          <a className="NavItem" href="/Admin">
-            <span>Get Support</span>
+          <a className="NavItem" href="/Logout">
+            <span>Logout</span>
           </a>
         </li>
       </ul>
