@@ -244,7 +244,6 @@ class UserDetail extends Component {
       );
     }
 
-    // console.warn(this.state.params.blocked);
     let boolBlock = true;
     let strBlockAction = 'Block';
     if (this.state.params.blocked) {

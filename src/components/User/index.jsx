@@ -53,11 +53,6 @@ class User extends Component {
     if (this.state.showUserDetail) {
       return <UserDetail idUser={id} />;
     }
-    // if (this.props.params.last_login === undefined) {
-    //   this.props.params.last_login = 0;
-    // }
-    console.log(this.props.params.created_at);
-    // console.log(this.props.params.last_login);
     return (
       <tr
         className={this.theClass()}
