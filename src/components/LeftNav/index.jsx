@@ -35,11 +35,6 @@ function LeftNav() {
             <span>Analytics</span>
           </a>
         </li>
-        <li>
-          <a className="NavItem" href="/Logout">
-            <span>Logout</span>
-          </a>
-        </li>
       </ul>
     </nav>
   );
