@@ -22,7 +22,7 @@ module.exports = {
     historyApiFallback: true,
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         loader: 'babel-loader',
