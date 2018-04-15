@@ -1,36 +1,138 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import AWS from 'aws-sdk';
+import queryString from 'query-string';
 import { PropTypes } from 'prop-types';
-import User from '../../components/User';
+import apigClientFactory from 'aws-api-gateway-client';
+import Loading from '../Loading';
+import UsersList from '../UsersList';
+import LeftNav from '../../components/LeftNav';
+import UserDetail from '../../components/UserDetail';
+import NewUserModal from '../../components/NewUserModal';
 import './index.css';
+import { addUsers } from '../../actions/users';
+import { setIsLoading } from '../../actions/loadingdata';
+import appConfig from '../../appConfig.json';
 
-class Users extends PureComponent {
+class Users extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { users: [] };
+    this.state.qs = queryString.parse(this.props.location.search);
+    this.state.newUserModalActive = false;
+    this.handleClick = this.handleClick.bind(this);
+    this.escFunction = this.escFunction.bind(this);
+  }
+
+  componentWillMount() {
+    // return;
+    if (this.state.qs.id === undefined) {
+      const token = localStorage.getItem('id_token');
+      AWS.config.region = appConfig.cognito.region;
+      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: appConfig.cognito.poolId,
+        RoleArn: appConfig.cognito.roleArn,
+        Logins: {
+          [appConfig.auth0.domain]: token,
+        },
+      });
+
+      AWS.config.update({
+        region: AWS.config.region,
+        credentials: AWS.config.credentials,
+      });
+
+      const self = this;
+      AWS.config.credentials.get(() => {
+        const config = {
+          invokeUrl: appConfig.api.baseUrl,
+          accessKey: AWS.config.credentials.accessKeyId,
+          secretKey: AWS.config.credentials.secretAccessKey,
+          sessionToken: AWS.config.credentials.sessionToken,
+          region: appConfig.cognito.region,
+        };
+
+        this.props.setIsLoading(true);
+        const apigClient = apigClientFactory.newClient(config);
+        apigClient.invokeApi({}, appConfig.apis.users.uri, 'GET', { queryParams: { fields: appConfig.apis.users.fields } }, {})
+          .then((response) => {
+            // console.warn(response.data);
+            this.props.setIsLoading(false);
+            const arrUserParams = [];
+            response.data.forEach((objItem) => {
+              const objUserParams = {};
+              Object.keys(objItem).forEach((key) => {
+                switch (key) {
+                  case 'created_at':
+                    objUserParams[key] = new Date(objItem[key]);
+                    break;
+                  case 'updated_at':
+                    objUserParams[key] = new Date(objItem[key]);
+                    break;
+                  case 'last_login':
+                    objUserParams[key] = new Date(objItem[key]);
+                    break;
+                  default:
+                    objUserParams[key] = objItem[key];
+                }
+              });
+              arrUserParams.push(objUserParams);
+            });
+            this.props.addUsers(arrUserParams);
+            self.setState({ users: arrUserParams });
+          });
+        // .catch((err) => {
+        //   console.warn(err);
+        // });
+      });
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.escFunction, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.escFunction, false);
+  }
+
+  hideModal = () => {
+    this.setState({
+      newUserModalActive: false,
+    });
+  };
+
+  escFunction(event) {
+    if (event.keyCode === 27) {
+      this.hideModal();
+    }
+  }
+
+  handleClick() {
+    this.setState({ newUserModalActive: true });
+  }
+
   render() {
-    const users = this.props.users.map(user =>
-      <User key={user.user_id} params={user} />);
+    if (this.state.qs.id !== undefined) {
+      return <UserDetail idUser={this.state.qs.id} />;
+    }
+
     return (
       <div className="Users">
-        <div className="U2">
-          <table cellSpacing="0" cellPadding="0">
-            <colgroup>
-              <col />
-              <col />
-              <col />
-              <col />
-              <col />
-            </colgroup>
-            <thead>
-              <tr>
-                <th>Email</th>
-                <th>Name</th>
-                <th>Created</th>
-                <th>Last Login</th>
-                <th>Email Verified</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users}
-            </tbody>
-          </table>
+        <Loading />
+        <LeftNav />
+        <NewUserModal active={this.state.newUserModalActive} />
+        <div className="content">
+          <div className="abdhr">
+            <div className="abdhs">
+              <h1>Users</h1>
+            </div>
+            <div className="abdht">
+              <button onClick={e => this.handleClick(e)}>+ New User</button>
+            </div>
+          </div>
+          <UsersList users={this.state.users} />
         </div>
       </div>
     );
@@ -38,43 +140,22 @@ class Users extends PureComponent {
 }
 
 Users.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape({
-    blocked: PropTypes.bool,
-    created_at: PropTypes.instanceOf(Date),
-    email: PropTypes.string,
-    email_verified: PropTypes.bool,
-    last_ip: PropTypes.string,
-    last_login: PropTypes.instanceOf(Date),
-    last_password_reset: PropTypes.string,
-    logins_count: PropTypes.number,
-    name: PropTypes.string,
-    nickname: PropTypes.string,
-    updated_at: PropTypes.instanceOf(Date),
-    user_id: PropTypes.string,
-    given_name: PropTypes.string,
-    family_name: PropTypes.string,
-  })),
+  addUsers: PropTypes.func.isRequired,
+  setIsLoading: PropTypes.func.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    hash: PropTypes.string,
+    state: PropTypes.string,
+  }),
 };
 
 Users.defaultProps = {
-  users: [
-    {
-      blocked: false,
-      created_at: null,
-      email: null,
-      email_verified: false,
-      last_ip: null,
-      last_login: null,
-      last_password_reset: null,
-      logins_count: null,
-      name: null,
-      nickname: null,
-      updated_at: null,
-      user_id: null,
-      given_name: null,
-      family_name: null,
-    },
-  ],
+  location: {},
 };
 
-export default Users;
+function mapStateToProps() {
+  return {};
+}
+
+export default withRouter(connect(mapStateToProps, { addUsers, setIsLoading })(Users));

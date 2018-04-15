@@ -6,7 +6,7 @@ function LeftNav() {
     <nav className="LeftNav">
       <ul>
         <li>
-          <a className="NavItem NavSelected" href="/Admin">
+          <a className="NavItem NavSelected" href="/Users">
             <span>Users</span>
           </a>
         </li>

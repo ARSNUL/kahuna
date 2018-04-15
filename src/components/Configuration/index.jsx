@@ -7,7 +7,7 @@ class Configuration extends Component {
       <nav className="Configuration">
         <ul>
           <li>
-            <a className="NavItem NavSelected" href="/Admin">
+            <a className="NavItem NavSelected" href="/Users">
               <span>Users</span>
             </a>
           </li>
@@ -17,7 +17,7 @@ class Configuration extends Component {
             </a>
           </li>
           <li>
-            <a className="NavItem" href="/Admin">
+            <a className="NavItem" href="/Users">
               <span>Pipeline Management</span>
             </a>
           </li>
@@ -27,7 +27,7 @@ class Configuration extends Component {
             </a>
           </li>
           <li>
-            <a className="NavItem" href="/Admin">
+            <a className="NavItem" href="/Users">
               <span>Logs</span>
             </a>
           </li>
@@ -37,12 +37,12 @@ class Configuration extends Component {
             </a>
           </li>
           <li>
-            <a className="NavItem" href="/Admin">
+            <a className="NavItem" href="/Users">
               <span>Analytics</span>
             </a>
           </li>
           <li>
-            <a className="NavItem" href="/Admin">
+            <a className="NavItem" href="/Users">
               <span>Get Support</span>
             </a>
           </li>

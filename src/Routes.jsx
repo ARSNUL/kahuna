@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
-import Admin from './components/Admin';
+import Users from './components/Users';
 import Upload from './components/Upload';
 import Login from './components/Login';
 import LoginFailure from './components/LoginFailure';
@@ -21,7 +21,7 @@ export default () => (
     <Route path="/Auth" component={Auth} />
     <Route path="/NotFound" component={NotFound} />
     <Route path="/LoginFailure" component={LoginFailure} />
-    <PrivateRoute path="/Admin" component={Admin} />
+    <PrivateRoute path="/Users" component={Users} />
     <PrivateRoute path="/Upload" component={Upload} />
     <PrivateRoute path="/Inventory" component={Inventory} />
   </Switch>

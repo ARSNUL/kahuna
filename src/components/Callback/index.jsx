@@ -10,7 +10,7 @@ class Callback extends Component {
     this.props.handleAuthentication();
     return (
       <div />
-      // <Redirect to="/Admin" />
+      // <Redirect to="/Users" />
     );
   }
 }

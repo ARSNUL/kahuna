@@ -1,30 +1,47 @@
 
 .Users {
-  overflow: hidden;
+  background-color: white;
+}
+
+.Users .content {
+  top: 80px;
+  width: 70%;
+  text-align: center;
+  display: inline-block;
   position: relative;
 }
 
-.U2 {
-  overflow-y: scroll;
-  overflow-x: hidden;
+.Users .content p {
+  color: #999;
+}
+
+.Users .something {
+  list-style: none;
+}
+
+.abdhr {
+  display: inline-block;
   width: 100%;
-  text-align: left;
-  height: 300px;
 }
 
-.U2 table {
-  width: 100%;
+.abdhs {
+  display: inline-block;
+  left: 20px;
+  float: left;
 }
 
-thead {
-  border-bottom-color: black;
-  box-sizing: border-box;
+.abdht {
+  display: inline-block;
+  right: 20px;
+  float: right;
 }
 
-td {
-  font-weight: 300;
-}
-
-tr.User {
-  cursor: pointer;
+.abdht button {
+  height: 40px;
+  width: 100px;
+  background-color: hsl(120, 25%, 65%);
+  /*background-color: rgba(53, 99, 115, 1);*/
+  /*border-color: #a8cbd7;*/
+  color: white;
+  font-size: 12px;
 }

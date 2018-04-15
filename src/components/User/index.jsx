@@ -9,7 +9,7 @@ import DateReadable from '../DateReadable';
 
 class User extends Component {
   static handleClick(id) {
-    window.location = `/admin/Users?id=${id}`;
+    window.location = `/Users/Users?id=${id}`;
     // this.setState({ showUserDetail: true });
   }
 
