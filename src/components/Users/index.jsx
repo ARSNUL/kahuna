@@ -7,9 +7,9 @@ import { PropTypes } from 'prop-types';
 import apigClientFactory from 'aws-api-gateway-client';
 import Loading from '../Loading';
 import UsersList from '../UsersList';
-import LeftNav from '../../components/LeftNav';
-import UserDetail from '../../components/UserDetail';
-import NewUserModal from '../../components/NewUserModal';
+import LeftNav from '../LeftNav';
+import UserDetail from '../UserDetail';
+import NewUserModal from '../NewUserModal';
 import './index.css';
 import { addUsers } from '../../actions/users';
 import { setIsLoading } from '../../actions/loadingdata';
@@ -57,7 +57,6 @@ class Users extends Component {
         const apigClient = apigClientFactory.newClient(config);
         apigClient.invokeApi({}, appConfig.apis.users.uri, 'GET', { queryParams: { fields: appConfig.apis.users.fields } }, {})
           .then((response) => {
-            // console.warn(response.data);
             this.props.setIsLoading(false);
             const arrUserParams = [];
             response.data.forEach((objItem) => {
@@ -81,10 +80,10 @@ class Users extends Component {
             });
             this.props.addUsers(arrUserParams);
             self.setState({ users: arrUserParams });
+          })
+          .catch((err) => {
+            console.warn(err);
           });
-        // .catch((err) => {
-        //   console.warn(err);
-        // });
       });
     }
   }

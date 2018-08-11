@@ -5,12 +5,15 @@ import AWS from 'aws-sdk';
 import queryString from 'query-string';
 import apigClientFactory from 'aws-api-gateway-client';
 import { PropTypes } from 'prop-types';
-import DLObjects from '../../components/DLObjects';
+import DLObjects from '../DLObjects';
 import './index.css';
 import appConfig from '../../appConfig.json';
-import LeftNav from '../../components/LeftNav';
+import LeftNav from '../LeftNav';
 import Loading from '../Loading';
 import { setIsLoading } from '../../actions/loadingdata';
+import { addObjects } from '../../actions/objects';
+// import NewUserModal from '../NewUserModal';
+// import UsersList from '../UsersList';
 
 class Inventory extends Component {
   constructor(props) {
@@ -50,14 +53,54 @@ class Inventory extends Component {
         const apigClient = apigClientFactory.newClient(config);
         apigClient.invokeApi({}, appConfig.apis.objects.uri, 'GET', {}, {})
           .then((response) => {
-            console.log(response);
+            const arrObjectParams = [];
+            response.data.Items.forEach((objItem) => {
+              const objObjectParams = {};
+              Object.keys(objItem).forEach((key) => {
+                switch (key) {
+                  case 'ContentLength':
+                    objObjectParams[key] = parseInt(objItem[key].N);
+                    break;
+                  case 'ContentType':
+                    objObjectParams[key] = objItem[key].S;
+                    break;
+                  case 'sourceIPAddress':
+                    objObjectParams[key] = objItem[key].S;
+                    break;
+                  case 'key':
+                    objObjectParams[key] = objItem[key].S;
+                    break;
+                  case 'filename':
+                    objObjectParams[key] = objItem[key].S;
+                    break;
+                  case 'eventTime':
+                    objObjectParams[key] = new Date(parseInt(objItem[key].N, 10));
+                    break;
+                  case 'eventName':
+                    objObjectParams[key] = objItem[key].S;
+                    break;
+                  case 'bucket':
+                    objObjectParams[key] = objItem[key].S;
+                    break;
+                  case 'awsRegion':
+                    objObjectParams[key] = objItem[key].S;
+                    break;
+                  case 'LastModified':
+                    objObjectParams[key] = new Date(parseInt(objItem[key].N, 10));
+                    break;
+                  default:
+                    console.warn('unknown key');
+                }
+              });
+              arrObjectParams.push(objObjectParams);
+            });
             this.props.setIsLoading(false);
-            // this.props.addUsers(response.data);
-            self.setState({ users: response.data });
+            this.props.addObjects(arrObjectParams);
+            self.setState({ dlobjects: arrObjectParams });
+          })
+          .catch((err) => {
+            console.warn(err);
           });
-        // .catch((err) => {
-        //   console.warn(err);
-        // });
       });
     }
   }
@@ -71,10 +114,12 @@ class Inventory extends Component {
         <div className="content">
           <div className="abdhr">
             <div className="abdhs">
-              <h1>Data Lake Inventory</h1>
+              <h1>
+                Data Lake Inventory
+              </h1>
             </div>
           </div>
-          <DLObjects objects={this.state.dlobjects} />
+          <DLObjects dlobjects={this.state.dlobjects} />
         </div>
       </div>
     );
@@ -82,6 +127,7 @@ class Inventory extends Component {
 }
 
 Inventory.propTypes = {
+  addObjects: PropTypes.func.isRequired,
   setIsLoading: PropTypes.func.isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string,
@@ -99,4 +145,4 @@ function mapStateToProps() {
   return {};
 }
 
-export default withRouter(connect(mapStateToProps, { setIsLoading })(Inventory));
+export default withRouter(connect(mapStateToProps, { addObjects, setIsLoading })(Inventory));

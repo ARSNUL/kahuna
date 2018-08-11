@@ -14,3 +14,33 @@
 .DLObjects .dlobjectred {
   background-color: #FC0E2D;
 }
+
+.DLObjects {
+  overflow: hidden;
+  position: relative;
+}
+
+.O2 {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 100%;
+  text-align: left;
+  height: 300px;
+}
+
+.O2 table {
+  width: 100%;
+}
+
+thead {
+  border-bottom-color: black;
+  box-sizing: border-box;
+}
+
+td {
+  font-weight: 300;
+}
+
+tr.User {
+  cursor: pointer;
+}

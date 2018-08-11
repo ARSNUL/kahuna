@@ -1,14 +1,13 @@
 import React from 'react';
 // import { PropTypes } from 'prop-types';
-// import 'react-fine-uploader/lib/gallery/gallery.css';
+import 'react-fine-uploader/gallery/gallery.css';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import FineUploaderS3 from 'fine-uploader-wrappers/s3';
-import Gallery from '../../../../react-fine-uploader/lib/gallery';
-// import Gallery from 'react-fine-uploader/lib/gallery';
+import Gallery from 'react-fine-uploader/gallery';
 import './index.css';
 import './fine-uploader.css';
-import LeftNav from '../../components/LeftNav';
+import LeftNav from '../LeftNav';
 import { addUsers } from '../../actions/users';
 import { setIsLoading } from '../../actions/loadingdata';
 import appConfig from '../../appConfig.json';

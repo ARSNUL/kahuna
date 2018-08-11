@@ -1,15 +1,16 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
-import DLObject from '../../components/DLObject';
+import DLObject from '../DLObject';
 import './index.css';
 
 class DLObjects extends PureComponent {
   render() {
-    const dlobjects = this.props.dlobjects.map(user =>
-      <DLObject key={user.key} params={user} />);
+    const dlobjects = this.props.dlobjects.map(
+      obj => <DLObject key={obj.key} params={obj} />,
+    );
     return (
       <div className="DLObjects">
-        <div className="U2">
+        <div className="O2">
           <table cellSpacing="0" cellPadding="0">
             <colgroup>
               <col />
@@ -20,11 +21,36 @@ class DLObjects extends PureComponent {
             </colgroup>
             <thead>
               <tr>
-                <th>Email</th>
-                <th>Name</th>
-                <th>Created</th>
-                <th>Last Login</th>
-                <th>Email Verified</th>
+                <th>
+                  ContentLength
+                </th>
+                <th>
+                  ContentType
+                </th>
+                <th>
+                  LastModified
+                </th>
+                <th>
+                  awsRegion
+                </th>
+                <th>
+                  bucket
+                </th>
+                <th>
+                  EventName
+                </th>
+                <th>
+                  EventTime
+                </th>
+                <th>
+                  filename
+                </th>
+                <th>
+                  key
+                </th>
+                <th>
+                  sourceIPAddress
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -39,40 +65,32 @@ class DLObjects extends PureComponent {
 
 DLObjects.propTypes = {
   dlobjects: PropTypes.arrayOf(PropTypes.shape({
-    blocked: PropTypes.bool,
-    created_at: PropTypes.string,
-    email: PropTypes.string,
-    email_verified: PropTypes.bool,
-    last_ip: PropTypes.string,
-    last_login: PropTypes.string,
-    last_password_reset: PropTypes.string,
-    logins_count: PropTypes.number,
-    name: PropTypes.string,
-    nickname: PropTypes.string,
-    updated_at: PropTypes.string,
-    user_id: PropTypes.string,
-    given_name: PropTypes.string,
-    family_name: PropTypes.string,
+    ContentLength: PropTypes.number,
+    ContentType: PropTypes.string,
+    LastModified: PropTypes.date,
+    awsRegion: PropTypes.string,
+    bucket: PropTypes.string,
+    eventName: PropTypes.string,
+    eventTime: PropTypes.date,
+    filename: PropTypes.string,
+    key: PropTypes.string,
+    sourceIPAddress: PropTypes.string,
   })),
 };
 
 DLObjects.defaultProps = {
   dlobjects: [
     {
-      blocked: false,
-      created_at: null,
-      email: null,
-      email_verified: false,
-      last_ip: null,
-      last_login: null,
-      last_password_reset: null,
-      logins_count: 0,
-      name: null,
-      nickname: null,
-      updated_at: null,
-      user_id: null,
-      given_name: '<EMPTY>',
-      family_name: '<EMPTY>',
+      ContentLength: 0,
+      ContentType: null,
+      LastModified: null,
+      awsRegion: null,
+      bucket: null,
+      eventName: null,
+      eventTime: null,
+      filename: null,
+      key: null,
+      sourceIPAddress: null,
     },
   ],
 };

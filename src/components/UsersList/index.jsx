@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
-import User from '../../components/User';
+import User from '../User';
 import './index.css';
 
 class UsersList extends PureComponent {
   render() {
-    const users = this.props.users.map(user =>
-      <User key={user.user_id} params={user} />);
+    const users = this.props.users.map(user => <User key={user.user_id} params={user} />);
     return (
       <div className="UsersList">
         <div className="U2">
@@ -20,11 +19,21 @@ class UsersList extends PureComponent {
             </colgroup>
             <thead>
               <tr>
-                <th>Email</th>
-                <th>Name</th>
-                <th>Created</th>
-                <th>Last Login</th>
-                <th>Email Verified</th>
+                <th>
+                  Email
+                </th>
+                <th>
+                  Name
+                </th>
+                <th>
+                  Created
+                </th>
+                <th>
+                  Last Login
+                </th>
+                <th>
+                  Email Verified
+                </th>
               </tr>
             </thead>
             <tbody>
