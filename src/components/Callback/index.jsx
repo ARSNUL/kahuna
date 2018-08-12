@@ -1,22 +1,30 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { handleAuthentication } from '../../actions/authentication';
+import { handleAuthenticationResult } from '../../actions/authentication';
 
 class Callback extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { amAuthenticated: false };
+    this.props.handleAuthenticationResult(this);
+  }
+
   render() {
-    // const { errorMessage } = this.props;
-    this.props.handleAuthentication();
+    if (this.state.amAuthenticated === true) {
+      return <Redirect to="/Upload" />;
+    }
     return (
-      <div />
-      // <Redirect to="/Users" />
+      <div>
+        Callback...
+      </div>
     );
   }
 }
 
 Callback.propTypes = {
-  handleAuthentication: PropTypes.func.isRequired,
+  handleAuthenticationResult: PropTypes.func.isRequired,
   // errorMessage: PropTypes.string,
 };
 
@@ -26,8 +34,9 @@ Callback.defaultProps = {
 
 function mapStateToProps(state) {
   return {
+    authentication: state.authentication.authentication,
     redirectUrl: state.redirectUrl,
   };
 }
 
-export default withRouter(connect(mapStateToProps, { handleAuthentication })(Callback));
+export default withRouter(connect(mapStateToProps, { handleAuthenticationResult })(Callback));

@@ -7,32 +7,23 @@ function LeftNav() {
       <ul>
         <li>
           <a className="NavItem NavSelected" href="/Users">
-            <span>Users</span>
+            <span>
+              Users
+            </span>
           </a>
         </li>
         <li>
           <a className="NavItem" href="/Inventory">
-            <span>Inventory</span>
+            <span>
+              Inventory
+            </span>
           </a>
         </li>
         <li>
           <a className="NavItem" href="/Upload">
-            <span>Upload</span>
-          </a>
-        </li>
-        <li>
-          <a className="NavItem" href="/Logs">
-            <span>Logs</span>
-          </a>
-        </li>
-        <li>
-          <a className="NavItem" href="/Spark">
-            <span>Spark</span>
-          </a>
-        </li>
-        <li>
-          <a className="NavItem" href="/Analytics">
-            <span>Analytics</span>
+            <span>
+              Upload
+            </span>
           </a>
         </li>
       </ul>

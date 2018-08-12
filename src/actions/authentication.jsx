@@ -6,7 +6,8 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
-export const handleAuthentication = () => (dispatch) => {
+export const handleAuthenticationResult = (component) => (dispatch) => {
+
   const webAuth = new auth0.WebAuth({
     domain: appConfig.auth0.domain,
     clientID: appConfig.auth0.clientID,
@@ -21,8 +22,9 @@ export const handleAuthentication = () => (dispatch) => {
       localStorage.setItem('id_token', authResult.idToken);
       localStorage.setItem('expires_at', authResult.idTokenPayload.exp);
       dispatch({ type: LOGIN_SUCCESS });
-    // } else if (err) {
-    //   console.warn(err);
+      component.setState({ amAuthenticated: true });
+    } else if (err) {
+      console.warn(err);
     }
   });
 };
