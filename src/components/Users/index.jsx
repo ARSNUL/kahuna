@@ -19,15 +19,20 @@ class Users extends Component {
   constructor(props) {
     super(props);
     this.state = { users: [] };
-    this.state.qs = queryString.parse(this.props.location.search);
-    this.state.newUserModalActive = false;
+    this.state = { users: [] };
+    const { location } = this.props;
+    const { search } = queryString.parse(location);
+    this.state = { qs: search };
+    this.state = { newUserModalActive: false };
+    // this.state = queryString.parse(...this.props);
+    // this.state = { newUserModalActive: false };
     this.handleClick = this.handleClick.bind(this);
     this.escFunction = this.escFunction.bind(this);
   }
 
   componentWillMount() {
-    // return;
-    if (this.state.qs.id === undefined) {
+    const { location } = this.state;
+    if (location.search === undefined) {
       const token = localStorage.getItem('id_token');
       AWS.config.region = appConfig.cognito.region;
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -43,6 +48,7 @@ class Users extends Component {
         credentials: AWS.config.credentials,
       });
 
+      // const { setIsLoading, addUsers } = this.props;
       const self = this;
       AWS.config.credentials.get(() => {
         const config = {
@@ -53,11 +59,11 @@ class Users extends Component {
           region: appConfig.cognito.region,
         };
 
-        this.props.setIsLoading(true);
+        setIsLoading(true);
         const apigClient = apigClientFactory.newClient(config);
         apigClient.invokeApi({}, appConfig.apis.users.uri, 'GET', { queryParams: { fields: appConfig.apis.users.fields } }, {})
           .then((response) => {
-            this.props.setIsLoading(false);
+            setIsLoading(false);
             const arrUserParams = [];
             response.data.forEach((objItem) => {
               const objUserParams = {};
@@ -78,7 +84,7 @@ class Users extends Component {
               });
               arrUserParams.push(objUserParams);
             });
-            this.props.addUsers(arrUserParams);
+            addUsers(arrUserParams);
             self.setState({ users: arrUserParams });
           })
           .catch((err) => {
@@ -113,25 +119,30 @@ class Users extends Component {
   }
 
   render() {
-    if (this.state.qs.id !== undefined) {
-      return <UserDetail idUser={this.state.qs.id} />;
+    const { qs, newUserModalActive, users } = this.state;
+    if (qs.id !== undefined) {
+      return <UserDetail idUser={qs.id} />;
     }
 
     return (
       <div className="Users">
         <Loading />
         <LeftNav />
-        <NewUserModal active={this.state.newUserModalActive} />
+        <NewUserModal active={newUserModalActive} />
         <div className="content">
           <div className="abdhr">
             <div className="abdhs">
-              <h1>Users</h1>
+              <h1>
+                Users
+              </h1>
             </div>
             <div className="abdht">
-              <button onClick={e => this.handleClick(e)}>+ New User</button>
+              <button onClick={e => this.handleClick(e)}>
+                + New User
+              </button>
             </div>
           </div>
-          <UsersList users={this.state.users} />
+          <UsersList users={users} />
         </div>
       </div>
     );
@@ -139,8 +150,8 @@ class Users extends Component {
 }
 
 Users.propTypes = {
-  addUsers: PropTypes.func.isRequired,
-  setIsLoading: PropTypes.func.isRequired,
+  // addUsers: PropTypes.func.isRequired,
+  // setIsLoading: PropTypes.func.isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string,
     search: PropTypes.string,
