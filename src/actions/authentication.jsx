@@ -7,7 +7,6 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 export const handleAuthenticationResult = component => (dispatch) => {
-  console.log('mk1');
   const webAuth = new auth0.WebAuth({
     domain: appConfig.auth0.domain,
     clientID: appConfig.auth0.clientID,

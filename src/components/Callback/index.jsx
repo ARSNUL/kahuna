@@ -11,8 +11,9 @@ class Callback extends Component {
   }
 
   render() {
-    const some = handleAuthenticationResult(this);
-    some(this);
+    this.props.handleAuthenticationResult(this);
+    // const some = handleAuthenticationResult(this);
+    // some(this);
     const { amAuthenticated } = this.state;
     if (amAuthenticated === true) {
       return <Redirect to="/Upload" />;
@@ -26,7 +27,7 @@ class Callback extends Component {
 }
 
 Callback.propTypes = {
-  // handleAuthenticationResult: PropTypes.func.isRequired,
+  handleAuthenticationResult: PropTypes.func.isRequired,
   // errorMessage: PropTypes.string,
 };
 
