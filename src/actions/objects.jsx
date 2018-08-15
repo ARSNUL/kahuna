@@ -39,7 +39,6 @@ export const addObjects = objects => (dispatch) => {
           objObjectParams[key] = new Date(parseInt(objItem[key].N, 10));
           break;
         default:
-          console.warn(`unknown key: '${key}'`);
       }
     });
     const obj = Object.create(null);

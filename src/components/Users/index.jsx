@@ -167,8 +167,7 @@ Users.defaultProps = {
   location: {},
 };
 
-function mapStateToProps(...args) {
-  console.warn(args);
+function mapStateToProps() {
   return {};
 }
 

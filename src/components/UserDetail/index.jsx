@@ -94,10 +94,10 @@ class UserDetail extends Component {
           setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
           self.setState(() => ({ isLoading: false }));
+        })
+        .catch((err) => {
+          console.warn(err);
         });
-      // .catch((err) => {
-      //   console.warn(err);
-      // });
     });
   }
 
@@ -139,10 +139,10 @@ class UserDetail extends Component {
           setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
           self.setState(() => ({ isLoading: false }));
+        })
+        .catch((err) => {
+          console.warn(err);
         });
-      // .catch((err) => {
-      //   console.warn(err);
-      // });
     });
   }
 
@@ -176,10 +176,10 @@ class UserDetail extends Component {
           setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
           self.setState(() => ({ isLoading: false }));
+        })
+        .catch((err) => {
+          console.warn(err);
         });
-      // .catch((err) => {
-      //   console.warn(err);
-      // });
     });
   }
 
@@ -213,10 +213,10 @@ class UserDetail extends Component {
           setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
           self.setState(() => ({ isLoading: false }));
+        })
+        .catch((err) => {
+          console.warn(err);
         });
-      // .catch((err) => {
-      //   console.warn(err);
-      // });
     });
   }
 
