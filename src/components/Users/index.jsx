@@ -156,8 +156,8 @@ class Users extends Component {
 }
 
 Users.propTypes = {
-  // addUsers: PropTypes.func.isRequired,
-  // setIsLoading: PropTypes.func.isRequired,
+  addUsers: PropTypes.func.isRequired,
+  setIsLoading: PropTypes.func.isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string,
     search: PropTypes.string,

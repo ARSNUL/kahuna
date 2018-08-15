@@ -22,7 +22,8 @@ class NewUserModal extends Component {
   }
 
   componentWillMount() {
-    this.props.setIsCreating(true);
+    const { setIsCreating } = this.props;
+    setIsCreating(true);
   }
 
   handleChange(e) {
@@ -30,6 +31,8 @@ class NewUserModal extends Component {
   }
 
   handleSave(e) {
+    const { setIsCreating } = this.props;
+    const { firstName, lastName, email } = this.state;
     e.preventDefault();
     // if (this.state.qs.id === undefined) {
     const token = localStorage.getItem('id_token');
@@ -57,10 +60,10 @@ class NewUserModal extends Component {
         region: appConfig.cognito.region,
       };
 
-      this.props.setIsCreating(true);
-      const encodedFirstName = encodeURIComponent(this.state.firstName);
-      const encodedLastName = encodeURIComponent(this.state.lastName);
-      const encodedEmail = encodeURIComponent(this.state.email);
+      setIsCreating(true);
+      const encodedFirstName = encodeURIComponent(firstName);
+      const encodedLastName = encodeURIComponent(lastName);
+      const encodedEmail = encodeURIComponent(email);
       const apigClient = apigClientFactory.newClient(config);
       apigClient.invokeApi({}, `${appConfig.apis.newUser.uri}/${encodedEmail}`, 'POST', {
         queryParams: {
@@ -70,7 +73,7 @@ class NewUserModal extends Component {
       }, {})
         .then(() => {
           // console.warn(response);
-          this.props.setIsCreating(false);
+          setIsCreating(false);
           // this.props.addUsers(response.data);
           // self.setState(() => ({ users: response.data }));
         });
@@ -82,13 +85,10 @@ class NewUserModal extends Component {
   }
 
   render() {
-    if (this.props.active !== true) {
+    const { active, getIsCreating } = this.props;
+    if (active !== true) {
       return null;
     }
-    const poop = this.props.getIsCreating;
-    // poop(() => {
-    //   console.log("in HERE?");
-    // });
     return (
       <div className="NewUserModalBackground">
         <div
@@ -98,7 +98,7 @@ class NewUserModal extends Component {
         >
           <div className="ModalTitle">
             <h1>Create New User</h1>
-            <button aria-hidden="true" className="ModalExit">x</button>
+            <button type="button" aria-hidden="true" className="ModalExit">x</button>
           </div>
           <div>
             <hr />
@@ -146,11 +146,12 @@ class NewUserModal extends Component {
             </div>
             <div className="field-group">
               <button
+                type="submit"
                 id="submitNewUser"
                 typeof="submit"
                 onClick={e => this.handleSave(e)}
               >
-                <span>{poop ? 'Creating' : 'Save'}</span>
+                <span>{getIsCreating ? 'Creating' : 'Save'}</span>
               </button>
             </div>
           </form>

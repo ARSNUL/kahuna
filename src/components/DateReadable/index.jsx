@@ -3,8 +3,9 @@ import { PropTypes } from 'prop-types';
 import './index.css';
 
 function DateReadable(props) {
+  const { value, id } = props;
   let strDateReadable = '';
-  if (props.value !== null) {
+  if (value !== null) {
     const diffTime = parseInt((Date.now() - props.value) / 1000, 10);
     if (diffTime < 60) {
       strDateReadable = `~${diffTime} seconds ago`;
@@ -21,7 +22,7 @@ function DateReadable(props) {
     strDateReadable = '-';
   }
   return (
-    <span id={props.id}>
+    <span id={id}>
       {strDateReadable}
     </span>
   );

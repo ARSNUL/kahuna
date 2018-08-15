@@ -33,15 +33,18 @@ class DLObject extends Component {
   }
 
   theClass() {
-    if (this.state.hovered) {
+    const { hovered } = this.state;
+    if (hovered) {
       return 'DLObject Hovered';
     }
     return 'DLObject';
   }
 
   render() {
-    const id = this.props.params.key;
-    if (this.state.showDLObjectDetail) {
+    const { showDLObjectDetail } = this.state;
+    const { params } = this.props;
+    const id = params.key;
+    if (showDLObjectDetail) {
       // return <DLObjectDetail idObject={id} />;
     }
     return (
@@ -55,20 +58,20 @@ class DLObject extends Component {
         onKeyDown={this.handleKeyDown}
         role="presentation"
       >
-        <td className="objectkey">{this.props.params.contentlength}</td>
-        <td className="objectcontenttype">{this.props.params.contenttype}</td>
+        <td className="objectkey">{params.contentlength}</td>
+        <td className="objectcontenttype">{params.contenttype}</td>
         <td className="object">
-          <DateReadable id="last_modified" value={this.props.params.lastmodified} />
+          <DateReadable id="last_modified" value={params.lastmodified} />
         </td>
-        <td className="Object Key">{this.props.params.awsregion}</td>
-        <td className="Object Key">{this.props.params.bucket}</td>
-        <td className="Object Key">{this.props.params.eventname}</td>
+        <td className="Object Key">{params.awsregion}</td>
+        <td className="Object Key">{params.bucket}</td>
+        <td className="Object Key">{params.eventname}</td>
         <td className="Object LastLogin">
-          <DateReadable id="last_modified" value={this.props.params.eventtime} />
+          <DateReadable id="last_modified" value={params.eventtime} />
         </td>
-        <td className="Object Key">{this.props.params.filename}</td>
-        <td className="Object Key">{this.props.params.key}</td>
-        <td className="Object Key">{this.props.params.sourceipaddress}</td>
+        <td className="Object Key">{params.filename}</td>
+        <td className="Object Key">{params.key}</td>
+        <td className="Object Key">{params.sourceipaddress}</td>
       </tr>
     );
   }

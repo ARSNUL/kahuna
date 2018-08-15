@@ -35,22 +35,26 @@ class User extends Component {
   }
 
   theClass() {
-    if (this.state.hovered) {
+    const { hovered } = this.state;
+    if (hovered) {
       return 'User Hovered';
     }
     return 'User';
   }
 
   style() {
-    if (this.state.hovered) {
+    const { hovered } = this.state;
+    if (hovered) {
       return { backgroundColor: '#dadada' };
     }
     return { backgroundColor: 'white' };
   }
 
   render() {
-    const id = this.props.params.user_id;
-    if (this.state.showUserDetail) {
+    const { params } = this.props;
+    const id = params.user_id;
+    const { showUserDetail } = this.state;
+    if (showUserDetail) {
       return <UserDetail idUser={id} />;
     }
     return (
@@ -64,15 +68,19 @@ class User extends Component {
         onKeyDown={this.handleKeyDown}
         role="presentation"
       >
-        <td className="User Email">{this.props.params.email}</td>
-        <td className="User GivenName">{this.props.params.given_name}&nbsp;{this.props.params.family_name}</td>
+        <td className="User Email">{params.email}</td>
+        <td className="User GivenName">
+          {params.given_name}
+          &nbsp;
+          {params.family_name}
+        </td>
         <td className="User CreatedAt">
-          <DateReadable id="created_at" value={this.props.params.created_at} />
+          <DateReadable id="created_at" value={params.created_at} />
         </td>
         <td className="User LastLogin">
-          <DateReadable id="last_login" value={this.props.params.last_login} />
+          <DateReadable id="last_login" value={params.last_login} />
         </td>
-        <td className="User EmailVerified">{this.props.params.email_verified}</td>
+        <td className="User EmailVerified">{params.email_verified}</td>
       </tr>
     );
   }

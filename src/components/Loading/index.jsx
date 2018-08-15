@@ -6,8 +6,9 @@ import './index.css';
 import { getIsLoading } from '../../actions/loadingdata';
 
 function Loading(props) {
+  const { isLoading } = props;
   let strVisibility = 'hidden';
-  if (props.isLoading === true) {
+  if (isLoading === true) {
     strVisibility = 'visible';
   }
   return (

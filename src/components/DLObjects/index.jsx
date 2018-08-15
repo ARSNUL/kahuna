@@ -5,7 +5,8 @@ import './index.css';
 
 class DLObjects extends PureComponent {
   render() {
-    const dlobjects = this.props.dlobjects.map(
+    const { dlobjects } = this.props;
+    const objects = dlobjects.map(
       obj => <DLObject key={obj.key} params={obj} />,
     );
     return (
@@ -54,7 +55,7 @@ class DLObjects extends PureComponent {
               </tr>
             </thead>
             <tbody>
-              {dlobjects}
+              {objects}
             </tbody>
           </table>
         </div>

@@ -18,12 +18,17 @@ import { addObjects } from '../../actions/objects';
 class Inventory extends Component {
   constructor(props) {
     super(props);
-    this.state = { dlobjects: [] };
-    this.state.qs = queryString.parse(this.props.location.search);
+    const { location } = this.props;
+    this.state = {
+      dlobjects: [],
+      qs: queryString.parse(location.search),
+    };
   }
 
   componentWillMount() {
-    if (this.state.qs.id === undefined) {
+    const { setIsLoading, addObjects } = this.props;
+    const { qs } = this.state;
+    if (qs.id === undefined) {
       const token = localStorage.getItem('id_token');
       AWS.config.region = appConfig.cognito.region;
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -49,7 +54,7 @@ class Inventory extends Component {
           region: appConfig.cognito.region,
         };
 
-        this.props.setIsLoading(true);
+        setIsLoading(true);
         const apigClient = apigClientFactory.newClient(config);
         apigClient.invokeApi({}, appConfig.apis.objects.uri, 'GET', {}, {})
           .then((response) => {
@@ -61,19 +66,19 @@ class Inventory extends Component {
                   case 'contentlength':
                     objObjectParams = {
                       ...objObjectParams,
-                      [key]: parseInt(objItem.fields[key][0], 10)
+                      [key]: parseInt(objItem.fields[key][0], 10),
                     };
                     break;
                   case 'eventtime':
                     objObjectParams = {
                       ...objObjectParams,
-                      [key]: new Date(parseInt(objItem.fields[key][0], 10))
+                      [key]: new Date(parseInt(objItem.fields[key][0], 10)),
                     };
                     break;
                   case 'lastmodified':
                     objObjectParams = {
                       ...objObjectParams,
-                      lastmodified: new Date(parseInt(objItem.fields[key][0], 10))
+                      lastmodified: new Date(parseInt(objItem.fields[key][0], 10)),
                     };
                     break;
                   default:
@@ -82,8 +87,8 @@ class Inventory extends Component {
               });
               arrObjectParams.push(objObjectParams);
             });
-            this.props.setIsLoading(false);
-            this.props.addObjects(arrObjectParams);
+            setIsLoading(false);
+            addObjects(arrObjectParams);
             self.setState({ dlobjects: arrObjectParams });
           })
           .catch((err) => {
@@ -94,7 +99,7 @@ class Inventory extends Component {
   }
 
   render() {
-    // const { dlobjects } = this.state;
+    const { dlobjects } = this.state;
     return (
       <div className="Inventory">
         <Loading />
@@ -107,7 +112,7 @@ class Inventory extends Component {
               </h1>
             </div>
           </div>
-          <DLObjects dlobjects={this.state.dlobjects} />
+          <DLObjects dlobjects={dlobjects} />
         </div>
       </div>
     );
