@@ -18,10 +18,10 @@ import appConfig from '../../appConfig.json';
 class Users extends Component {
   constructor(props) {
     super(props);
-    const { location: { search } } = this.props;
+    const { location } = this.props;
     this.state = {
       users: [],
-      qs: queryString.parse(search),
+      qs: queryString.parse(location.search),
       newUserModalActive: false,
     };
     this.handleClick = this.handleClick.bind(this);
@@ -29,9 +29,12 @@ class Users extends Component {
   }
 
   componentWillMount() {
-    const { setIsLoading, addUsers } = this.props;
-    const { qs: { id } } = this.state;
-    if (id === undefined) {
+    console.log(this.props);
+    const { setIsLoading: { mysetIsLoading } } = this.props;
+    console.warn(setIsLoading);
+    // const { setIsLoading, addUsers } = this.props;
+    const { qs } = this.state;
+    if (qs.id === undefined) {
       const token = localStorage.getItem('id_token');
       AWS.config.region = appConfig.cognito.region;
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -57,10 +60,7 @@ class Users extends Component {
           region: appConfig.cognito.region,
         };
 
-        // console.warn(setIsLoading());
-        // console.warn(this.props.setIsLoading);
         setIsLoading(true);
-        // this.props.setIsLoading(true);
         const apigClient = apigClientFactory.newClient(config);
         apigClient.invokeApi({}, appConfig.apis.users.uri, 'GET', { queryParams: { fields: appConfig.apis.users.fields } }, {})
           .then((response) => {
@@ -156,8 +156,8 @@ class Users extends Component {
 }
 
 Users.propTypes = {
-  addUsers: PropTypes.func.isRequired,
-  setIsLoading: PropTypes.func.isRequired,
+  myaddUsers: PropTypes.func.isRequired,
+  mysetIsLoading: PropTypes.func.isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string,
     search: PropTypes.string,
@@ -170,12 +170,11 @@ Users.defaultProps = {
   location: {},
 };
 
-function mapStateToProps() {
+function mapStateToProps(...args) {
+  console.warn(args);
   return {};
 }
 
 const connectedStore = connect(mapStateToProps, { addUsers, setIsLoading });
-// console.log(connectedStore);
 const connectedStoreWithUsers = connectedStore(Users);
-// console.log(connectedStoreWithUsers);
 export default withRouter(connectedStoreWithUsers);

@@ -129,12 +129,10 @@ class UserDetail extends Component {
       const additionalParams = {
         queryParams,
       };
-      // console.log(additionalParams);
       setIsLoading(true);
       apigClient.invokeApi({}, `${appConfig.apis.userUpdate.uri}/${userId}`, 'PATCH', additionalParams, {})
         .then((response) => {
           setIsLoading(false);
-          console.log(response);
           if (response.data.statusCode === 200) {
             this.setState({ params: response.data.body });
           }
@@ -175,7 +173,6 @@ class UserDetail extends Component {
       // this.props.setIsLoading(true);
       apigClient.invokeApi({}, `${appConfig.apis.userDelete.uri}/${userId}`, 'DELETE', {}, {})
         .then(() => {
-          // console.log(response);
           setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
           self.setState(() => ({ isLoading: false }));

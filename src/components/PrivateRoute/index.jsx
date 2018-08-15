@@ -10,7 +10,6 @@ import {
 class PrivateRoute extends Component {
   render() {
     const { authenticationState } = this.props;
-    console.log(authenticationState);
     return (
       <Route
         {...this.rest}
