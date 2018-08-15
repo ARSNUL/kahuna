@@ -8,38 +8,38 @@ export const addObjects = objects => (dispatch) => {
     const objObjectParams = {};
     Object.keys(objItem).forEach((key) => {
       switch (key) {
-        case 'ContentLength':
-          objObjectParams[key] = objItem[key].N;
+        case 'contentlength':
+          objObjectParams[key] = objItem[key];
           break;
-        case 'ContentType':
-          objObjectParams[key] = objItem[key].S;
+        case 'contenttype':
+          objObjectParams[key] = objItem[key];
           break;
-        case 'sourceIPAddress':
-          objObjectParams[key] = objItem[key].S;
+        case 'sourceipaddress':
+          objObjectParams[key] = objItem[key];
           break;
         case 'key':
-          objObjectParams[key] = objItem[key].S;
+          objObjectParams[key] = objItem[key];
           break;
         case 'filename':
-          objObjectParams[key] = objItem[key].S;
+          objObjectParams[key] = objItem[key];
           break;
-        case 'eventTime':
-          objObjectParams[key] = new Date(parseInt(objItem[key].N, 10));
+        case 'eventtime':
+          objObjectParams[key] = new Date(parseInt(objItem[key], 10));
           break;
-        case 'eventName':
-          objObjectParams[key] = objItem[key].S;
+        case 'eventname':
+          objObjectParams[key] = objItem[key];
           break;
         case 'bucket':
-          objObjectParams[key] = objItem[key].S;
+          objObjectParams[key] = objItem[key];
           break;
-        case 'awsRegion':
-          objObjectParams[key] = objItem[key].S;
+        case 'awsregion':
+          objObjectParams[key] = objItem[key];
           break;
-        case 'LastModified':
+        case 'lastmodified':
           objObjectParams[key] = new Date(parseInt(objItem[key].N, 10));
           break;
         default:
-          console.warn('unknown key');
+          console.warn(`unknown key: '${key}'`);
       }
     });
     const obj = Object.create(null);

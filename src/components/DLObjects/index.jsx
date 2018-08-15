@@ -22,34 +22,34 @@ class DLObjects extends PureComponent {
             <thead>
               <tr>
                 <th>
-                  ContentLength
+                  Content Length
                 </th>
                 <th>
-                  ContentType
+                  Content Type
                 </th>
                 <th>
-                  LastModified
+                  Last Modified
                 </th>
                 <th>
-                  awsRegion
+                  AWS Region
                 </th>
                 <th>
-                  bucket
+                  Bucket
                 </th>
                 <th>
-                  EventName
+                  Event Name
                 </th>
                 <th>
-                  EventTime
+                  Event Time
                 </th>
                 <th>
-                  filename
+                  Filename
                 </th>
                 <th>
-                  key
+                  S3 Key
                 </th>
                 <th>
-                  sourceIPAddress
+                  Source IP Address
                 </th>
               </tr>
             </thead>
@@ -65,32 +65,32 @@ class DLObjects extends PureComponent {
 
 DLObjects.propTypes = {
   dlobjects: PropTypes.arrayOf(PropTypes.shape({
-    ContentLength: PropTypes.number,
-    ContentType: PropTypes.string,
-    LastModified: PropTypes.date,
-    awsRegion: PropTypes.string,
+    contentlength: PropTypes.number,
+    contenttype: PropTypes.string,
+    lastmodified: PropTypes.date,
+    awsregion: PropTypes.string,
     bucket: PropTypes.string,
-    eventName: PropTypes.string,
-    eventTime: PropTypes.date,
+    eventname: PropTypes.string,
+    eventtime: PropTypes.date,
     filename: PropTypes.string,
     key: PropTypes.string,
-    sourceIPAddress: PropTypes.string,
+    sourceipaddress: PropTypes.string,
   })),
 };
 
 DLObjects.defaultProps = {
   dlobjects: [
     {
-      ContentLength: 0,
-      ContentType: null,
-      LastModified: null,
-      awsRegion: null,
+      contentlength: 0,
+      contenttype: null,
+      lastmodified: null,
+      awsregion: null,
       bucket: null,
-      eventName: null,
-      eventTime: null,
+      eventname: null,
+      eventtime: null,
       filename: null,
       key: null,
-      sourceIPAddress: null,
+      sourceipaddress: null,
     },
   ],
 };

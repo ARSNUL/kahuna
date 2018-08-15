@@ -11,7 +11,8 @@ class Callback extends Component {
   }
 
   render() {
-    this.props.handleAuthenticationResult(this);
+    const { handleAuthenticationResult } = this.props;
+    handleAuthenticationResult(this);
     // const some = handleAuthenticationResult(this);
     // some(this);
     const { amAuthenticated } = this.state;
@@ -35,11 +36,8 @@ Callback.defaultProps = {
   // errorMessage: null,
 };
 
-function mapStateToProps(state) {
-  return {
-    authentication: state.authentication.authentication,
-    redirectUrl: state.redirectUrl,
-  };
+function mapStateToProps() {
+  return {};
 }
 
 export default withRouter(connect(mapStateToProps, { handleAuthenticationResult })(Callback));

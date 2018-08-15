@@ -40,7 +40,7 @@ const uploader = new FineUploaderS3({
 function Upload() {
   return (
     <div className="Upload">
-      <LeftNav />
+      <LeftNav pathname={window.location.pathname} />
       <Gallery uploader={uploader} />
     </div>
   );

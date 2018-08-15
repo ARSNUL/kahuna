@@ -15,7 +15,7 @@ export const initialState = {
   isAuthenticated,
 };
 
-function authentication(state = initialState, action) {
+function authenticationState(state = initialState, action) {
   switch (action.type) {
     case LOGIN_REQUEST:
       return Object.assign({}, state, {
@@ -50,7 +50,7 @@ function authentication(state = initialState, action) {
 }
 
 const authReducer = combineReducers({
-  authentication,
+  authenticationState,
 });
 
 export default authReducer;

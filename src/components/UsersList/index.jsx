@@ -5,7 +5,8 @@ import './index.css';
 
 class UsersList extends PureComponent {
   render() {
-    const users = this.props.users.map(user => <User key={user.user_id} params={user} />);
+    const { users } = this.props;
+    const ourUsers = users.map(user => <User key={user.user_id} params={user} />);
     return (
       <div className="UsersList">
         <div className="U2">
@@ -37,7 +38,7 @@ class UsersList extends PureComponent {
               </tr>
             </thead>
             <tbody>
-              {users}
+              {ourUsers}
             </tbody>
           </table>
         </div>

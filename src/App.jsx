@@ -16,11 +16,8 @@ function App() {
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    authentication: state.authentication.authentication,
-    redirectUrl: state.redirectUrl,
-  };
+function mapStateToProps() {
+  return {};
 }
 
 export default withRouter(connect(mapStateToProps)(App));

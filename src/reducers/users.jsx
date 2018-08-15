@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
-import { ADD_USERS, SET_USER, GET_USERS, GET_USER } from '../actions/users';
+import {
+  ADD_USERS, SET_USER, GET_USERS, GET_USER,
+} from '../actions/users';
 
 let auth0Users;
 auth0Users = [];

@@ -54,42 +54,30 @@ class Inventory extends Component {
         apigClient.invokeApi({}, appConfig.apis.objects.uri, 'GET', {}, {})
           .then((response) => {
             const arrObjectParams = [];
-            response.data.Items.forEach((objItem) => {
-              const objObjectParams = {};
-              Object.keys(objItem).forEach((key) => {
+            response.data.hits.hit.forEach((objItem) => {
+              let objObjectParams = {};
+              Object.keys(objItem.fields).forEach((key) => {
                 switch (key) {
-                  case 'ContentLength':
-                    objObjectParams[key] = parseInt(objItem[key].N);
+                  case 'contentlength':
+                    objObjectParams = {
+                      ...objObjectParams,
+                      [key]: parseInt(objItem.fields[key][0], 10)
+                    };
                     break;
-                  case 'ContentType':
-                    objObjectParams[key] = objItem[key].S;
+                  case 'eventtime':
+                    objObjectParams = {
+                      ...objObjectParams,
+                      [key]: new Date(parseInt(objItem.fields[key][0], 10))
+                    };
                     break;
-                  case 'sourceIPAddress':
-                    objObjectParams[key] = objItem[key].S;
-                    break;
-                  case 'key':
-                    objObjectParams[key] = objItem[key].S;
-                    break;
-                  case 'filename':
-                    objObjectParams[key] = objItem[key].S;
-                    break;
-                  case 'eventTime':
-                    objObjectParams[key] = new Date(parseInt(objItem[key].N, 10));
-                    break;
-                  case 'eventName':
-                    objObjectParams[key] = objItem[key].S;
-                    break;
-                  case 'bucket':
-                    objObjectParams[key] = objItem[key].S;
-                    break;
-                  case 'awsRegion':
-                    objObjectParams[key] = objItem[key].S;
-                    break;
-                  case 'LastModified':
-                    objObjectParams[key] = new Date(parseInt(objItem[key].N, 10));
+                  case 'lastmodified':
+                    objObjectParams = {
+                      ...objObjectParams,
+                      lastmodified: new Date(parseInt(objItem.fields[key][0], 10))
+                    };
                     break;
                   default:
-                    console.warn('unknown key');
+                    objObjectParams = { ...objObjectParams, [key]: objItem.fields[key][0] };
                 }
               });
               arrObjectParams.push(objObjectParams);
@@ -110,7 +98,7 @@ class Inventory extends Component {
     return (
       <div className="Inventory">
         <Loading />
-        <LeftNav />
+        <LeftNav pathname={window.location.pathname} />
         <div className="content">
           <div className="abdhr">
             <div className="abdhs">

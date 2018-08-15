@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import DateReadable from '../DateReadable';
 import './index.css';
+
 // import DLObjectDetail from '../DLObjectDetail';
 
 class DLObject extends Component {
@@ -54,20 +55,20 @@ class DLObject extends Component {
         onKeyDown={this.handleKeyDown}
         role="presentation"
       >
-        <td className="objectkey">{this.props.params.ContentLength}</td>
-        <td className="objectcontenttype">{this.props.params.ContentType}</td>
+        <td className="objectkey">{this.props.params.contentlength}</td>
+        <td className="objectcontenttype">{this.props.params.contenttype}</td>
         <td className="object">
-          <DateReadable id="last_modified" value={this.props.params.LastModified} />
+          <DateReadable id="last_modified" value={this.props.params.lastmodified} />
         </td>
-        <td className="Object Key">{this.props.params.awsRegion}</td>
+        <td className="Object Key">{this.props.params.awsregion}</td>
         <td className="Object Key">{this.props.params.bucket}</td>
-        <td className="Object Key">{this.props.params.eventName}</td>
+        <td className="Object Key">{this.props.params.eventname}</td>
         <td className="Object LastLogin">
-          <DateReadable id="last_modified" value={this.props.params.eventTime} />
+          <DateReadable id="last_modified" value={this.props.params.eventtime} />
         </td>
         <td className="Object Key">{this.props.params.filename}</td>
         <td className="Object Key">{this.props.params.key}</td>
-        <td className="Object Key">{this.props.params.sourceIPAddress}</td>
+        <td className="Object Key">{this.props.params.sourceipaddress}</td>
       </tr>
     );
   }
@@ -75,16 +76,16 @@ class DLObject extends Component {
 
 DLObject.propTypes = {
   params: PropTypes.shape({
-    ContentLength: PropTypes.number,
-    ContentType: PropTypes.string,
-    LastModified: PropTypes.instanceOf(Date),
-    awsRegion: PropTypes.string,
+    contentlength: PropTypes.number,
+    contenttype: PropTypes.string,
+    lastmodified: PropTypes.instanceOf(Date),
+    awsregion: PropTypes.string,
     bucket: PropTypes.string,
-    eventName: PropTypes.string,
-    eventTime: PropTypes.instanceOf(Date),
+    eventname: PropTypes.string,
+    eventtime: PropTypes.instanceOf(Date),
     filename: PropTypes.string,
     key: PropTypes.string,
-    sourceIPAddress: PropTypes.string,
+    sourceipaddress: PropTypes.string,
   }),
 };
 

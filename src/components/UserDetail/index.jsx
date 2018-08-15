@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUserById } from '../../actions/users';
 import { setIsLoading } from '../../actions/loadingdata';
-import LeftNav from '../../components/LeftNav';
+import LeftNav from '../LeftNav';
 import './index.css';
 import appConfig from '../../appConfig.json';
 import UserDetailButton from '../UserDetailButton';
@@ -49,13 +49,14 @@ class UserDetail extends Component {
     this.handleSubmitPasswordReset = this.handleSubmitPasswordReset.bind(this);
     this.handleSubmitDeleteUser = this.handleSubmitDeleteUser.bind(this);
     this.handleSubmitUpdateUser = this.handleSubmitUpdateUser.bind(this);
-    this.handleButtonClickResendEmailVerification =
-      this.handleButtonClickResendEmailVerification.bind(this);
+    this.handleButtonClickResendEmailVerification = this
+      .handleButtonClickResendEmailVerification.bind(this);
   }
 
   componentWillMount() {
-    const objUser = this.props.getUserById(this.props.idUser);
-    this.setState({ params: objUser[this.props.idUser] });
+    const { idUser, getUserById } = this.props;
+    // const objUser = getUserById(idUser);
+    this.setState({ params: getUserById(idUser)[idUser] });
   }
 
   handleSubmitCancel(param) {
@@ -65,6 +66,7 @@ class UserDetail extends Component {
 
   handleButtonClickResendEmailVerification(e) {
     e.preventDefault();
+    const { setIsLoading } = this.props;
     const userPool = appConfig.cognito.poolId;
     const token = localStorage.getItem('id_token');
     AWS.config.region = appConfig.cognito.region;
@@ -86,10 +88,10 @@ class UserDetail extends Component {
       };
 
       const apigClient = apigClientFactory.newClient(config);
-      this.props.setIsLoading(true);
+      setIsLoading(true);
       apigClient.invokeApi({}, appConfig.apis.resendEmailVerification.uri, 'POST', {}, {})
         .then(() => {
-          this.props.setIsLoading(false);
+          setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
           self.setState(() => ({ isLoading: false }));
         });
@@ -101,6 +103,7 @@ class UserDetail extends Component {
 
   handleSubmitUpdateUser(e, userId, queryParams) {
     e.preventDefault();
+    const { setIsLoading } = this.props;
     const userPool = appConfig.cognito.poolId;
     const token = localStorage.getItem('id_token');
     AWS.config.region = appConfig.cognito.region;
@@ -127,15 +130,15 @@ class UserDetail extends Component {
         queryParams,
       };
       // console.log(additionalParams);
-      this.props.setIsLoading(true);
+      setIsLoading(true);
       apigClient.invokeApi({}, `${appConfig.apis.userUpdate.uri}/${userId}`, 'PATCH', additionalParams, {})
         .then((response) => {
-          this.props.setIsLoading(false);
+          setIsLoading(false);
           console.log(response);
           if (response.data.statusCode === 200) {
             this.setState({ params: response.data.body });
           }
-          this.props.setIsLoading(false);
+          setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
           self.setState(() => ({ isLoading: false }));
         });
@@ -147,6 +150,7 @@ class UserDetail extends Component {
 
   handleSubmitDeleteUser(e, userId) {
     e.preventDefault();
+    const { setIsLoading } = this.props;
     const userPool = appConfig.cognito.poolId;
     const token = localStorage.getItem('id_token');
     AWS.config.region = appConfig.cognito.region;
@@ -172,7 +176,7 @@ class UserDetail extends Component {
       apigClient.invokeApi({}, `${appConfig.apis.userDelete.uri}/${userId}`, 'DELETE', {}, {})
         .then(() => {
           // console.log(response);
-          this.props.setIsLoading(false);
+          setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
           self.setState(() => ({ isLoading: false }));
         });
@@ -184,6 +188,7 @@ class UserDetail extends Component {
 
   handleSubmitPasswordReset(e) {
     e.preventDefault();
+    const { setIsLoading } = this.props;
     const userPool = appConfig.cognito.poolId;
     const token = localStorage.getItem('id_token');
     AWS.config.region = appConfig.cognito.region;
@@ -205,10 +210,10 @@ class UserDetail extends Component {
       };
 
       const apigClient = apigClientFactory.newClient(config);
-      this.props.setIsLoading(true);
+      setIsLoading(true);
       apigClient.invokeApi({}, appConfig.apis.userPassword.uri, 'POST', {}, {})
         .then(() => {
-          this.props.setIsLoading(false);
+          setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
           self.setState(() => ({ isLoading: false }));
         });
@@ -219,18 +224,21 @@ class UserDetail extends Component {
   }
 
   handleOnChangeEmail(event) {
-    this.state.params.email = event.target.value;
-    this.setState({ params: this.state.params });
+    // this.state.params.email = event.target.value;
+    // this.setState({ params: this.state.params });
+    this.setState({ params: { email: event.target.value } });
   }
 
   handleOnChangeGivenName(event) {
-    this.state.params.name = event.target.value;
-    this.setState({ params: this.state.params });
+    // this.state.params.name = event.target.value;
+    // this.setState({ params: this.state.params });
+    this.setState({ params: { name: event.target.value } });
   }
 
   handleOnChangeFamilyName(event) {
-    this.state.params.name = event.target.value;
-    this.setState({ params: this.state.params });
+    // this.state.params.name = event.target.value;
+    // this.setState({ params: this.state.params });
+    this.setState({ params: { name: event.target.value } });
   }
 
   handleClick(e) {
@@ -238,7 +246,8 @@ class UserDetail extends Component {
   }
 
   render() {
-    if (this.state.params === undefined) {
+    const { params, edit } = this.state;
+    if (params === undefined) {
       return (
         <div className="UserDetail" />
       );
@@ -246,7 +255,7 @@ class UserDetail extends Component {
 
     let boolBlock = true;
     let strBlockAction = 'Block';
-    if (this.state.params.blocked) {
+    if (params.blocked) {
       boolBlock = false;
       strBlockAction = 'Unblock';
     }
@@ -257,161 +266,225 @@ class UserDetail extends Component {
           <div className="UDSummary">
             <div className="UDControls">
               <div>
-                <button onClick={this.handleButtonClickResendEmailVerification}>
+                <button type="button" onClick={this.handleButtonClickResendEmailVerification}>
                   Reverify Email
                 </button>
               </div>
               <div>
                 <button
+                  type="button"
                   onClick={this.handleSubmitPasswordReset}
-                >Reset Password
+                >
+                  Reset Password
                 </button>
               </div>
               <div>
                 <button
+                  type="button"
                   className="warning"
                   onClick={e => this.handleSubmitUpdateUser(
                     e,
-                    this.state.params.user_id,
+                    params.user_id,
                     { blocked: boolBlock },
                   )}
-                >{strBlockAction} User
+                >
+                  {strBlockAction}
+                  {' '}
+                  User
                 </button>
               </div>
               <div>
                 <button
+                  type="button"
                   className="danger"
-                  onClick={e => this.handleSubmitDeleteUser(e, this.state.params.user_id)}
-                >Delete User
+                  onClick={e => this.handleSubmitDeleteUser(e, params.user_id)}
+                >
+                  Delete User
                 </button>
               </div>
             </div>
-            <div className="UDIcon"><br /></div>
+            <div className="UDIcon">
+              <br />
+            </div>
           </div>
           <div>
             <div className="UDt6">
-              <h1>User Details</h1>
+              <h1>
+                User Details
+              </h1>
               <div className="UDt2">
                 <form>
-                  <p>Basic Information</p>
+                  <p>
+                    Basic Information
+                  </p>
                   <div className="field" role="presentation">
-                    <div className="field-title">First Name</div>
-                    {this.state.edit.given_name ?
-                      <input
-                        id="given_name"
-                        type="text"
-                        value={this.state.params.given_name}
-                        onChange={e => this.handleOnChangeGivenName(e)}
-                      />
-                      :
-                      <p
-                        role="presentation"
-                        onKeyPress={this.handleKeyPress}
-                        id="given_name"
-                        onClick={this.state.edit.given_name ? null : e => this.handleClick(e)}
-                      >{this.state.params.given_name}
-                      </p>}
-                    {this.state.edit.given_name ?
-                      <div>
-                        <UserDetailButton
-                          value="SUBMIT"
-                          handler={UserDetail.handleSubmitGivenNameChange}
+                    <div className="field-title">
+                      First Name
+                    </div>
+                    {edit.given_name
+                      ? (
+                        <input
+                          id="given_name"
+                          type="text"
+                          value={params.given_name}
+                          onChange={e => this.handleOnChangeGivenName(e)}
                         />
-                        <UserDetailButton
-                          value="CANCEL"
-                          handler={e => this.handleSubmitCancel('given_name', e)}
-                        />
-                      </div> : null}
+                      )
+                      : (
+                        <p
+                          role="presentation"
+                          onKeyPress={this.handleKeyPress}
+                          id="given_name"
+                          onClick={edit.given_name ? null : e => this.handleClick(e)}
+                        >
+                          {params.given_name}
+                        </p>
+                      )}
+                    {edit.given_name
+                      ? (
+                        <div>
+                          <UserDetailButton
+                            value="SUBMIT"
+                            handler={UserDetail.handleSubmitGivenNameChange}
+                          />
+                          <UserDetailButton
+                            value="CANCEL"
+                            handler={e => this.handleSubmitCancel('given_name', e)}
+                          />
+                        </div>
+                      ) : null}
                   </div>
                   <div className="field" role="presentation">
-                    <div className="field-title">Last Name</div>
-                    {this.state.edit.family_name ?
-                      <input
-                        id="family_name"
-                        type="text"
-                        value={this.state.params.family_name}
-                        onChange={e => this.handleOnChangeFamilyName(e)}
-                      />
-                      :
-                      <p
-                        role="presentation"
-                        onKeyPress={this.handleKeyPress}
-                        id="family_name"
-                        onClick={this.state.edit.family_name ? null : e => this.handleClick(e)}
-                      >{this.state.params.family_name}
-                      </p>}
-                    {this.state.edit.family_name ?
-                      <div>
-                        <UserDetailButton
-                          value="SUBMIT"
-                          handler={UserDetail.handleSubmitFamilyNameChange}
+                    <div className="field-title">
+                      Last Name
+                    </div>
+                    {edit.family_name
+                      ? (
+                        <input
+                          id="family_name"
+                          type="text"
+                          value={params.family_name}
+                          onChange={e => this.handleOnChangeFamilyName(e)}
                         />
-                        <UserDetailButton
-                          value="CANCEL"
-                          handler={e => this.handleSubmitCancel('family_name', e)}
+                      )
+                      : (
+                        <p
+                          role="presentation"
+                          onKeyPress={this.handleKeyPress}
+                          id="family_name"
+                          onClick={edit.family_name ? null : e => this.handleClick(e)}
+                        >
+                          {params.family_name}
+                        </p>
+                      )}
+                    {edit.family_name
+                      ? (
+                        <div>
+                          <UserDetailButton
+                            value="SUBMIT"
+                            handler={UserDetail.handleSubmitFamilyNameChange}
+                          />
+                          <UserDetailButton
+                            value="CANCEL"
+                            handler={e => this.handleSubmitCancel('family_name', e)}
+                          />
+                        </div>
+                      ) : null}
+                  </div>
+                  <div className="field">
+                    <div className="field-title">
+                      Email
+                    </div>
+                    {edit.useremail
+                      ? (
+                        <input
+                          id="useremail"
+                          type="text"
+                          value={params.email}
+                          onChange={e => this.handleOnChangeEmail(e)}
                         />
-                      </div> : null}
+                      )
+                      : (
+                        <p
+                          role="presentation"
+                          onKeyPress={this.handleKeyPress}
+                          id="useremail"
+                          onClick={edit.useremail ? null : e => this.handleClick(e)}
+                        >
+                          {params.email}
+                        </p>
+                      )}
+                    {edit.useremail
+                      ? (
+                        <div>
+                          <UserDetailButton
+                            value="SUBMIT"
+                            handler={UserDetail.handleSubmitEmailChange}
+                          />
+                          <UserDetailButton
+                            value="CANCEL"
+                            handler={e => this.handleSubmitCancel('useremail', e)}
+                          />
+                        </div>
+                      ) : null}
                   </div>
                   <div className="field">
-                    <div className="field-title">Email</div>
-                    {this.state.edit.useremail ?
-                      <input
-                        id="useremail"
-                        type="text"
-                        value={this.state.params.email}
-                        onChange={e => this.handleOnChangeEmail(e)}
-                      />
-                      :
-                      <p
-                        role="presentation"
-                        onKeyPress={this.handleKeyPress}
-                        id="useremail"
-                        onClick={this.state.edit.useremail ? null : e => this.handleClick(e)}
-                      >{this.state.params.email}
-                      </p>}
-                    {this.state.edit.useremail ?
-                      <div>
-                        <UserDetailButton
-                          value="SUBMIT"
-                          handler={UserDetail.handleSubmitEmailChange}
-                        />
-                        <UserDetailButton
-                          value="CANCEL"
-                          handler={e => this.handleSubmitCancel('useremail', e)}
-                        />
-                      </div> : null}
+                    <div className="field-title">
+                      Email Verified
+                    </div>
+                    <span>
+                      {params.email_verified ? 'yes' : 'no'}
+                    </span>
                   </div>
                   <div className="field">
-                    <div className="field-title">Email Verified</div>
-                    <span>{this.state.params.email_verified ? 'yes' : 'no'}</span>
+                    <div className="field-title">
+                      Created At
+                    </div>
+                    <DateReadable id="created_at" value={params.created_at} />
                   </div>
                   <div className="field">
-                    <div className="field-title">Created At</div>
-                    <DateReadable id="created_at" value={this.state.params.created_at} />
+                    <div className="field-title">
+                      Updated At
+                    </div>
+                    <DateReadable id="updated_at" value={params.updated_at} />
                   </div>
                   <div className="field">
-                    <div className="field-title">Updated At</div>
-                    <DateReadable id="updated_at" value={this.state.params.updated_at} />
+                    <div className="field-title">
+                      Last IP
+                    </div>
+                    <span id="lastip">
+                      {params.last_ip}
+                    </span>
                   </div>
                   <div className="field">
-                    <div className="field-title">Last IP</div>
-                    <span id="lastip">{this.state.params.last_ip}</span>
+                    <div className="field-title">
+                      Last Login
+                    </div>
+                    <DateReadable id="last_login" value={params.last_login} />
                   </div>
                   <div className="field">
-                    <div className="field-title">Last Login</div>
-                    <DateReadable id="last_login" value={this.state.params.last_login} />
+                    <div className="field-title">
+                      Logins Count
+                    </div>
+                    <span id="loginscount">
+                      {params.logins_count}
+                    </span>
                   </div>
                   <div className="field">
-                    <div className="field-title">Logins Count</div>
-                    <span id="loginscount">{this.state.params.logins_count}</span>
+                    <div className="field-title">
+                      User ID
+                    </div>
+                    <span id="userid">
+                      {params.user_id}
+                    </span>
                   </div>
                   <div className="field">
-                    <div className="field-title">User ID</div>
-                    <span id="userid">{this.state.params.user_id}</span>
-                  </div>
-                  <div className="field">
-                    <div className="field-title">Blocked</div>
-                    <span id="blocked">{this.state.params.blocked ? 'Yes' : 'No'}</span>
+                    <div className="field-title">
+                      Blocked
+                    </div>
+                    <span id="blocked">
+                      {params.blocked ? 'Yes' : 'No'}
+                    </span>
                   </div>
                 </form>
               </div>
