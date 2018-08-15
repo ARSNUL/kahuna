@@ -11,8 +11,8 @@ import LeftNav from '../LeftNav';
 import UserDetail from '../UserDetail';
 import NewUserModal from '../NewUserModal';
 import './index.css';
-import { addUsers } from '../../actions/users';
-import { setIsLoading } from '../../actions/loadingdata';
+import * as usersActions from '../../actions/users';
+import * as loadingdataActions from '../../actions/loadingdata';
 import appConfig from '../../appConfig.json';
 
 class Users extends Component {
@@ -29,10 +29,7 @@ class Users extends Component {
   }
 
   componentWillMount() {
-    console.log(this.props);
-    const { setIsLoading: { mysetIsLoading } } = this.props;
-    console.warn(setIsLoading);
-    // const { setIsLoading, addUsers } = this.props;
+    const { setIsLoading, addUsers } = this.props;
     const { qs } = this.state;
     if (qs.id === undefined) {
       const token = localStorage.getItem('id_token');
@@ -156,8 +153,8 @@ class Users extends Component {
 }
 
 Users.propTypes = {
-  myaddUsers: PropTypes.func.isRequired,
-  mysetIsLoading: PropTypes.func.isRequired,
+  addUsers: PropTypes.func.isRequired,
+  setIsLoading: PropTypes.func.isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string,
     search: PropTypes.string,
@@ -175,6 +172,6 @@ function mapStateToProps(...args) {
   return {};
 }
 
-const connectedStore = connect(mapStateToProps, { addUsers, setIsLoading });
+const connectedStore = connect(mapStateToProps, { ...usersActions, ...loadingdataActions });
 const connectedStoreWithUsers = connectedStore(Users);
 export default withRouter(connectedStoreWithUsers);

@@ -4,8 +4,8 @@ import AWS from 'aws-sdk';
 import apigClientFactory from 'aws-api-gateway-client';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getUserById } from '../../actions/users';
-import { setIsCreating, getIsCreating } from '../../actions/creatinguser';
+import * as usersActions from '../../actions/users';
+import * as creatinguserActions from '../../actions/creatinguser';
 import './index.css';
 import appConfig from '../../appConfig.json';
 
@@ -72,14 +72,13 @@ class NewUserModal extends Component {
         },
       }, {})
         .then(() => {
-          // console.warn(response);
           setIsCreating(false);
           // this.props.addUsers(response.data);
           // self.setState(() => ({ users: response.data }));
+        })
+        .catch((err) => {
+          console.warn(err);
         });
-      // .catch((err) => {
-      //   console.warn(err);
-      // });
     });
     // }
   }
@@ -176,7 +175,6 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(connect(mapStateToProps, {
-  getUserById,
-  setIsCreating,
-  getIsCreating,
+  ...usersActions,
+  ...creatinguserActions,
 })(NewUserModal));

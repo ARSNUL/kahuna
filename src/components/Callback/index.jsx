@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { handleAuthenticationResult } from '../../actions/authentication';
+import * as authenticationActions from '../../actions/authentication';
 
 class Callback extends Component {
   constructor(props) {
@@ -40,4 +40,7 @@ function mapStateToProps() {
   return {};
 }
 
-export default withRouter(connect(mapStateToProps, { handleAuthenticationResult })(Callback));
+export default withRouter(connect(mapStateToProps,
+  {
+    ...authenticationActions,
+  })(Callback));

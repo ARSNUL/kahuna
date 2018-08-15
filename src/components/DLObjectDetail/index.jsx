@@ -4,12 +4,12 @@ import AWS from 'aws-sdk';
 import apigClientFactory from 'aws-api-gateway-client';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getObjectById } from '../../actions/objects';
-import { setIsLoading } from '../../actions/loadingdata';
+import * as objectsActions from '../../actions/objects';
+import * as loadingdataActions from '../../actions/loadingdata';
 import LeftNav from '../LeftNav';
 import './index.css';
 import appConfig from '../../appConfig.json';
-import ObjectDetailButton from '../ObjectDetailButton';
+import DetailButton from '../DetailButton';
 import DateReadable from '../DateReadable';
 
 class ObjectDetail extends Component {
@@ -94,10 +94,10 @@ class ObjectDetail extends Component {
           setIsLoading(false);
           // let objState = { users: response.data, isLoading: false };
           self.setState(() => ({ isLoading: false }));
+        })
+        .catch((err) => {
+          console.warn(err);
         });
-      // .catch((err) => {
-      //   console.warn(err);
-      // });
     });
   }
 
@@ -340,11 +340,11 @@ class ObjectDetail extends Component {
                     {edit.given_name
                       ? (
                         <div>
-                          <ObjectDetailButton
+                          <DetailButton
                             value="SUBMIT"
                             handler={ObjectDetail.handleSubmitGivenNameChange}
                           />
-                          <ObjectDetailButton
+                          <DetailButton
                             value="CANCEL"
                             handler={e => this.handleSubmitCancel('given_name', e)}
                           />
@@ -377,11 +377,11 @@ class ObjectDetail extends Component {
                     {edit.family_name
                       ? (
                         <div>
-                          <ObjectDetailButton
+                          <DetailButton
                             value="SUBMIT"
                             handler={ObjectDetail.handleSubmitFamilyNameChange}
                           />
-                          <ObjectDetailButton
+                          <DetailButton
                             value="CANCEL"
                             handler={e => this.handleSubmitCancel('family_name', e)}
                           />
@@ -414,11 +414,11 @@ class ObjectDetail extends Component {
                     {edit.useremail
                       ? (
                         <div>
-                          <ObjectDetailButton
+                          <DetailButton
                             value="SUBMIT"
                             handler={ObjectDetail.handleSubmitEmailChange}
                           />
-                          <ObjectDetailButton
+                          <DetailButton
                             value="CANCEL"
                             handler={e => this.handleSubmitCancel('useremail', e)}
                           />
@@ -507,4 +507,8 @@ function mapStateToProps(state) {
   return { state };
 }
 
-export default withRouter(connect(mapStateToProps, { getObjectById, setIsLoading })(ObjectDetail));
+export default withRouter(connect(mapStateToProps,
+  {
+    ...objectsActions,
+    ...loadingdataActions,
+  })(ObjectDetail));

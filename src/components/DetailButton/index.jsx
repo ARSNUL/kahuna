@@ -2,7 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import './index.css';
 
-function UserDetailButton(props) {
+function DetailButton(props) {
   const { handler } = props;
   const { value } = props;
   return (
@@ -14,14 +14,14 @@ function UserDetailButton(props) {
   );
 }
 
-UserDetailButton.propTypes = {
+DetailButton.propTypes = {
   handler: PropTypes.func,
   value: PropTypes.string,
 };
 
-UserDetailButton.defaultProps = {
+DetailButton.defaultProps = {
   handler: null,
   value: 'cancel',
 };
 
-export default UserDetailButton;
+export default DetailButton;

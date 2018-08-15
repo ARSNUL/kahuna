@@ -10,10 +10,8 @@ import './index.css';
 import appConfig from '../../appConfig.json';
 import LeftNav from '../LeftNav';
 import Loading from '../Loading';
-import { setIsLoading } from '../../actions/loadingdata';
-import { addObjects } from '../../actions/objects';
-// import NewUserModal from '../NewUserModal';
-// import UsersList from '../UsersList';
+import * as loadingdataActions from '../../actions/loadingdata';
+import * as objectsActions from '../../actions/objects';
 
 class Inventory extends Component {
   constructor(props) {
@@ -138,4 +136,8 @@ function mapStateToProps() {
   return {};
 }
 
-export default withRouter(connect(mapStateToProps, { addObjects, setIsLoading })(Inventory));
+export default withRouter(connect(mapStateToProps,
+  {
+    ...objectsActions,
+    ...loadingdataActions,
+  })(Inventory));

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { loginUser } from '../../actions/authentication';
+import * as authenticationActions from '../../actions/authentication';
 
 class Login extends Component {
   componentWillMount() {
@@ -31,4 +31,4 @@ function mapStateToProps() {
   return {};
 }
 
-export default withRouter(connect(mapStateToProps, { loginUser })(Login));
+export default withRouter(connect(mapStateToProps, { ...authenticationActions })(Login));

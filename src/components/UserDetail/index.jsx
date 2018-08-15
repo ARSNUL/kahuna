@@ -4,12 +4,12 @@ import AWS from 'aws-sdk';
 import apigClientFactory from 'aws-api-gateway-client';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getUserById } from '../../actions/users';
-import { setIsLoading } from '../../actions/loadingdata';
+import * as usersActions from '../../actions/users';
+import * as loadingdataActions from '../../actions/loadingdata';
 import LeftNav from '../LeftNav';
 import './index.css';
 import appConfig from '../../appConfig.json';
-import UserDetailButton from '../UserDetailButton';
+import DetailButton from '../DetailButton';
 import DateReadable from '../DateReadable';
 
 class UserDetail extends Component {
@@ -340,11 +340,11 @@ class UserDetail extends Component {
                     {edit.given_name
                       ? (
                         <div>
-                          <UserDetailButton
+                          <DetailButton
                             value="SUBMIT"
                             handler={UserDetail.handleSubmitGivenNameChange}
                           />
-                          <UserDetailButton
+                          <DetailButton
                             value="CANCEL"
                             handler={e => this.handleSubmitCancel('given_name', e)}
                           />
@@ -377,11 +377,11 @@ class UserDetail extends Component {
                     {edit.family_name
                       ? (
                         <div>
-                          <UserDetailButton
+                          <DetailButton
                             value="SUBMIT"
                             handler={UserDetail.handleSubmitFamilyNameChange}
                           />
-                          <UserDetailButton
+                          <DetailButton
                             value="CANCEL"
                             handler={e => this.handleSubmitCancel('family_name', e)}
                           />
@@ -414,11 +414,11 @@ class UserDetail extends Component {
                     {edit.useremail
                       ? (
                         <div>
-                          <UserDetailButton
+                          <DetailButton
                             value="SUBMIT"
                             handler={UserDetail.handleSubmitEmailChange}
                           />
-                          <UserDetailButton
+                          <DetailButton
                             value="CANCEL"
                             handler={e => this.handleSubmitCancel('useremail', e)}
                           />
@@ -507,4 +507,8 @@ function mapStateToProps(state) {
   return { state };
 }
 
-export default withRouter(connect(mapStateToProps, { getUserById, setIsLoading })(UserDetail));
+export default withRouter(connect(mapStateToProps,
+  {
+    ...usersActions,
+    ...loadingdataActions,
+  })(UserDetail));

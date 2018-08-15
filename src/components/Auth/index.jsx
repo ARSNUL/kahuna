@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Auth extends Component {
-  render() {
-    return (
-      <div>
-        <p>
-          yes
-        </p>
-      </div>
-    );
-  }
+function Auth() {
+  return (
+    <div>
+      <p>
+        yes
+      </p>
+    </div>
+  );
 }
 
 export default Auth;
