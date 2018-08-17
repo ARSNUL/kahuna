@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import AWS from 'aws-sdk';
 import queryString from 'query-string';
 import { PropTypes } from 'prop-types';
-import apigClientFactory from 'aws-api-gateway-client';
 import Loading from '../Loading';
 import UsersList from '../UsersList';
 import LeftNav from '../LeftNav';
@@ -13,9 +11,14 @@ import NewUserModal from '../NewUserModal';
 import './index.css';
 import * as usersActions from '../../actions/users';
 import * as loadingdataActions from '../../actions/loadingdata';
+import wrapper from '../../utils/cognito';
 import appConfig from '../../appConfig.json';
 
 class Users extends Component {
+  static responseFailure(err) {
+    console.warn(err);
+  }
+
   constructor(props) {
     super(props);
     const { location } = this.props;
@@ -26,69 +29,22 @@ class Users extends Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.escFunction = this.escFunction.bind(this);
+    this.responseSuccess = this.responseSuccess.bind(this);
+    Users.responseFailure = Users.responseFailure.bind(this);
   }
 
   componentWillMount() {
-    const { setIsLoading, addUsers } = this.props;
+    const { setIsLoading } = this.props;
     const { qs } = this.state;
     if (qs.id === undefined) {
-      const token = localStorage.getItem('id_token');
-      AWS.config.region = appConfig.cognito.region;
-      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: appConfig.cognito.poolId,
-        RoleArn: appConfig.cognito.roleArn,
-        Logins: {
-          [appConfig.auth0.domain]: token,
-        },
-      });
-
-      AWS.config.update({
-        region: AWS.config.region,
-        credentials: AWS.config.credentials,
-      });
-
-      const self = this;
-      AWS.config.credentials.get(() => {
-        const config = {
-          invokeUrl: appConfig.api.baseUrl,
-          accessKey: AWS.config.credentials.accessKeyId,
-          secretKey: AWS.config.credentials.secretAccessKey,
-          sessionToken: AWS.config.credentials.sessionToken,
-          region: appConfig.cognito.region,
-        };
-
-        setIsLoading(true);
-        const apigClient = apigClientFactory.newClient(config);
-        apigClient.invokeApi({}, appConfig.apis.users.uri, 'GET', { queryParams: { fields: appConfig.apis.users.fields } }, {})
-          .then((response) => {
-            setIsLoading(false);
-            const arrUserParams = [];
-            response.data.forEach((objItem) => {
-              const objUserParams = {};
-              Object.keys(objItem).forEach((key) => {
-                switch (key) {
-                  case 'created_at':
-                    objUserParams[key] = new Date(objItem[key]);
-                    break;
-                  case 'updated_at':
-                    objUserParams[key] = new Date(objItem[key]);
-                    break;
-                  case 'last_login':
-                    objUserParams[key] = new Date(objItem[key]);
-                    break;
-                  default:
-                    objUserParams[key] = objItem[key];
-                }
-              });
-              arrUserParams.push(objUserParams);
-            });
-            addUsers(arrUserParams);
-            self.setState({ users: arrUserParams });
-          })
-          .catch((err) => {
-            console.warn(err);
-          });
-      });
+      setIsLoading(true);
+      wrapper(
+        appConfig.apis.users.uri,
+        'GET',
+        this.responseSuccess,
+        this.responseFailure,
+        { queryParams: { fields: appConfig.apis.users.fields } },
+      );
     }
   }
 
@@ -114,6 +70,33 @@ class Users extends Component {
 
   handleClick() {
     this.setState({ newUserModalActive: true });
+  }
+
+  responseSuccess(response) {
+    const { setIsLoading, addUsers } = this.props;
+    setIsLoading(false);
+    const arrUserParams = [];
+    response.data.forEach((objItem) => {
+      const objUserParams = {};
+      Object.keys(objItem).forEach((key) => {
+        switch (key) {
+          case 'created_at':
+            objUserParams[key] = new Date(objItem[key]);
+            break;
+          case 'updated_at':
+            objUserParams[key] = new Date(objItem[key]);
+            break;
+          case 'last_login':
+            objUserParams[key] = new Date(objItem[key]);
+            break;
+          default:
+            objUserParams[key] = objItem[key];
+        }
+      });
+      arrUserParams.push(objUserParams);
+    });
+    addUsers(arrUserParams);
+    this.setState({ users: arrUserParams });
   }
 
   render() {

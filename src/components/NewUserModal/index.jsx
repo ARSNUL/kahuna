@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import AWS from 'aws-sdk';
-import apigClientFactory from 'aws-api-gateway-client';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as usersActions from '../../actions/users';
 import * as creatinguserActions from '../../actions/creatinguser';
+import wrapper from '../../utils/cognito';
 import './index.css';
 import appConfig from '../../appConfig.json';
 
 class NewUserModal extends Component {
+  static responseFailure(err) {
+    console.warn(err);
+  }
+
   constructor(props) {
     super(props);
     this.state = {};
@@ -19,6 +22,8 @@ class NewUserModal extends Component {
     this.state.active = props.active;
     this.handleSave = this.handleSave.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.responseSuccess = this.responseSuccess.bind(this);
+    NewUserModal.responseFailure = NewUserModal.responseFailure.bind(this);
   }
 
   componentWillMount() {
@@ -33,54 +38,27 @@ class NewUserModal extends Component {
   handleSave(e) {
     const { setIsCreating } = this.props;
     const { firstName, lastName, email } = this.state;
+    setIsCreating(true);
     e.preventDefault();
-    // if (this.state.qs.id === undefined) {
-    const token = localStorage.getItem('id_token');
-    AWS.config.region = appConfig.cognito.region;
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: appConfig.cognito.poolId,
-      RoleArn: appConfig.cognito.roleArn,
-      Logins: {
-        [appConfig.auth0.domain]: token,
+    const objParams = {
+      queryParams: {
+        firstName: encodeURIComponent(firstName),
+        lastName: encodeURIComponent(lastName),
       },
-    });
+    };
+    wrapper(
+      `${appConfig.apis.newUser.uri}/${encodeURIComponent(email)}`,
+      'POST',
+      this.responseSuccess,
+      this.responseFailure,
+      objParams,
+    );
+  }
 
-    AWS.config.update({
-      region: AWS.config.region,
-      credentials: AWS.config.credentials,
-    });
-
-    // const self = this;
-    AWS.config.credentials.get(() => {
-      const config = {
-        invokeUrl: appConfig.api.baseUrl,
-        accessKey: AWS.config.credentials.accessKeyId,
-        secretKey: AWS.config.credentials.secretAccessKey,
-        sessionToken: AWS.config.credentials.sessionToken,
-        region: appConfig.cognito.region,
-      };
-
-      setIsCreating(true);
-      const encodedFirstName = encodeURIComponent(firstName);
-      const encodedLastName = encodeURIComponent(lastName);
-      const encodedEmail = encodeURIComponent(email);
-      const apigClient = apigClientFactory.newClient(config);
-      apigClient.invokeApi({}, `${appConfig.apis.newUser.uri}/${encodedEmail}`, 'POST', {
-        queryParams: {
-          firstName: encodedFirstName,
-          lastName: encodedLastName,
-        },
-      }, {})
-        .then(() => {
-          setIsCreating(false);
-          // this.props.addUsers(response.data);
-          // self.setState(() => ({ users: response.data }));
-        })
-        .catch((err) => {
-          console.warn(err);
-        });
-    });
-    // }
+  responseSuccess(response) {
+    console.log(response);
+    const { setIsCreating } = this.props;
+    setIsCreating(false);
   }
 
   render() {

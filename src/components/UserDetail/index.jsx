@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import AWS from 'aws-sdk';
-import apigClientFactory from 'aws-api-gateway-client';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import wrapper from '../../utils/cognito';
 import * as usersActions from '../../actions/users';
 import * as loadingdataActions from '../../actions/loadingdata';
 import LeftNav from '../LeftNav';
@@ -67,157 +66,87 @@ class UserDetail extends Component {
   handleButtonClickResendEmailVerification(e) {
     e.preventDefault();
     const { setIsLoading } = this.props;
-    const userPool = appConfig.cognito.poolId;
-    const token = localStorage.getItem('id_token');
-    AWS.config.region = appConfig.cognito.region;
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: userPool,
-      Logins: {
-        [appConfig.auth0.domain]: token,
-      },
-    });
-
-    const self = this;
-    AWS.config.credentials.get(() => {
-      const config = {
-        invokeUrl: appConfig.api.baseUrl,
-        accessKey: AWS.config.credentials.accessKeyId,
-        secretKey: AWS.config.credentials.secretAccessKey,
-        sessionToken: AWS.config.credentials.sessionToken,
-        region: appConfig.cognito.region,
-      };
-
-      const apigClient = apigClientFactory.newClient(config);
-      setIsLoading(true);
-      apigClient.invokeApi({}, appConfig.apis.resendEmailVerification.uri, 'POST', {}, {})
-        .then(() => {
-          setIsLoading(false);
-          // let objState = { users: response.data, isLoading: false };
-          self.setState(() => ({ isLoading: false }));
-        })
-        .catch((err) => {
-          console.warn(err);
-        });
-    });
+    const onFailure = (err) => {
+      console.warn(err);
+    };
+    const onSuccess = () => {
+      setIsLoading(false);
+      this.setState(() => ({ isLoading: false }));
+    };
+    wrapper(
+      appConfig.apis.resendEmailVerification.uri,
+      'POST',
+      onSuccess,
+      onFailure,
+      {},
+    );
   }
 
   handleSubmitUpdateUser(e, userId, queryParams) {
     e.preventDefault();
     const { setIsLoading } = this.props;
-    const userPool = appConfig.cognito.poolId;
-    const token = localStorage.getItem('id_token');
-    AWS.config.region = appConfig.cognito.region;
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: userPool,
-      Logins: {
-        [appConfig.auth0.domain]: token,
-      },
-    });
-
-    const self = this;
-    AWS.config.credentials.get(() => {
-      const config = {
-        invokeUrl: appConfig.api.baseUrl,
-        accessKey: AWS.config.credentials.accessKeyId,
-        secretKey: AWS.config.credentials.secretAccessKey,
-        sessionToken: AWS.config.credentials.sessionToken,
-        region: appConfig.cognito.region,
-      };
-
-      const apigClient = apigClientFactory.newClient(config);
-      // this.props.setIsLoading(true);
-      const additionalParams = {
-        queryParams,
-      };
-      setIsLoading(true);
-      apigClient.invokeApi({}, `${appConfig.apis.userUpdate.uri}/${userId}`, 'PATCH', additionalParams, {})
-        .then((response) => {
-          setIsLoading(false);
-          if (response.data.statusCode === 200) {
-            this.setState({ params: response.data.body });
-          }
-          setIsLoading(false);
-          // let objState = { users: response.data, isLoading: false };
-          self.setState(() => ({ isLoading: false }));
-        })
-        .catch((err) => {
-          console.warn(err);
-        });
-    });
+    const onFailure = (err) => {
+      console.warn(err);
+    };
+    const onSuccess = (response) => {
+      setIsLoading(false);
+      if (response.data.statusCode === 200) {
+        this.setState({ params: response.data.body });
+      }
+      setIsLoading(false);
+      this.setState(() => ({ isLoading: false }));
+    };
+    setIsLoading(true);
+    const additionalParams = {
+      queryParams,
+    };
+    wrapper(
+      `${appConfig.apis.userUpdate.uri}/${userId}`,
+      'PATCH',
+      onSuccess,
+      onFailure,
+      additionalParams,
+    );
   }
 
   handleSubmitDeleteUser(e, userId) {
     e.preventDefault();
     const { setIsLoading } = this.props;
-    const userPool = appConfig.cognito.poolId;
-    const token = localStorage.getItem('id_token');
-    AWS.config.region = appConfig.cognito.region;
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: userPool,
-      Logins: {
-        [appConfig.auth0.domain]: token,
-      },
-    });
-
-    const self = this;
-    AWS.config.credentials.get(() => {
-      const config = {
-        invokeUrl: appConfig.api.baseUrl,
-        accessKey: AWS.config.credentials.accessKeyId,
-        secretKey: AWS.config.credentials.secretAccessKey,
-        sessionToken: AWS.config.credentials.sessionToken,
-        region: appConfig.cognito.region,
-      };
-
-      const apigClient = apigClientFactory.newClient(config);
-      // this.props.setIsLoading(true);
-      apigClient.invokeApi({}, `${appConfig.apis.userDelete.uri}/${userId}`, 'DELETE', {}, {})
-        .then(() => {
-          setIsLoading(false);
-          // let objState = { users: response.data, isLoading: false };
-          self.setState(() => ({ isLoading: false }));
-        })
-        .catch((err) => {
-          console.warn(err);
-        });
-    });
+    const onFailure = (err) => {
+      console.warn(err);
+    };
+    const onSuccess = () => {
+      setIsLoading(false);
+      this.setState(() => ({ isLoading: false }));
+    };
+    setIsLoading(true);
+    wrapper(
+      `${appConfig.apis.userDelete.uri}/${userId}`,
+      'DELETE',
+      onSuccess,
+      onFailure,
+      {},
+    );
   }
 
   handleSubmitPasswordReset(e) {
     e.preventDefault();
     const { setIsLoading } = this.props;
-    const userPool = appConfig.cognito.poolId;
-    const token = localStorage.getItem('id_token');
-    AWS.config.region = appConfig.cognito.region;
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: userPool,
-      Logins: {
-        [appConfig.auth0.domain]: token,
-      },
-    });
-
-    const self = this;
-    AWS.config.credentials.get(() => {
-      const config = {
-        invokeUrl: appConfig.api.baseUrl,
-        accessKey: AWS.config.credentials.accessKeyId,
-        secretKey: AWS.config.credentials.secretAccessKey,
-        sessionToken: AWS.config.credentials.sessionToken,
-        region: appConfig.cognito.region,
-      };
-
-      const apigClient = apigClientFactory.newClient(config);
-      setIsLoading(true);
-      apigClient.invokeApi({}, appConfig.apis.userPassword.uri, 'POST', {}, {})
-        .then(() => {
-          setIsLoading(false);
-          // let objState = { users: response.data, isLoading: false };
-          self.setState(() => ({ isLoading: false }));
-        })
-        .catch((err) => {
-          console.warn(err);
-        });
-    });
+    const onFailure = (err) => {
+      console.warn(err);
+    };
+    const onSuccess = () => {
+      setIsLoading(false);
+      this.setState(() => ({ isLoading: false }));
+    };
+    setIsLoading(true);
+    wrapper(
+      appConfig.apis.userPassword.uri,
+      'POST',
+      onSuccess,
+      onFailure,
+      {},
+    );
   }
 
   handleOnChangeEmail(event) {

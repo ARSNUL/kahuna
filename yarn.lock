@@ -667,9 +667,9 @@ aws-api-gateway-client@^0.2.16:
     url "^0.11.0"
     url-template "^2.0.8"
 
-aws-sdk@^2.293.0:
-  version "2.293.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.293.0.tgz#5474110972d1595f4386e3e0c350af9f6b71ccc8"
+aws-sdk@^2.295.0:
+  version "2.295.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.295.0.tgz#b034cd101702a6e31a59e6ff9e953986d573310d"
   dependencies:
     buffer "4.9.1"
     events "1.1.1"

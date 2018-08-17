@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import AWS from 'aws-sdk';
 import queryString from 'query-string';
-import apigClientFactory from 'aws-api-gateway-client';
 import { PropTypes } from 'prop-types';
 import DLObjects from '../DLObjects';
 import './index.css';
 import appConfig from '../../appConfig.json';
 import LeftNav from '../LeftNav';
 import Loading from '../Loading';
+import wrapper from '../../utils/cognito';
 import * as loadingdataActions from '../../actions/loadingdata';
 import * as objectsActions from '../../actions/objects';
 
 class Inventory extends Component {
+  static responseFailure(err) {
+    console.warn(err);
+  }
+
   constructor(props) {
     super(props);
     const { location } = this.props;
@@ -21,79 +24,59 @@ class Inventory extends Component {
       dlobjects: [],
       qs: queryString.parse(location.search),
     };
+    this.responseSuccess = this.responseSuccess.bind(this);
+    Inventory.responseFailure = Inventory.responseFailure.bind(this);
   }
 
   componentWillMount() {
-    const { setIsLoading, addObjects } = this.props;
+    const { setIsLoading } = this.props;
     const { qs } = this.state;
     if (qs.id === undefined) {
-      const token = localStorage.getItem('id_token');
-      AWS.config.region = appConfig.cognito.region;
-      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: appConfig.cognito.poolId,
-        RoleArn: appConfig.cognito.roleArn,
-        Logins: {
-          [appConfig.auth0.domain]: token,
-        },
-      });
-
-      AWS.config.update({
-        region: AWS.config.region,
-        credentials: AWS.config.credentials,
-      });
-
-      const self = this;
-      AWS.config.credentials.get(() => {
-        const config = {
-          invokeUrl: appConfig.api.baseUrl,
-          accessKey: AWS.config.credentials.accessKeyId,
-          secretKey: AWS.config.credentials.secretAccessKey,
-          sessionToken: AWS.config.credentials.sessionToken,
-          region: appConfig.cognito.region,
-        };
-
-        setIsLoading(true);
-        const apigClient = apigClientFactory.newClient(config);
-        apigClient.invokeApi({}, appConfig.apis.objects.uri, 'GET', {}, {})
-          .then((response) => {
-            const arrObjectParams = [];
-            response.data.hits.hit.forEach((objItem) => {
-              let objObjectParams = {};
-              Object.keys(objItem.fields).forEach((key) => {
-                switch (key) {
-                  case 'contentlength':
-                    objObjectParams = {
-                      ...objObjectParams,
-                      [key]: parseInt(objItem.fields[key][0], 10),
-                    };
-                    break;
-                  case 'eventtime':
-                    objObjectParams = {
-                      ...objObjectParams,
-                      [key]: new Date(parseInt(objItem.fields[key][0], 10)),
-                    };
-                    break;
-                  case 'lastmodified':
-                    objObjectParams = {
-                      ...objObjectParams,
-                      lastmodified: new Date(parseInt(objItem.fields[key][0], 10)),
-                    };
-                    break;
-                  default:
-                    objObjectParams = { ...objObjectParams, [key]: objItem.fields[key][0] };
-                }
-              });
-              arrObjectParams.push(objObjectParams);
-            });
-            setIsLoading(false);
-            addObjects(arrObjectParams);
-            self.setState({ dlobjects: arrObjectParams });
-          })
-          .catch((err) => {
-            console.warn(err);
-          });
-      });
+      setIsLoading(true);
+      wrapper(
+        appConfig.apis.objects.uri,
+        'GET',
+        this.responseSuccess,
+        this.responseFailure,
+        {},
+      );
     }
+  }
+
+  responseSuccess(response) {
+    const { setIsLoading, addObjects } = this.props;
+    const arrObjectParams = [];
+    response.data.hits.hit.forEach((objItem) => {
+      let objObjectParams = {};
+      Object.keys(objItem.fields).forEach((key) => {
+        switch (key) {
+          case 'contentlength':
+            objObjectParams = {
+              ...objObjectParams,
+              [key]: parseInt(objItem.fields[key][0], 10),
+            };
+            break;
+          case 'eventtime':
+            objObjectParams = {
+              ...objObjectParams,
+              [key]: new Date(parseInt(objItem.fields[key][0], 10)),
+            };
+            break;
+          case 'lastmodified':
+            objObjectParams = {
+              ...objObjectParams,
+              lastmodified: new Date(parseInt(objItem.fields[key][0], 10)),
+            };
+            break;
+          default:
+            objObjectParams = { ...objObjectParams, [key]: objItem.fields[key][0] };
+        }
+      });
+      arrObjectParams.push(objObjectParams);
+    });
+    setIsLoading(false);
+    addObjects(arrObjectParams);
+    this.setState({ dlobjects: arrObjectParams });
   }
 
   render() {

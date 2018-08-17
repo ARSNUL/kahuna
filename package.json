@@ -7,7 +7,7 @@
   "dependencies": {
     "auth0-js": "^9.7.3",
     "aws-api-gateway-client": "^0.2.16",
-    "aws-sdk": "^2.293.0",
+    "aws-sdk": "^2.295.0",
     "babel-preset-env": "^1.7.0",
     "fine-uploader": "latest",
     "fine-uploader-wrappers": "latest",
