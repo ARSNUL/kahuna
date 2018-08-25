@@ -1,8 +1,8 @@
 {
   "auth0": {
-    "domain": "cloudywaters.auth0.com",
-    "clientID": "Kb0qTvaGdC3YrpNmbADsZhD6iSuqGg3N",
-    "audience": "https://cloudywaters.auth0.com/userinfo"
+    "domain": "somedomain.auth0.com",
+    "clientID": "somekey",
+    "audience": "https://somedomain.auth0.com/userinfo"
   },
   "apis": {
     "users": {
@@ -22,20 +22,20 @@
     }
   },
   "api": {
-    "baseUrl": "https://kahuna.arsnul.com"
+    "baseUrl": "https://kahuna.example.com"
   },
-  "searchUrl": "search-kahuna-lake-v1-kqxfvg36udhoek77655adhuvzu.us-west-2.cloudsearch.amazonaws.com",
+  "searchUrl": "search-kahuna-lake-v1-xxxxx.us-west-2.cloudsearch.amazonaws.com",
   "cognito": {
-    "poolId": "us-west-2:05996891-aa09-4bcd-9606-d0a2a7f0ccb6",
+    "poolId": "us-west-2:00000000-00000000-00000000",
     "region": "us-west-2",
-    "roleArn": "arn:aws:iam::588439395328:role/Cognito_Auth0Auth_Role"
+    "roleArn": "arn:aws:iam::0000000000:role/Cognito_Auth0Auth_Role"
   },
   "datalake": {
     "bucket": "stub-bucket",
     "bucketRegion": "us-west-2",
-    "uploadEndpoint": "https://588439395328-kahuna-lake-v1.s3-us-west-2.amazonaws.com",
-    "accessKey": "AKIAIZC55BRNE7NHOIFA",
-    "signatureEndpoint": "https://kahuna.arsnul.com/upload",
+    "uploadEndpoint": "https://0000000000-kahuna-lake-v1.s3-us-west-2.amazonaws.com",
+    "accessKey": "XXXXXXXXXXXXX",
+    "signatureEndpoint": "https://kahuna.example.com/upload",
     "serverSideEncryption": true,
     "chunking": true,
     "validation": {
